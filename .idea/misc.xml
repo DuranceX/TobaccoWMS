@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_baseline_people_outline_24.xml" value="0.3305" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_outline_event_note_24.xml" value="0.3305" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/font/font.xml" value="0.23489583333333333" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/font/menu_item.xml" value="0.4166666666666667" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/drawer_header_layout.xml" value="0.5" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_customer.xml" value="0.38645833333333335" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_purchase_order.xml" value="0.38645833333333335" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_user.xml" value="0.38645833333333335" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/test.xml" value="0.38645833333333335" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/test2.xml" value="0.38645833333333335" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/menu/menu.xml" value="0.38645833333333335" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

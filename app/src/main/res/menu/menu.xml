@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/purchaseOrderFragment"
+            android:icon="@drawable/ic_outline_event_note_24"
+            android:title="@string/purchase_order_fragment_title" />
+        <item
+            android:id="@+id/saleOrderFragment"
+            android:icon="@drawable/ic_outline_event_note_24"
+            android:title="@string/sale_order_fragment_title" />
+        <item
+            android:id="@+id/inventoryFragment"
+            android:title="@string/inventory_fragment_title" />
+        <item
+            android:id="@+id/productFragment"
+            android:title="@string/product_fragment_title" />
+        <item
+            android:id="@+id/materialFragment"
+            android:title="@string/material_fragment_title" />
+        <item
+            android:id="@+id/customerFragment"
+            android:title="@string/customer_fragment_title" />
+        <item
+            android:id="@+id/supplierFragment"
+            android:title="@string/supplier_fragment_title" />
+        <item
+            android:id="@+id/reportFragment"
+            android:title="@string/report_fragment_title" />
+        <item
+            android:id="@+id/userFragment"
+            android:title="@string/user_fragment_title" />
+    </group>
+</menu>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/purchaseOrderFragment">
+
+    <fragment
+        android:id="@+id/customerFragment"
+        android:name="com.cardy.design.fragment.CustomerFragment"
+        android:label="@string/customer_fragment_title"
+        tools:layout="@layout/fragment_customer" />
+    <fragment
+        android:id="@+id/inventoryFragment"
+        android:name="com.cardy.design.fragment.InventoryFragment"
+        android:label="@string/inventory_fragment_title"
+        tools:layout="@layout/fragment_inventory" />
+    <fragment
+        android:id="@+id/materialFragment"
+        android:name="com.cardy.design.fragment.MaterialFragment"
+        android:label="@string/material_fragment_title"
+        tools:layout="@layout/fragment_material" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.cardy.design.fragment.ProductFragment"
+        android:label="@string/product_fragment_title"
+        tools:layout="@layout/fragment_product" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.cardy.design.fragment.ProfileFragment"
+        android:label="@string/profile_fragment_title"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/purchaseOrderFragment"
+        android:name="com.cardy.design.fragment.PurchaseOrderFragment"
+        android:label="@string/purchase_order_fragment_title"
+        tools:layout="@layout/fragment_purchase_order" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.cardy.design.fragment.ReportFragment"
+        android:label="@string/report_fragment_title"
+        tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/saleOrderFragment"
+        android:name="com.cardy.design.fragment.SaleOrderFragment"
+        android:label="@string/sale_order_fragment_title"
+        tools:layout="@layout/fragment_sale_order" />
+    <fragment
+        android:id="@+id/supplierFragment"
+        android:name="com.cardy.design.fragment.SupplierFragment"
+        android:label="@string/supplier_fragment_title"
+        tools:layout="@layout/fragment_supplier" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.cardy.design.fragment.UserFragment"
+        android:label="@string/user_fragment_title"
+        tools:layout="@layout/fragment_user" />
+</navigation>
