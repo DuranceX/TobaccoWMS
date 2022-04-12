@@ -4,5 +4,4 @@
         <item name="fontFamily">@font/pingfang</item>
         <item name="android:textSize">18sp</item>
     </style>
-
 </resources>

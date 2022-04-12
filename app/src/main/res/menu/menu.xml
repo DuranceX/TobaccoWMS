@@ -3,32 +3,39 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/purchaseOrderFragment"
-            android:icon="@drawable/ic_outline_event_note_24"
+            android:icon="@drawable/ic_purchaseorder"
             android:title="@string/purchase_order_fragment_title" />
         <item
             android:id="@+id/saleOrderFragment"
-            android:icon="@drawable/ic_outline_event_note_24"
+            android:icon="@drawable/ic_saleorder"
             android:title="@string/sale_order_fragment_title" />
         <item
             android:id="@+id/inventoryFragment"
+            android:icon="@drawable/ic_inventory"
             android:title="@string/inventory_fragment_title" />
         <item
             android:id="@+id/productFragment"
+            android:icon="@drawable/ic_product"
             android:title="@string/product_fragment_title" />
         <item
             android:id="@+id/materialFragment"
+            android:icon="@drawable/ic_material"
             android:title="@string/material_fragment_title" />
         <item
             android:id="@+id/customerFragment"
+            android:icon="@drawable/ic_customer"
             android:title="@string/customer_fragment_title" />
         <item
             android:id="@+id/supplierFragment"
+            android:icon="@drawable/ic_customer"
             android:title="@string/supplier_fragment_title" />
         <item
             android:id="@+id/reportFragment"
+            android:icon="@drawable/ic_report"
             android:title="@string/report_fragment_title" />
         <item
             android:id="@+id/userFragment"
+            android:icon="@drawable/ic_user_manage_1"
             android:title="@string/user_fragment_title" />
     </group>
 </menu>

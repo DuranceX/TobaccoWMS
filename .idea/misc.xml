@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_administrator_2.xml" value="0.326" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_baseline_people_outline_24.xml" value="0.3305" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_outline_event_note_24.xml" value="0.3305" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_purchaseorder.xml" value="0.326" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_saleorder.xml" value="0.326" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_user.xml" value="0.326" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_user_manage_1.xml" value="0.326" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/font/font.xml" value="0.23489583333333333" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/font/menu_item.xml" value="0.4166666666666667" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/activity_main.xml" value="0.33" />
