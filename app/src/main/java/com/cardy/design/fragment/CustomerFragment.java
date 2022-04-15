@@ -2,59 +2,48 @@ package com.cardy.design.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.appcompat.widget.SearchView;
 
 import com.cardy.design.R;
+import com.cardy.design.adapter.CustomerListAdapter;
+import com.cardy.design.entity.CustomerTest;
+import com.cardy.design.widget.IconFontTextView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.kongzue.dialogx.dialogs.BottomDialog;
+import com.kongzue.dialogx.dialogs.FullScreenDialog;
+import com.kongzue.dialogx.interfaces.OnBindView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CustomerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.w3c.dom.Text;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class CustomerFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    CustomerListAdapter adapter;
+    RecyclerView recyclerView;
+    SearchView searchView;
+    IconFontTextView addButton;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public CustomerFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CustomerFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CustomerFragment newInstance(String param1, String param2) {
-        CustomerFragment fragment = new CustomerFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -62,5 +51,49 @@ public class CustomerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_customer, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter = new CustomerListAdapter(R.layout.item_customer_information);
+        adapter.setAnimationEnable(true);
+        recyclerView = getView().findViewById(R.id.customerRecycleview);
+        searchView = getView().findViewById(R.id.customerSearchView);
+        addButton = getView().findViewById(R.id.customerAddButton);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+
+        CustomerTest[] list = new CustomerTest[5];
+        for (int i = 0; i < 5; i++) {
+            list[i] = new CustomerTest();
+            list[i].setName("陆玩具有限责任公司");
+            list[i].setAddress("天河区大信商圈大信南路32号");
+            list[i].setMainPurchase(new String[]{"烟草","香烟"});
+        }
+
+        List<CustomerTest> newList = Arrays.asList(list);
+        adapter.setNewInstance(newList);
+
+        addButton.setOnClickListener(v->{
+            FullScreenDialog.show(new OnBindView<FullScreenDialog>(R.layout.dialog_add_customer) {
+                @Override
+                public void onBind(FullScreenDialog dialog, View v) {
+
+                }
+            });
+        });
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                BottomDialog.show("修改客户信息", "这里是对话框内容", new OnBindView<BottomDialog>(R.layout.dialog_add_customer) {
+                    @Override
+                    public void onBind(BottomDialog dialog, View v) {
+
+                    }
+                });
+            }
+        });
     }
 }

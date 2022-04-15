@@ -2,59 +2,44 @@ package com.cardy.design.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cardy.design.R;
+import com.cardy.design.adapter.CustomerListAdapter;
+import com.cardy.design.adapter.SupplierListAdapter;
+import com.cardy.design.entity.CustomerTest;
+import com.cardy.design.widget.IconFontTextView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.kongzue.dialogx.dialogs.BottomDialog;
+import com.kongzue.dialogx.interfaces.OnBindView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SupplierFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Arrays;
+import java.util.List;
+
 public class SupplierFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    SupplierListAdapter adapter;
+    RecyclerView recyclerView;
+    SearchView searchView;
+    IconFontTextView addButton;
 
     public SupplierFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SupplierFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SupplierFragment newInstance(String param1, String param2) {
-        SupplierFragment fragment = new SupplierFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -62,5 +47,37 @@ public class SupplierFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_supplier, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter = new SupplierListAdapter(R.layout.item_supplier_information);
+        adapter.setAnimationEnable(true);
+        recyclerView = getView().findViewById(R.id.supplierRecycleview);
+        searchView = getView().findViewById(R.id.supplierSearchView);
+        addButton = getView().findViewById(R.id.supplierAddButton);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+
+        CustomerTest[] list = new CustomerTest[5];
+        for (int i = 0; i < 5; i++) {
+            list[i] = new CustomerTest();
+            list[i].setName("汤記贸易有限责任公司");
+            list[i].setAddress("成华区玉双路6号859号");
+            list[i].setMainPurchase(new String[]{"鸦片"});
+        }
+
+        List<CustomerTest> newList = Arrays.asList(list);
+        adapter.setNewInstance(newList);
+
+        addButton.setOnClickListener(v->{
+            BottomDialog.show("新增客户", "这里是对话框内容", new OnBindView<BottomDialog>(R.layout.dialog_add_customer) {
+                @Override
+                public void onBind(BottomDialog dialog, View v) {
+
+                }
+            });
+        });
     }
 }

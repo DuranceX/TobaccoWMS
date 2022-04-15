@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ruffian.library.widget.RConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginBottom="@dimen/customer_information_item_margin"
+    app:background_normal="@color/white"
+    app:clip_layout="true"
+    app:corner_radius="@dimen/information_card_radius"
+    app:shadow_color="@color/green_trans"
+    app:shadow_radius="5dp">
+
+    <TextView
+        android:id="@+id/supplierMainSupplyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/supplier_fragment_mainsupply"
+        app:layout_constraintBottom_toTopOf="@+id/other_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toTopOf="@+id/other_guideline" />
+
+    <TextView
+        android:id="@+id/supplierMainSupply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="@integer/customer_information_max_word_length"
+        android:text="鸦片"
+        app:layout_constraintBottom_toTopOf="@+id/other_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/supplierMainSupplyLabel"
+        app:layout_constraintTop_toTopOf="@+id/other_guideline" />
+
+    <TextView
+        android:id="@+id/supplierAddressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/supplier_fragment_address"
+        app:layout_constraintBottom_toTopOf="@+id/address_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toTopOf="@+id/address_guideline" />
+
+    <TextView
+        android:id="@+id/supplierAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="@integer/customer_information_max_word_length"
+        app:layout_constraintBottom_toTopOf="@+id/address_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/supplierAddressLabel"
+        app:layout_constraintTop_toTopOf="@+id/address_guideline"
+        tools:text="天河区大信商圈大信南路32号" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.22" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/name_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <com.ruffian.library.widget.RImageView
+        android:id="@+id/imageView"
+        android:layout_width="63dp"
+        android:layout_height="62dp"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        app:corner_radius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline19"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/address_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/other_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <TextView
+        android:id="@+id/supplierNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/supplier_fragment_name"
+        app:layout_constraintBottom_toTopOf="@+id/name_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toTopOf="@+id/name_guideline" />
+
+    <TextView
+        android:id="@+id/supplierName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="@integer/customer_information_max_word_length"
+        app:layout_constraintBottom_toTopOf="@+id/name_guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/supplierNameLabel"
+        app:layout_constraintTop_toTopOf="@+id/name_guideline"
+        app:layout_constraintVertical_bias="0.473"
+        tools:text="陆玩具有限责任公司" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9232558" />
+
+</com.ruffian.library.widget.RConstraintLayout>
