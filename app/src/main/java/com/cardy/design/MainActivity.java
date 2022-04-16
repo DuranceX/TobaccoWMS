@@ -8,6 +8,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.WindowManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -33,5 +34,7 @@ public class MainActivity extends AppCompatActivity {
         NavController controller = navHostFragment.getNavController();
         AppBarConfiguration configuration = new AppBarConfiguration.Builder(navigationView.getMenu()).build();
         NavigationUI.setupWithNavController(navigationView,controller);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }

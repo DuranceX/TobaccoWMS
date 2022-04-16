@@ -17,4 +17,5 @@
     <color name="blue_light">#FF00b2eb</color>
     <color name="blue_trans">#FFD7F0FD</color>
     <color name="background_gray">#FFf4f4f8</color>
+    <color name="gray_deep">#FFc1c1c4</color>
 </resources>

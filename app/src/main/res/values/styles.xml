@@ -4,4 +4,9 @@
         <item name="colorControlActivated">@color/green_light</item>
         <item name="colorControlNormal">@color/black_light</item>
     </style>
+
+    <style name="NoTitle" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowNoTitle"> true</item>
+        <item name="android:windowFullscreen"> true</item>
+    </style>
 </resources>

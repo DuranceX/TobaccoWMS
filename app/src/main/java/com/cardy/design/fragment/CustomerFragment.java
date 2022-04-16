@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
 
@@ -24,13 +24,9 @@ import com.cardy.design.adapter.CustomerListAdapter;
 import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.widget.IconFontTextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.dialogs.FullScreenDialog;
 import com.kongzue.dialogx.interfaces.OnBindView;
-
-import org.w3c.dom.Text;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +36,7 @@ public class CustomerFragment extends Fragment {
     CustomerListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
-    IconFontTextView addButton;
+    IconFontTextView addButton,menuButton;
 
 
     public CustomerFragment() {
@@ -67,6 +63,7 @@ public class CustomerFragment extends Fragment {
         recyclerView = getView().findViewById(R.id.customerRecycleview);
         searchView = getView().findViewById(R.id.customerSearchView);
         addButton = getView().findViewById(R.id.customerAddButton);
+        menuButton = getView().findViewById(R.id.menuButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
@@ -84,6 +81,7 @@ public class CustomerFragment extends Fragment {
 
         List<CustomerTest> newList = Arrays.asList(list);
         adapter.setNewInstance(newList);
+        adapter.setList(newList);
 
         addButton.setOnClickListener(v->{
             BottomDialog.show("添加客户",new OnBindView<BottomDialog>(R.layout.dialog_add_customer) {
@@ -94,33 +92,11 @@ public class CustomerFragment extends Fragment {
             }).setOkButton("确定").setCancelButton("取消");
         });
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                BottomDialog.show("修改客户信息",new OnBindView<BottomDialog>(R.layout.dialog_add_customer) {
-                    @Override
-                    public void onBind(BottomDialog dialog, View v) {
-                        EditText editTextName,editTextAddress,editTextAvatar,editTextMain;
-                        RadioButton radioButtonLow,radioButtonMid,radioButtonHigh;
-
-                        editTextAvatar = v.findViewById(R.id.editTextAvatar);
-                        editTextName = v.findViewById(R.id.editTextName);
-                        editTextAddress = v.findViewById(R.id.editTextAddress);
-                        editTextMain = v.findViewById(R.id.editTextMain);
-                        radioButtonLow = v.findViewById(R.id.radioButtonLow);
-                        radioButtonMid = v.findViewById(R.id.radioButtonMid);
-                        radioButtonHigh = v.findViewById(R.id.radioButtonHigh);
-
-                        editTextAvatar.setText("https://ssss/");
-                        editTextName.setText(newList.get(position).getName());
-                        editTextAddress.setText(newList.get(position).getAddress());
-                        editTextMain.setText(Arrays.toString(newList.get(position).getMainPurchase()).replace('[',' ').replace(']',' '));
-                        radioButtonLow.setChecked(true);
-
-                        Log.d("Click",newList.get(position).toString());
-                    }
-                }).setOkButton("确定").setCancelButton("取消");
-            }
+        menuButton.setOnClickListener(v->{
+            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
+            drawerLayout.openDrawer(GravityCompat.START);
         });
+
+
     }
 }
