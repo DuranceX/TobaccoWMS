@@ -47,7 +47,7 @@
         tools:layout="@layout/fragment_sale_order" />
     <fragment
         android:id="@+id/supplierFragment"
-        android:name="com.cardy.design.fragment.SupplierFragment"
+        android:name="com.cardy.design.fragment.SupplierFragment_origin"
         android:label="@string/supplier_fragment_title"
         tools:layout="@layout/fragment_supplier" />
     <fragment

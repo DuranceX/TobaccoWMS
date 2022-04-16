@@ -7,12 +7,13 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 
 import com.cardy.design.R;
 import com.cardy.design.entity.CustomerTest;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.module.BaseDraggableModule;
+import com.chad.library.adapter.base.module.DraggableModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.kongzue.dialogx.dialogs.BottomDialog;
 import com.kongzue.dialogx.interfaces.OnBindView;
@@ -20,10 +21,8 @@ import com.kongzue.dialogx.interfaces.OnBindView;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-public class CustomerListAdapter extends BaseQuickAdapter<CustomerTest, MyCustomerViewHolder> {
+public class CustomerListAdapter extends BaseQuickAdapter<CustomerTest, MyCustomerViewHolder> implements DraggableModule {
     List<CustomerTest> newList;
 
     public CustomerListAdapter(int layoutResId) {
@@ -31,7 +30,8 @@ public class CustomerListAdapter extends BaseQuickAdapter<CustomerTest, MyCustom
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                BottomDialog.show("修改客户信息",new OnBindView<BottomDialog>(R.layout.dialog_add_customer) {
+                BottomDialog.show("修改客户信息",new OnBindView<BottomDialog>(R.layout.dialog_add_customer_supplier) {
+                    //TODO: 添加”修改“功能
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
                         EditText editTextName,editTextAddress,editTextAvatar,editTextMain;
@@ -56,6 +56,7 @@ public class CustomerListAdapter extends BaseQuickAdapter<CustomerTest, MyCustom
                 }).setOkButton("确定").setCancelButton("取消");
             }
         });
+        addDraggableModule(this);
     }
 
     @Override
@@ -67,6 +68,12 @@ public class CustomerListAdapter extends BaseQuickAdapter<CustomerTest, MyCustom
 
     public void setList(List<CustomerTest> list){
         this.newList = list;
+    }
+
+    @NonNull
+    @Override
+    public BaseDraggableModule addDraggableModule(@NonNull BaseQuickAdapter<?, ?> baseQuickAdapter) {
+        return new BaseDraggableModule(baseQuickAdapter);
     }
 }
 
