@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textViewNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="客户名称："
@@ -14,79 +14,103 @@
         app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="@+id/guideline17" />
 
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="头像地址："
+        app:layout_constraintBottom_toTopOf="@+id/guideline29"
+        app:layout_constraintStart_toStartOf="@+id/guideline23"
+        app:layout_constraintTop_toTopOf="@+id/guideline29" />
+
     <EditText
         android:id="@+id/editTextName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|text"
+        android:selectAllOnFocus="false"
         app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toStartOf="@+id/guideline31"
         app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="@+id/guideline18" />
+
+    <EditText
+        android:id="@+id/editTextAvatar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="textUri|text"
+        android:selectAllOnFocus="false"
+        app:layout_constraintBottom_toTopOf="@+id/guideline30"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
+        app:layout_constraintStart_toStartOf="@+id/guideline23"
+        app:layout_constraintTop_toTopOf="@+id/guideline30" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_begin="65dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_begin="146dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_begin="183dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_begin="219dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_begin="256dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_begin="293dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_begin="329dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_begin="366dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+        app:layout_constraintGuide_begin="402dp" />
 
     <com.ruffian.library.widget.RImageView
         android:id="@+id/imageView4"
@@ -125,17 +149,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+        app:layout_constraintGuide_begin="50dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.13" />
+        app:layout_constraintGuide_begin="80dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewAddressLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="客户地址："
@@ -149,13 +173,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textColorLink="@color/green_light"
         app:layout_constraintBottom_toTopOf="@+id/guideline24"
         app:layout_constraintEnd_toStartOf="@+id/guideline31"
         app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="@+id/guideline24" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textViewMainLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="主要购买产品："
@@ -164,9 +189,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <EditText
-        android:id="@+id/editTextAddress2"
+        android:id="@+id/editTextMain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:editable="false"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
@@ -175,7 +201,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline26" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textViewPriorityLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="客户优先级："
@@ -183,12 +209,41 @@
         app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <RadioGroup
+        android:id="@+id/radioPriorityGroup"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/guideline28"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
+        app:layout_constraintStart_toStartOf="@+id/guideline22"
+        app:layout_constraintTop_toTopOf="@+id/guideline28">
+
+        <RadioButton
+            android:id="@+id/radioButtonLow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:buttonTint="@color/green"
+            android:checked="true"
+            android:fontFamily="@font/pingfang"
+            android:text="低" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMid"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:buttonTint="@color/green"
+            android:text="中" />
+
+        <RadioButton
+            android:id="@+id/radioButtonHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:buttonTint="@color/green"
+            android:text="高" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,9 +8,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.SearchView;
 
 import com.cardy.design.R;
@@ -72,27 +78,48 @@ public class CustomerFragment extends Fragment {
             list[i].setMainPurchase(new String[]{"烟草","香烟"});
         }
 
+        list[1].setName("测试有限责任公司");
+        list[1].setAddress("测试区测试路32号");
+        list[1].setMainPurchase(new String[]{"烟草","香烟","测试产品"});
+
         List<CustomerTest> newList = Arrays.asList(list);
         adapter.setNewInstance(newList);
 
         addButton.setOnClickListener(v->{
-            FullScreenDialog.show(new OnBindView<FullScreenDialog>(R.layout.dialog_add_customer) {
+            BottomDialog.show("添加客户",new OnBindView<BottomDialog>(R.layout.dialog_add_customer) {
                 @Override
-                public void onBind(FullScreenDialog dialog, View v) {
+                public void onBind(BottomDialog dialog, View v) {
 
                 }
-            });
+            }).setOkButton("确定").setCancelButton("取消");
         });
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                BottomDialog.show("修改客户信息", "这里是对话框内容", new OnBindView<BottomDialog>(R.layout.dialog_add_customer) {
+                BottomDialog.show("修改客户信息",new OnBindView<BottomDialog>(R.layout.dialog_add_customer) {
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
+                        EditText editTextName,editTextAddress,editTextAvatar,editTextMain;
+                        RadioButton radioButtonLow,radioButtonMid,radioButtonHigh;
 
+                        editTextAvatar = v.findViewById(R.id.editTextAvatar);
+                        editTextName = v.findViewById(R.id.editTextName);
+                        editTextAddress = v.findViewById(R.id.editTextAddress);
+                        editTextMain = v.findViewById(R.id.editTextMain);
+                        radioButtonLow = v.findViewById(R.id.radioButtonLow);
+                        radioButtonMid = v.findViewById(R.id.radioButtonMid);
+                        radioButtonHigh = v.findViewById(R.id.radioButtonHigh);
+
+                        editTextAvatar.setText("https://ssss/");
+                        editTextName.setText(newList.get(position).getName());
+                        editTextAddress.setText(newList.get(position).getAddress());
+                        editTextMain.setText(Arrays.toString(newList.get(position).getMainPurchase()).replace('[',' ').replace(']',' '));
+                        radioButtonLow.setChecked(true);
+
+                        Log.d("Click",newList.get(position).toString());
                     }
-                });
+                }).setOkButton("确定").setCancelButton("取消");
             }
         });
     }

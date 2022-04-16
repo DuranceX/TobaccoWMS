@@ -11,7 +11,7 @@
         android:theme="@style/Theme.WMS">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

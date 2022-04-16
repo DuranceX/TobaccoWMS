@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="radiobutton_green" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorControlActivated">@color/green_light</item>
+        <item name="colorControlNormal">@color/black_light</item>
+    </style>
+</resources>

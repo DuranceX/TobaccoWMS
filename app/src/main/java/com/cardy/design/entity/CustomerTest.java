@@ -1,5 +1,7 @@
 package com.cardy.design.entity;
 
+import java.util.Arrays;
+
 public class CustomerTest {
     private String name;
     private String address;
@@ -36,5 +38,14 @@ public class CustomerTest {
 
     public void setMainPurchase(String[] mainPurchase) {
         this.mainPurchase = mainPurchase;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerTest{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", mainPurchase=" + Arrays.toString(mainPurchase) +
+                '}';
     }
 }
