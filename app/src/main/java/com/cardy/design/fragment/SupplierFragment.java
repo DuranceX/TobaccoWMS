@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,6 +89,17 @@ public class SupplierFragment extends Fragment {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     //TODO: 添加“添加”事件
+                    TextView textViewNameLabel,textViewAddressLabel,textViewMainLabel,textViewPriorityLabel;
+                    textViewNameLabel = v.findViewById(R.id.textViewNameLabel);
+                    textViewAddressLabel = v.findViewById(R.id.textViewAddressLabel);
+                    textViewMainLabel = v.findViewById(R.id.textViewMainLabel);
+                    textViewPriorityLabel = v.findViewById(R.id.textViewPriorityLabel);
+
+                    //修改界面为供货商
+                    textViewNameLabel.setText("供货商名称：");
+                    textViewAddressLabel.setText("供货商地址：");
+                    textViewMainLabel.setText("主要供货原料：");
+                    textViewPriorityLabel.setText("供货商优先级：");
                 }
             }).setOkButton("确定").setCancelButton("取消");
         });
