@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lihang.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginBottom="@dimen/customer_information_item_margin"
+    app:hl_cornerRadius="@dimen/information_card_radius"
+    app:hl_shadowColor="@color/black_title"
+    app:hl_shadowLimit="5dp"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10462287" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <TextView
+            android:id="@+id/materialNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/material_fragment_name"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+        <TextView
+            android:id="@+id/materialName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="“中华”香烟"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintStart_toEndOf="@+id/materialNameLabel"
+            app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+        <TextView
+            android:id="@+id/materialModelLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/material_fragment_model"
+            app:layout_constraintBottom_toTopOf="@+id/guideline36"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline36" />
+
+        <TextView
+            android:id="@+id/materialModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="SC20210512"
+            app:layout_constraintBottom_toTopOf="@+id/guideline36"
+            app:layout_constraintStart_toEndOf="@+id/materialModelLabel"
+            app:layout_constraintTop_toTopOf="@+id/guideline36" />
+
+        <TextView
+            android:id="@+id/materialPriceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/material_fragment_price"
+            app:layout_constraintBottom_toTopOf="@+id/guideline37"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline37" />
+
+
+        <TextView
+            android:id="@+id/materialPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="100"
+            app:layout_constraintBottom_toTopOf="@+id/guideline37"
+            app:layout_constraintStart_toEndOf="@+id/materialPriceLabel"
+            app:layout_constraintTop_toTopOf="@+id/guideline37" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.lihang.ShadowLayout>

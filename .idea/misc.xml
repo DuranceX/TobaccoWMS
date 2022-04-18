@@ -10,16 +10,20 @@
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_saleorder.xml" value="0.326" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_user.xml" value="0.326" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_user_manage_1.xml" value="0.326" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_user_manage_2.xml" value="0.3305" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/font/font.xml" value="0.23489583333333333" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/font/menu_item.xml" value="0.4166666666666667" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/dialog_add_customer.xml" value="0.38645833333333335" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/dialog_add_customer_supplier.xml" value="0.38645833333333335" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/dialog_add_material.xml" value="0.38645833333333335" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/dialog_add_product.xml" value="0.38645833333333335" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/dialog_add_user.xml" value="0.38645833333333335" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/drawer_header_layout.xml" value="0.5" />
-        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_customer.xml" value="0.9" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_customer.xml" value="0.5879556259904913" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_inventory.xml" value="0.38645833333333335" />
-        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_material.xml" value="0.20104166666666667" />
-        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_product.xml" value="0.20104166666666667" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_material.xml" value="0.5" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_product.xml" value="0.33" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_profile.xml" value="0.20104166666666667" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_purchase_order.xml" value="0.38645833333333335" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_report.xml" value="0.20104166666666667" />
@@ -27,7 +31,10 @@
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_supplier.xml" value="0.38645833333333335" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/fragment_user.xml" value="0.38645833333333335" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/item_customer_information.xml" value="0.67" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/item_material_information.xml" value="0.67" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/item_product_information.xml" value="0.67" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/item_supplier_information.xml" value="0.75" />
+        <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/item_user_information.xml" value="0.67" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/test.xml" value="0.38645833333333335" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/layout/test2.xml" value="0.38645833333333335" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/menu/menu.xml" value="0.38645833333333335" />

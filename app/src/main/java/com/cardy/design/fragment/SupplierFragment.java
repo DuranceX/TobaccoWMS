@@ -91,8 +91,8 @@ public class SupplierFragment extends Fragment {
                     //TODO: 添加“添加”事件
                     TextView textViewNameLabel,textViewAddressLabel,textViewMainLabel,textViewPriorityLabel;
                     textViewNameLabel = v.findViewById(R.id.textViewNameLabel);
-                    textViewAddressLabel = v.findViewById(R.id.textViewAddressLabel);
-                    textViewMainLabel = v.findViewById(R.id.textViewMainLabel);
+                    textViewAddressLabel = v.findViewById(R.id.textViewModelLabel);
+                    textViewMainLabel = v.findViewById(R.id.textViewPriceLabel);
                     textViewPriorityLabel = v.findViewById(R.id.textViewPriorityLabel);
 
                     //修改界面为供货商
@@ -129,7 +129,7 @@ public class SupplierFragment extends Fragment {
             public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("Swipe", "View Swiped: " + pos);
                 // TODO: 调用Supplier的删除方法
-                PopTip.show("客户信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
+                PopTip.show("供货商信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
                     @Override
                     public boolean onClick(PopTip baseDialog, View v) {
                         // TODO: 调用Supplier的添加方法重新添加

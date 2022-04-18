@@ -16,7 +16,7 @@ data class Supplier(
     @ColumnInfo(name = "priority")
     var priority:Int,
     //供货商头像地址
-    @ColumnInfo(name = "avatar")
+    @ColumnInfo(name = "manager_green")
     var avatar:String,
     //客户主要购买产品
     @ColumnInfo(name = "mainSupply")

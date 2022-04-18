@@ -12,7 +12,7 @@
     app:shadow_radius="5dp">
 
     <TextView
-        android:id="@+id/supplierMainSupplyLabel"
+        android:id="@+id/supplierMainLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/supplier_fragment_mainsupply"
@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toTopOf="@+id/other_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/supplierMainSupplyLabel"
+        app:layout_constraintStart_toEndOf="@+id/supplierMainLabel"
         app:layout_constraintTop_toTopOf="@+id/other_guideline" />
 
     <TextView
@@ -65,7 +65,7 @@
         app:layout_constraintGuide_percent="0.22" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/name_guideline"
+        android:id="@+id/id_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline19"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/avatar" />
+        app:srcCompat="@drawable/manager_green" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/address_guideline"
@@ -103,22 +103,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/supplier_fragment_name"
-        app:layout_constraintBottom_toTopOf="@+id/name_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/id_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/name_guideline" />
+        app:layout_constraintTop_toTopOf="@+id/id_guideline" />
 
     <TextView
         android:id="@+id/supplierName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLength="@integer/customer_information_max_word_length"
-        app:layout_constraintBottom_toTopOf="@+id/name_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/id_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/supplierNameLabel"
-        app:layout_constraintTop_toTopOf="@+id/name_guideline"
+        app:layout_constraintTop_toTopOf="@+id/id_guideline"
         app:layout_constraintVertical_bias="0.473"
         tools:text="陆玩具有限责任公司" />
 

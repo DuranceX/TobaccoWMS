@@ -30,7 +30,6 @@ android {
 dependencies {
 
     implementation "com.github.kongzue.DialogX:DialogX:0.0.44.beta19"
-    implementation "com.mikepenz:materialdrawer:6.1.2"
     implementation 'com.github.RuffianZhong:RWidgetHelper:androidx.v0.0.9'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
     implementation 'com.github.lihangleo2:ShadowLayout:3.2.4'

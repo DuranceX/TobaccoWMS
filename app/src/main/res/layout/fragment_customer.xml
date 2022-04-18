@@ -84,7 +84,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/supplierRecycleview"
+        android:id="@+id/customerRecycleview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
@@ -107,7 +107,7 @@
         app:layout_constraintGuide_percent="0.97" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/supplierToolbar"
+        android:id="@+id/customerToolbar"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:background="@color/background_gray"
@@ -118,7 +118,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline13">
 
         <com.cardy.design.widget.IconFontTextView
-            android:id="@+id/supplierAddButton"
+            android:id="@+id/customerAddButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"
@@ -129,7 +129,7 @@
             tools:layout_editor_absoluteX="373dp" />
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/supplierSearchView"
+            android:id="@+id/customerSearchView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="right"

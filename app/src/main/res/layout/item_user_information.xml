@@ -12,10 +12,10 @@
     app:shadow_radius="5dp">
 
     <TextView
-        android:id="@+id/customerMainPurchaseLabel"
+        android:id="@+id/userPasswordLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/customer_fragment_mainpurchase"
+        android:text="@string/user_fragment_password"
         app:layout_constraintBottom_toTopOf="@+id/other_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.05"
@@ -23,22 +23,22 @@
         app:layout_constraintTop_toTopOf="@+id/other_guideline" />
 
     <TextView
-        android:id="@+id/customerMainPurchase"
+        android:id="@+id/userPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLength="@integer/customer_information_max_word_length"
-        android:text="云烟，中华"
+        android:text="zhuliye"
         app:layout_constraintBottom_toTopOf="@+id/other_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/customerMainPurchaseLabel"
+        app:layout_constraintStart_toEndOf="@+id/userPasswordLabel"
         app:layout_constraintTop_toTopOf="@+id/other_guideline" />
 
     <TextView
-        android:id="@+id/customerAddressLabel"
+        android:id="@+id/userNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/customer_fragment_address"
+        android:text="@string/user_fragment_name"
         app:layout_constraintBottom_toTopOf="@+id/address_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.05"
@@ -46,16 +46,16 @@
         app:layout_constraintTop_toTopOf="@+id/address_guideline" />
 
     <TextView
-        android:id="@+id/customerAddress"
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLength="@integer/customer_information_max_word_length"
         app:layout_constraintBottom_toTopOf="@+id/address_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/customerAddressLabel"
+        app:layout_constraintStart_toEndOf="@+id/userNameLabel"
         app:layout_constraintTop_toTopOf="@+id/address_guideline"
-        tools:text="天河区大信商圈大信南路32号" />
+        tools:text="诸立叶" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline19"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/manager_green" />
+        app:srcCompat="@drawable/normal_gray" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/address_guideline"
@@ -99,10 +99,10 @@
         app:layout_constraintGuide_percent="0.75" />
 
     <TextView
-        android:id="@+id/customerNameLabel"
+        android:id="@+id/userIdLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/customer_fragment_name"
+        android:text="@string/user_fragment_id"
         app:layout_constraintBottom_toTopOf="@+id/id_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.05"
@@ -110,17 +110,17 @@
         app:layout_constraintTop_toTopOf="@+id/id_guideline" />
 
     <TextView
-        android:id="@+id/customerName"
+        android:id="@+id/userId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLength="@integer/customer_information_max_word_length"
         app:layout_constraintBottom_toTopOf="@+id/id_guideline"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/customerNameLabel"
+        app:layout_constraintStart_toEndOf="@+id/userIdLabel"
         app:layout_constraintTop_toTopOf="@+id/id_guideline"
         app:layout_constraintVertical_bias="0.473"
-        tools:text="陆玩具有限责任公司" />
+        tools:text="3180608054" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline19"

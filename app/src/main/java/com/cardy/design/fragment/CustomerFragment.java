@@ -62,9 +62,9 @@ public class CustomerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         adapter = new CustomerListAdapter(R.layout.item_customer_information);
         adapter.setAnimationEnable(true);
-        recyclerView = getView().findViewById(R.id.supplierRecycleview);
-        searchView = getView().findViewById(R.id.supplierSearchView);
-        addButton = getView().findViewById(R.id.supplierAddButton);
+        recyclerView = getView().findViewById(R.id.customerRecycleview);
+        searchView = getView().findViewById(R.id.customerSearchView);
+        addButton = getView().findViewById(R.id.customerAddButton);
         menuButton = getView().findViewById(R.id.menuButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);

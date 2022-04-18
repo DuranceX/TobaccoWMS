@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_gray"
     android:theme="@style/NoTitle"
-    tools:context=".fragment.CustomerFragment">
+    tools:context=".fragment.SupplierFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

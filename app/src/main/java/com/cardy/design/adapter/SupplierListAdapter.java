@@ -1,6 +1,5 @@
 package com.cardy.design.adapter;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -34,18 +33,18 @@ public class SupplierListAdapter extends BaseQuickAdapter<CustomerTest, MySuppli
                     //TODO: 添加”修改“功能
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
-                        TextView textViewNameLabel,textViewAddressLabel,textViewMainLabel,textViewPriorityLabel;
-                        EditText editTextName,editTextAddress,editTextAvatar,editTextMain;
+                        TextView textViewNameLabel,textViewAddressLabel,textViewMainLabel,textViewPriorityLabel,textViewMain;
+                        EditText editTextName,editTextAddress,editTextAvatar;
                         RadioButton radioButtonLow,radioButtonMid,radioButtonHigh;
 
                         textViewNameLabel = v.findViewById(R.id.textViewNameLabel);
-                        textViewAddressLabel = v.findViewById(R.id.textViewAddressLabel);
-                        textViewMainLabel = v.findViewById(R.id.textViewMainLabel);
+                        textViewAddressLabel = v.findViewById(R.id.textViewModelLabel);
+                        textViewMainLabel = v.findViewById(R.id.textViewPriceLabel);
                         textViewPriorityLabel = v.findViewById(R.id.textViewPriorityLabel);
                         editTextAvatar = v.findViewById(R.id.editTextAvatar);
                         editTextName = v.findViewById(R.id.editTextName);
-                        editTextAddress = v.findViewById(R.id.editTextAddress);
-                        editTextMain = v.findViewById(R.id.editTextMain);
+                        editTextAddress = v.findViewById(R.id.editTextModel);
+                        textViewMain = v.findViewById(R.id.textViewMain);
                         radioButtonLow = v.findViewById(R.id.radioButtonLow);
                         radioButtonMid = v.findViewById(R.id.radioButtonMid);
                         radioButtonHigh = v.findViewById(R.id.radioButtonHigh);
@@ -59,10 +58,8 @@ public class SupplierListAdapter extends BaseQuickAdapter<CustomerTest, MySuppli
                         editTextAvatar.setText("https://ssss/");
                         editTextName.setText(newList.get(position).getName());
                         editTextAddress.setText(newList.get(position).getAddress());
-                        editTextMain.setText(Arrays.toString(newList.get(position).getMainPurchase()).replace('[',' ').replace(']',' '));
+                        textViewMain.setText(Arrays.toString(newList.get(position).getMainPurchase()).replace('[',' ').replace(']',' '));
                         radioButtonLow.setChecked(true);
-
-                        Log.d("Click",newList.get(position).toString());
                     }
                 }).setOkButton("确定").setCancelButton("取消");
             }

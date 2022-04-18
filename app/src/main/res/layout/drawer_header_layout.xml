@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="@+id/guideline9"
-        app:srcCompat="@drawable/avatar_blue" />
+        app:srcCompat="@drawable/normal_blue" />
 
 <!--    <ImageView-->
 <!--        android:id="@+id/imageView2"-->
