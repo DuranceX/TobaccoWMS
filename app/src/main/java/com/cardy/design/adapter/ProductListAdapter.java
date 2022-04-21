@@ -78,8 +78,8 @@ class MyProductViewHolder extends BaseViewHolder{
     public MyProductViewHolder(@NonNull View view) {
         super(view);
         imageView = view.findViewById(R.id.productImageView);
-        name = view.findViewById(R.id.productName);
-        model = view.findViewById(R.id.productModel);
+        name = view.findViewById(R.id.textViewName);
+        model = view.findViewById(R.id.textViewModel);
         material = view.findViewById(R.id.productUsedMaterial);
         price = view.findViewById(R.id.productPrice);
     }

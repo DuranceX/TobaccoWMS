@@ -26,21 +26,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline45"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+            app:layout_constraintGuide_percent="0.10" />
 
         <TextView
-            android:id="@+id/productName"
+            android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pingfang"
-            android:text="“中华”香烟"
+            android:text="鸦片"
             android:textColor="@color/black_light"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -49,15 +42,15 @@
             app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
         <TextView
-            android:id="@+id/productModel"
+            android:id="@+id/textViewModel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/pingfang"
-            android:text="SC20210512"
+            android:text="SICS201532"
             android:textColor="@color/black_light"
-            app:layout_constraintBottom_toBottomOf="@+id/productName"
-            app:layout_constraintStart_toEndOf="@+id/productName" />
+            app:layout_constraintBottom_toBottomOf="@+id/textViewName"
+            app:layout_constraintStart_toEndOf="@+id/textViewName" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline43"
@@ -73,17 +66,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.7" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline42"
-            app:layout_constraintHorizontal_bias="0.3"
-            app:layout_constraintStart_toStartOf="@+id/guideline45"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/zhonghua" />
-
         <com.cardy.design.widget.IconFontTextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
@@ -98,7 +80,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline44" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textViewHostCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -112,7 +94,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline44" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textViewDeliveryCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -144,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.45" />
+            app:layout_constraintGuide_percent="0.3" />
 
         <ImageView
             android:id="@+id/imageView6"

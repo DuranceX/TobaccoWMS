@@ -64,7 +64,7 @@ public class InventoryProductFragment extends Fragment {
         //TODO: 从数据库中获取数据
         List<InventoryTest> list = new ArrayList<InventoryTest>(5);
         for (int i = 0; i < 5; i++) {
-            InventoryTest inventoryTest = new InventoryTest("”云烟“香烟","SC20210312","",300,200,"B区22号",InventoryTest.TYPE_PRODUCT);
+            InventoryTest inventoryTest = new InventoryTest("“云烟”香烟","SC20210312","",300,200,"B区22号",InventoryTest.TYPE_PRODUCT);
             list.add(inventoryTest);
         }
 

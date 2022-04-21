@@ -36,7 +36,7 @@
             app:layout_constraintGuide_percent="0.05" />
 
         <TextView
-            android:id="@+id/productName"
+            android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pingfang"
@@ -49,15 +49,15 @@
             app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
         <TextView
-            android:id="@+id/productModel"
+            android:id="@+id/textViewModel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/pingfang"
             android:text="SC20210512"
             android:textColor="@color/black_light"
-            app:layout_constraintBottom_toBottomOf="@+id/productName"
-            app:layout_constraintStart_toEndOf="@+id/productName" />
+            app:layout_constraintBottom_toBottomOf="@+id/textViewName"
+            app:layout_constraintStart_toEndOf="@+id/textViewName" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline43"
@@ -74,7 +74,7 @@
             app:layout_constraintGuide_percent="0.7" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/productImageView"
             android:layout_width="60dp"
             android:layout_height="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +98,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline44" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textViewHostCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -112,7 +112,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline44" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/textViewDeliveryCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -147,7 +147,6 @@
             app:layout_constraintGuide_percent="0.45" />
 
         <ImageView
-            android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

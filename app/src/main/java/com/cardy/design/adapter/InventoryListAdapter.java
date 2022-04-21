@@ -1,19 +1,19 @@
 package com.cardy.design.adapter;
 
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.cardy.design.R;
-import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.entity.InventoryTest;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.interfaces.OnBindView;
+import com.kongzue.dialogx.dialogs.PopTip;
+import com.kongzue.dialogx.dialogs.TipDialog;
 
 import java.util.List;
 
@@ -31,15 +31,26 @@ public class InventoryListAdapter extends BaseQuickAdapter<InventoryTest, MyInve
     }
 
     @Override
-    protected void convert(@NonNull MyInventoryViewHolder myInventoryViewHolder, InventoryTest inventoryTest) {
-
+    protected void convert(@NonNull MyInventoryViewHolder holder, InventoryTest inventory) {
+        holder.name.setText(inventory.getName());
+        holder.model.setText(inventory.getModel());
+        holder.hostCount.setText(String.valueOf(inventory.getHostCount()));
+        holder.deliveryCount.setText(String.valueOf(inventory.getDeliveryCount()));
+        //if (inventory.getType() == InventoryTest.TYPE_PRODUCT)
+            //holder.image.setImageURI();
     }
 }
 
 
 class MyInventoryViewHolder extends BaseViewHolder {
-    TextView name,model,price;
+    TextView name,model,hostCount,deliveryCount;
+    ImageView image;
     public MyInventoryViewHolder(@NonNull View view) {
         super(view);
+        name = view.findViewById(R.id.textViewName);
+        model = view.findViewById(R.id.textViewModel);
+        hostCount = view.findViewById(R.id.textViewHostCount);
+        deliveryCount = view.findViewById(R.id.textViewDeliveryCount);
+        image = view.findViewById(R.id.productImageView);
     }
 }
