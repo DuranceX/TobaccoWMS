@@ -143,7 +143,7 @@
         android:layout_marginTop="18dp"
         app:hl_cornerRadius="20dp"
         app:hl_layoutBackground="@color/white"
-        app:hl_layoutBackground_true="@color/gray_deep"
+        app:hl_layoutBackground_true="@color/gray_light"
         app:hl_shadowColor="@color/black_title"
         app:hl_shadowHidden="false"
         app:hl_shadowLimit="2dp"

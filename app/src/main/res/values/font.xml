@@ -13,4 +13,16 @@
         <item name="fontFamily">@font/pingfang</item>
         <item name="android:textSize">30sp</item>
     </style>
+
+    <style name="inventory_check_label">
+        <item name="fontFamily">@font/pingfang</item>
+        <item name="color">@color/black_light</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="inventory_check_text">
+        <item name="fontFamily">@font/pingfang</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>
