@@ -1,5 +1,7 @@
 package com.cardy.design.entity
 
+import android.media.Image
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -12,6 +14,8 @@ data class Product(
     //产品型号
     @PrimaryKey
     var model:String,
+    //产品图片地址
+    var imageUri: Uri,
     //产品建议价格
     @ColumnInfo(name = "price")
     var price:Float,

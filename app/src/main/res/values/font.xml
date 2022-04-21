@@ -5,6 +5,10 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="font_family_pingfang">
+        <item name="fontFamily">@font/pingfang</item>
+    </style>
+
     <style name="fragment_title">
         <item name="fontFamily">@font/pingfang</item>
         <item name="android:textSize">30sp</item>

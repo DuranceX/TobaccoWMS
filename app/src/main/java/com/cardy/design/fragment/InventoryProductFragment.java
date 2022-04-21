@@ -2,59 +2,44 @@ package com.cardy.design.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cardy.design.R;
+import com.cardy.design.adapter.InventoryListAdapter;
+import com.cardy.design.entity.InventoryTest;
+import com.cardy.design.widget.IconFontTextView;
+import com.kongzue.dialogx.dialogs.BottomDialog;
+import com.kongzue.dialogx.interfaces.OnBindView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link InventoryProductFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class InventoryProductFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    InventoryListAdapter adapter;
+    RecyclerView recyclerView;
+    SearchView searchView;
+    IconFontTextView addButton,menuButton;
 
     public InventoryProductFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InventoryProductFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static InventoryProductFragment newInstance(String param1, String param2) {
-        InventoryProductFragment fragment = new InventoryProductFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -62,5 +47,43 @@ public class InventoryProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_inventory_product, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter = new InventoryListAdapter(R.layout.item_inventory_product);
+        adapter.setAnimationEnable(true);
+        recyclerView = getView().findViewById(R.id.inventoryProductRecycleview);
+        searchView = getView().findViewById(R.id.inventoryProductSearchView);
+        addButton = getView().findViewById(R.id.inventoryProductAddButton);
+        menuButton = getView().findViewById(R.id.menuButton);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+
+        //TODO: 从数据库中获取数据
+        List<InventoryTest> list = new ArrayList<InventoryTest>(5);
+        for (int i = 0; i < 5; i++) {
+            InventoryTest inventoryTest = new InventoryTest("”云烟“香烟","SC20210312","",300,200,"B区22号",InventoryTest.TYPE_PRODUCT);
+            list.add(inventoryTest);
+        }
+
+        adapter.setList(list);
+
+        addButton.setOnClickListener(v->{
+            BottomDialog.show("确认送达",new OnBindView<BottomDialog>(R.layout.dialog_add_customer_supplier) {
+                @Override
+                public void onBind(BottomDialog dialog, View v) {
+                    //TODO: 添加“添加”事件
+
+                }
+            }).setOkButton("确定").setCancelButton("取消");
+        });
+
+        //呼出抽屉菜单
+        menuButton.setOnClickListener(v->{
+            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
     }
 }

@@ -1,11 +1,14 @@
 package com.cardy.design.entity;
 
+import android.net.Uri;
+
 import java.util.Arrays;
 
 public class CustomerTest {
     private String name;
     private String address;
     private String[] mainPurchase;
+    private Uri avatar;
 
     public CustomerTest() {
     }
@@ -38,6 +41,14 @@ public class CustomerTest {
 
     public void setMainPurchase(String[] mainPurchase) {
         this.mainPurchase = mainPurchase;
+    }
+
+    public Uri getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Uri avatar) {
+        this.avatar = avatar;
     }
 
     @Override

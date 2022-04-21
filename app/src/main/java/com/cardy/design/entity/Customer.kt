@@ -1,5 +1,6 @@
 package com.cardy.design.entity
 
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -17,7 +18,7 @@ data class Customer(
     var priority:Int,
     //客户头像地址
     @ColumnInfo(name = "manager_green")
-    var avatar:String,
+    var avatar: Uri,
     //客户主要购买产品
     @ColumnInfo(name = "mainPurchase")
     var mainPurchase:Array<String>,

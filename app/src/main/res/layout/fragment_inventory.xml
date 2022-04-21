@@ -24,6 +24,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        app:itemIconSize="26dp"
+        app:itemTextAppearanceActive="@style/font_family_pingfang"
         app:itemTextColor="@color/menu_item_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

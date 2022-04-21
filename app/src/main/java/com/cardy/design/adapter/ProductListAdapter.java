@@ -2,6 +2,7 @@ package com.cardy.design.adapter;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,13 +33,15 @@ public class ProductListAdapter extends BaseQuickAdapter<CustomerTest, MyProduct
                     //TODO: 添加”修改“功能
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
-                        EditText editTextName,editTextModel,editTextUsedMaterial,editTextPrice;
+                        EditText editTextName,editTextModel,editTextUsedMaterial,editTextPrice,editTextImagePath;
 
+                        editTextImagePath = v.findViewById(R.id.editTextImagePath);
                         editTextName = v.findViewById(R.id.editTextName);
                         editTextModel = v.findViewById(R.id.editTextModel);
                         editTextUsedMaterial = v.findViewById(R.id.editTextUsedMaterial);
                         editTextPrice = v.findViewById(R.id.editTextPrice);
 
+                        editTextImagePath.setText("content://sssss");
                         editTextName.setText(newList.get(position).getName());
                         editTextModel.setText(newList.get(position).getAddress());
                         editTextUsedMaterial.setText(Arrays.toString(newList.get(position).getMainPurchase()).replace('[',' ').replace(']',' '));
@@ -71,8 +74,10 @@ public class ProductListAdapter extends BaseQuickAdapter<CustomerTest, MyProduct
 
 class MyProductViewHolder extends BaseViewHolder{
     TextView name,model,price,material;
+    ImageView imageView;
     public MyProductViewHolder(@NonNull View view) {
         super(view);
+        imageView = view.findViewById(R.id.productImageView);
         name = view.findViewById(R.id.productName);
         model = view.findViewById(R.id.productModel);
         material = view.findViewById(R.id.productUsedMaterial);

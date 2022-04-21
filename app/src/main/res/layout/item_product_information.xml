@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.10462287" />
+            app:layout_constraintGuide_percent="0.30" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline34"
@@ -96,7 +96,6 @@
             android:id="@+id/productUsedMaterial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:fontFamily="@font/pingfang"
             app:layout_constraintBottom_toTopOf="@+id/guideline38"
             app:layout_constraintStart_toEndOf="@+id/productUsedMaterialLabel"
@@ -107,13 +106,23 @@
             android:id="@+id/productPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:fontFamily="@font/pingfang"
             android:text="￥200"
             android:textColor="@color/black_light"
             app:layout_constraintBottom_toTopOf="@+id/guideline37"
             app:layout_constraintStart_toEndOf="@+id/productPriceLabel"
             app:layout_constraintTop_toTopOf="@+id/guideline37" />
+
+        <ImageView
+            android:id="@+id/productImageView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline33"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/zhonghua" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.lihang.ShadowLayout>
