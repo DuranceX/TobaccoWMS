@@ -34,7 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.20" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline37"
@@ -48,20 +55,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.57" />
+            app:layout_constraintGuide_percent="0.6" />
+
+        <TextView
+            android:id="@+id/productNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_fragment_name"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
         <TextView
             android:id="@+id/productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/pingfang"
             android:text="“中华”香烟"
             android:textColor="@color/black_light"
-            android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline35"
-            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintStart_toEndOf="@+id/productNameLabel"
             app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+        <TextView
+            android:id="@+id/productModelLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/product_fragment_model"
+            app:layout_constraintBottom_toTopOf="@+id/guideline36"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
+            app:layout_constraintTop_toTopOf="@+id/guideline36" />
 
         <TextView
             android:id="@+id/productModel"
@@ -71,8 +95,9 @@
             android:fontFamily="@font/pingfang"
             android:text="SC20210512"
             android:textColor="@color/black_light"
-            app:layout_constraintBottom_toBottomOf="@+id/productName"
-            app:layout_constraintStart_toEndOf="@+id/productName" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline36"
+            app:layout_constraintStart_toEndOf="@+id/productModelLabel"
+            app:layout_constraintTop_toTopOf="@+id/guideline36" />
 
         <TextView
             android:id="@+id/productPriceLabel"
@@ -109,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/pingfang"
-            android:text="￥200"
+            android:text="￥100"
             android:textColor="@color/black_light"
             app:layout_constraintBottom_toTopOf="@+id/guideline37"
             app:layout_constraintStart_toEndOf="@+id/productPriceLabel"

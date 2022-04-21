@@ -51,7 +51,7 @@ public class MaterialListAdapter extends BaseQuickAdapter<CustomerTest, MyMateri
     protected void convert(@NonNull MyMaterialViewHolder holder, CustomerTest customer) {
         holder.name.setText(customer.getName());
         holder.model.setText(customer.getAddress());
-        holder.price.setText("100");
+        holder.price.setText("￥"+"100");
     }
 
     public void setList(List<CustomerTest> list){

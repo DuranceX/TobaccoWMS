@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_add_customer_supplier.xml" value="0.3473731884057971" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_add_product.xml" value="0.3473731884057971" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_add_user.xml" value="0.3473731884057971" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/fragment_customer.xml" value="0.75" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/fragment_inventory.xml" value="0.3473731884057971" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/fragment_material.xml" value="0.67" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/fragment_product.xml" value="0.67" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/fragment_purchase_order.xml" value="0.3473731884057971" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/fragment_supplier.xml" value="0.67" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/fragment_user.xml" value="0.67" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/item_material_information.xml" value="0.3473731884057971" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/item_product_information.xml" value="0.67" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_administrator_2.xml" value="0.326" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_baseline_people_outline_24.xml" value="0.3305" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_outline_event_note_24.xml" value="0.3305" />

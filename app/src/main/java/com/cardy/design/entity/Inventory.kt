@@ -22,9 +22,6 @@ data class Inventory(
     //运输中数量
     @ColumnInfo(name = "deliveryCount")
     var deliveryCount:Int,
-    //已售出数量
-    @ColumnInfo(name = "consumeCount")
-    var consumeCount:Int,
     //存放区域
     @ColumnInfo(name = "area")
     var area:String,

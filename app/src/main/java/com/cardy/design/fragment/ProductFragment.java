@@ -21,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cardy.design.R;
-import com.cardy.design.adapter.CustomerListAdapter;
 import com.cardy.design.adapter.ProductListAdapter;
 import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.widget.IconFontTextView;
@@ -74,13 +73,13 @@ public class ProductFragment extends Fragment {
         List<CustomerTest> list = new ArrayList<CustomerTest>(5);
         for (int i = 0; i < 5; i++) {
             CustomerTest customerTest = new CustomerTest();
-            customerTest.setName("陆玩具有限责任公司");
-            customerTest.setAddress("天河区大信商圈大信南路32号");
+            customerTest.setName("“中华”香烟");
+            customerTest.setAddress("SC20210512");
             customerTest.setMainPurchase(new String[]{"烟草","香烟"});
             list.add(customerTest);
         }
-        list.get(1).setName("测试有限责任公司");
-        list.get(1).setAddress("测试区测试路32号");
+        list.get(1).setName("”云烟“香烟");
+        list.get(1).setAddress("SC20200123");
         list.get(1).setMainPurchase(new String[]{"烟草","香烟","测试产品"});
 
         adapter.setNewInstance(list);

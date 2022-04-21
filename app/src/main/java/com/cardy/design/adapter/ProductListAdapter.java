@@ -55,7 +55,7 @@ public class ProductListAdapter extends BaseQuickAdapter<CustomerTest, MyProduct
         holder.name.setText(customer.getName());
         holder.model.setText(customer.getAddress());
         holder.material.setText(Arrays.toString(customer.getMainPurchase()).replace('[',' ').replace(']',' '));
-        holder.price.setText("100");
+        holder.price.setText("￥"+"100");
     }
 
     public void setList(List<CustomerTest> list){
