@@ -15,9 +15,9 @@ interface UserDao {
     @Delete
     fun deleteUser(vararg users: User):Int
 
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM user ORDER BY id")
     fun getAllUser():LiveData<List<User>>
 
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM user ORDER BY id")
     fun getAllUserNotLive():List<User>
 }

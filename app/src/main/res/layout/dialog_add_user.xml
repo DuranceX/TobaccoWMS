@@ -19,7 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:focusable="false"
+        android:focusable="auto"
         android:inputType="textPersonName|text"
         android:minHeight="48dp"
         android:selectAllOnFocus="false"
@@ -150,11 +150,9 @@
         android:layout_height="wrap_content"
         android:minHeight="48dp"
         android:text="管理员权限："
-        android:thumbTint="@color/green"
-        android:trackTint="@color/green_deep"
         app:layout_constraintBottom_toTopOf="@+id/guideline27"
         app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="@+id/guideline27"
-        tools:checked="true" />
+        tools:checked="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

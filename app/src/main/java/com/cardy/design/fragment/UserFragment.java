@@ -10,6 +10,9 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +27,9 @@ import android.widget.Switch;
 import com.cardy.design.R;
 import com.cardy.design.adapter.UserListAdapter;
 import com.cardy.design.entity.CustomerTest;
+import com.cardy.design.entity.User;
+import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.cardy.design.widget.IconFontTextView;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
@@ -40,6 +46,8 @@ public class UserFragment extends Fragment {
     RecyclerView recyclerView;
     SearchView searchView;
     IconFontTextView addButton,menuButton;
+    List<User> list;
+    LiveData<List<User>> listLive;
 
     public UserFragment() {
         // Required empty public constructor
@@ -70,35 +78,46 @@ public class UserFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         //TODO: 从数据库中获取数据
-        List<CustomerTest> list = new ArrayList<CustomerTest>(5);
-        for (int i = 0; i < 5; i++) {
-            CustomerTest customerTest = new CustomerTest();
-            customerTest.setName("陆玩具有限责任公司");
-            customerTest.setAddress("天河区大信商圈大信南路32号");
-            customerTest.setMainPurchase(new String[]{"烟草","香烟"});
-            list.add(customerTest);
-        }
-        list.get(1).setName("测试有限责任公司");
-        list.get(1).setAddress("测试区测试路32号");
-        list.get(1).setMainPurchase(new String[]{"烟草","香烟","测试产品"});
-
-        adapter.setNewInstance(list);
-        adapter.setList(list);
+        listLive = TestDatabase.Companion.getINSTANCE().userDao().getAllUser();
+        listLive.observe(getActivity(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                adapter.setList(users);
+                list = users;
+            }
+        });
 
         addButton.setOnClickListener(v->{
+            final EditText[] editTextId = new EditText[1];
+            final EditText[] editTextName = new EditText[1];
+            final EditText[] editTextPassword = new EditText[1];
+            final Switch[] adminSwitch = new Switch[1];
             BottomDialog.show("添加用户",new OnBindView<BottomDialog>(R.layout.dialog_add_user) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     //TODO: 添加“添加”事件
-                    EditText editTextId,editTextName,editTextPassword;
-                    Switch adminSwitch;
+                    editTextId[0] = v.findViewById(R.id.editTextId);
+                    editTextName[0] = v.findViewById(R.id.editTextName);
+                    editTextPassword[0] = v.findViewById(R.id.editTextPassword);
+                    adminSwitch[0] = v.findViewById(R.id.adminSwitch);
 
-                    editTextId = v.findViewById(R.id.editTextId);
-                    editTextName = v.findViewById(R.id.editTextName);
-                    editTextPassword = v.findViewById(R.id.editTextPassword);
-                    adminSwitch = v.findViewById(R.id.radioButtonHigh);
+                    editTextId[0].setFocusable(true);
                 }
-            }).setOkButton("确定").setCancelButton("取消");
+            }).setOkButton("确定", (baseDialog, v1) -> {
+                String Id = editTextId[0].getText().toString();
+                String name = editTextName[0].getText().toString();
+                String password = editTextPassword[0].getText().toString();
+                boolean permission = adminSwitch[0].isChecked();
+
+                User user = new User(Id,name,password,permission);
+                try{
+                    TestDatabase.Companion.getINSTANCE().userDao().insertUser(user);
+                    PopTip.show("添加成功");
+                }catch(Exception exception){
+                    PopTip.show("添加出错");
+                }
+                return false;
+            }).setCancelButton("取消");
         });
 
         menuButton.setOnClickListener(v->{
@@ -109,12 +128,12 @@ public class UserFragment extends Fragment {
 
         // 侧滑监听
         OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
-            CustomerTest customer;
+            User user;
 
             @Override
             public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("Swipe", "view swiped start: " + pos);
-                customer = list.get(pos);
+                user = list.get(pos);
             }
 
             @Override
@@ -126,12 +145,14 @@ public class UserFragment extends Fragment {
             public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("Swipe", "View Swiped: " + pos);
                 // TODO: 调用Supplier的删除方法
+                TestDatabase.Companion.getINSTANCE().userDao().deleteUser(user);
                 PopTip.show("用户信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
                     @Override
                     public boolean onClick(PopTip baseDialog, View v) {
                         // TODO: 调用Supplier的添加方法重新添加
                         PopTip.show("已撤销删除操作");
-                        adapter.addData(pos,customer);
+                        adapter.addData(pos,user);
+                        TestDatabase.Companion.getINSTANCE().userDao().insertUser(user);
                         return false;
                     }
                 });

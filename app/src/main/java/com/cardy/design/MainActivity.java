@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         TestDatabase database = TestDatabase.Companion.getINSTANCE(this);
         UserDao dao = database.userDao();
         PurchaseOrderDao orderDao = database.purchaseOrderDao();
-//        User user = new User("3180608067","谢嘉迪","3180608067",true);
+//        User user = new User("3180608042","小吴","3180608042",User.Permission_NORMAL);
 //        String nowTime = new Date(System.currentTimeMillis()).toString();
 //        String endTime = new Date(System.currentTimeMillis()).toString();
 //        PurchaseOrder order = new PurchaseOrder("鸦片","SICS210325",200,13250.0,"蓝天种植园",nowTime,
