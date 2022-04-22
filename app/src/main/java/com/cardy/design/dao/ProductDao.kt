@@ -7,13 +7,13 @@ import com.cardy.design.entity.Product
 @Dao
 interface ProductDao {
     @Insert
-    fun insertProduct(vararg product: Product):Long
+    fun insertProduct(vararg product: Product):LongArray
 
     @Update
-    fun updateProduct(vararg product: Product):Long
+    fun updateProduct(vararg product: Product):Int
 
     @Delete
-    fun deleteProduct(vararg product: Product):Long
+    fun deleteProduct(vararg product: Product):Int
 
     @Query("SELECT * FROM product")
     fun getAllProduct(): LiveData<List<Product>>

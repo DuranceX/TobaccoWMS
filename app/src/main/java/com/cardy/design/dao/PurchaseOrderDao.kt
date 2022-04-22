@@ -7,13 +7,13 @@ import com.cardy.design.entity.PurchaseOrder
 @Dao
 interface PurchaseOrderDao {
     @Insert
-    fun insertPurchaseOrder(vararg PurchaseOrder: PurchaseOrder):Long
+    fun insertPurchaseOrder(vararg PurchaseOrder: PurchaseOrder):LongArray
 
     @Update
-    fun updatePurchaseOrder(vararg PurchaseOrder: PurchaseOrder):Long
+    fun updatePurchaseOrder(vararg PurchaseOrder: PurchaseOrder):Int
 
     @Delete
-    fun deletePurchaseOrder(vararg PurchaseOrder: PurchaseOrder):Long
+    fun deletePurchaseOrder(vararg PurchaseOrder: PurchaseOrder):Int
 
     @Query("SELECT * FROM purchase_order ORDER BY" +
             "( CASE WHEN state = '申请中' THEN 0 WHEN state = '已拒绝' THEN 1 WHEN state = '运输中' THEN 2 ELSE 3 END )")

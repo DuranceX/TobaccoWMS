@@ -7,13 +7,13 @@ import com.cardy.design.entity.Material
 @Dao
 interface MaterialDao {
     @Insert
-    fun insertMaterial(vararg material: Material):Long
+    fun insertMaterial(vararg material: Material):LongArray
 
     @Update
-    fun updateMaterial(vararg material: Material):Long
+    fun updateMaterial(vararg material: Material):Int
 
     @Delete
-    fun deleteMaterial(vararg material: Material):Long
+    fun deleteMaterial(vararg material: Material):Int
 
     @Query("SELECT * FROM material")
     fun getAllMaterial(): LiveData<List<Material>>

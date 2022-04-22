@@ -7,13 +7,13 @@ import com.cardy.design.entity.Customer
 @Dao
 interface CustomerDao {
     @Insert
-    fun insertCustomer(vararg customer: Customer):Long
+    fun insertCustomer(vararg customer: Customer):LongArray
 
     @Update
-    fun updateCustomer(vararg customer: Customer):Long
+    fun updateCustomer(vararg customer: Customer):Int
 
     @Delete
-    fun deleteCustomer(vararg customer: Customer):Long
+    fun deleteCustomer(vararg customer: Customer):Int
 
     @Query("SELECT * FROM customer")
     fun getAllCustomer():LiveData<List<Customer>>

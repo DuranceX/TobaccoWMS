@@ -8,8 +8,8 @@ import com.cardy.design.dao.*
 import com.cardy.design.entity.*
 
 @Database(
-    entities = [User::class, Customer::class, Supplier::class, Product::class, Material::class, Inventory::class, PurchaseOrder::class, SaleOrder::class],
-    views = [PurchaseAmount::class, PurchaseCount::class],
+    entities = [User::class,PurchaseOrder::class],
+    views = [],
     version = 1,
     exportSchema = false
 )
@@ -20,7 +20,7 @@ abstract class TestDatabase:RoomDatabase(){
 
         fun getINSTANCE(context: Context):TestDatabase ? {
             if(INSTANCE == null){
-                INSTANCE = Room.databaseBuilder(context,TestDatabase::class.java,"tobacco_database.db").allowMainThreadQueries().build()
+                INSTANCE = Room.databaseBuilder(context,TestDatabase::class.java,"test.db").allowMainThreadQueries().build()
             }
             return INSTANCE
         }
@@ -29,12 +29,5 @@ abstract class TestDatabase:RoomDatabase(){
     }
 
     abstract fun userDao():UserDao
-    abstract fun customerDao():CustomerDao
-    abstract fun supplierDao():SupplierDao
-    abstract fun productDao():ProductDao
-    abstract fun materialDao():MaterialDao
-    abstract fun inventoryDao():InventoryDao
     abstract fun purchaseOrderDao():PurchaseOrderDao
-    abstract fun saleOrderDao():SaleOrderDao
-    abstract fun reportDao():ReportDao
 }
