@@ -37,6 +37,7 @@ public class InventoryListAdapter extends BaseQuickAdapter<InventoryTest, MyInve
         holder.hostCount.setText(String.valueOf(inventory.getHostCount()));
         holder.deliveryCount.setText(String.valueOf(inventory.getDeliveryCount()));
         //if (inventory.getType() == InventoryTest.TYPE_PRODUCT)
+            //设置图片路径
             //holder.image.setImageURI();
     }
 }

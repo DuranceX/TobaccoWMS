@@ -36,6 +36,7 @@ public class InventoryFragment extends Fragment {
         NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.inventoryNavHostFragment);
         NavController controller = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView,controller);
+
         return view;
     }
 }

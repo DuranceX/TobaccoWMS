@@ -16,8 +16,8 @@ data class Supplier(
     @ColumnInfo(name = "priority")
     var priority:Int,
     //供货商头像地址
-    @ColumnInfo(name = "manager_green")
-    var avatar:String,
+    @ColumnInfo(name = "logo")
+    var logo:String,
     //客户主要购买产品
     @ColumnInfo(name = "mainSupply")
     var mainSupply:Array<String>,
@@ -37,7 +37,7 @@ data class Supplier(
         if (name != other.name) return false
         if (address != other.address) return false
         if (priority != other.priority) return false
-        if (avatar != other.avatar) return false
+        if (logo != other.logo) return false
         if (!mainSupply.contentEquals(other.mainSupply)) return false
 
         return true
@@ -47,7 +47,7 @@ data class Supplier(
         var result = name.hashCode()
         result = 31 * result + address.hashCode()
         result = 31 * result + priority
-        result = 31 * result + avatar.hashCode()
+        result = 31 * result + logo.hashCode()
         result = 31 * result + mainSupply.contentHashCode()
         return result
     }

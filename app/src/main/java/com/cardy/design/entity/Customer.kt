@@ -17,8 +17,8 @@ data class Customer(
     @ColumnInfo(name = "priority")
     var priority:Int,
     //客户头像地址
-    @ColumnInfo(name = "manager_green")
-    var avatar: Uri,
+    @ColumnInfo(name = "logo")
+    var logo: String,
     //客户主要购买产品
     @ColumnInfo(name = "mainPurchase")
     var mainPurchase:Array<String>,
@@ -38,7 +38,7 @@ data class Customer(
         if (name != other.name) return false
         if (address != other.address) return false
         if (priority != other.priority) return false
-        if (avatar != other.avatar) return false
+        if (logo != other.logo) return false
         if (!mainPurchase.contentEquals(other.mainPurchase)) return false
 
         return true
@@ -48,7 +48,7 @@ data class Customer(
         var result = name.hashCode()
         result = 31 * result + address.hashCode()
         result = 31 * result + priority
-        result = 31 * result + avatar.hashCode()
+        result = 31 * result + logo.hashCode()
         result = 31 * result + mainPurchase.contentHashCode()
         return result
     }

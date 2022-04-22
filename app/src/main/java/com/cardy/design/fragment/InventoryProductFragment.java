@@ -82,7 +82,7 @@ public class InventoryProductFragment extends Fragment {
             BottomDialog.show("确认送达",new OnBindView<BottomDialog>(R.layout.dialog_inventory_check_product) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
-                    //TODO: 添加“添加”事件
+                    //TODO: 添加“确认”事件
                     Spinner spinner;
                     TextView name,model,customer,count,price,saleDate,calendar;
                     EditText deliveryDate;

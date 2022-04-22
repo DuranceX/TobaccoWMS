@@ -13,9 +13,11 @@ data class Product(
     var name:String,
     //产品型号
     @PrimaryKey
+    @ColumnInfo(name = "model")
     var model:String,
     //产品图片地址
-    var imageUri: Uri,
+    @ColumnInfo(name = "image")
+    var image: String,
     //产品建议价格
     @ColumnInfo(name = "price")
     var price:Float,

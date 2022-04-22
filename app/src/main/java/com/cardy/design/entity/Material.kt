@@ -11,6 +11,7 @@ data class Material(
     var name:String,
     //原料型号
     @PrimaryKey
+    @ColumnInfo(name = "model")
     var model:String,
     //原料参考价格
     @ColumnInfo(name = "price")
