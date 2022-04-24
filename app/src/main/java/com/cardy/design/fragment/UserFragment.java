@@ -29,6 +29,7 @@ import android.widget.Switch;
 import com.cardy.design.R;
 import com.cardy.design.adapter.UserListAdapter;
 import com.cardy.design.entity.User;
+import com.cardy.design.util.diff.UserDiffCallback;
 import com.cardy.design.viewmodel.UserViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
@@ -78,6 +79,7 @@ public class UserFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.getLoadMoreModule().setEnableLoadMore(true);
+        adapter.setDiffCallback(new UserDiffCallback());
 
         //TODO: 看看能不能修复动画
         //TODO: 数据顺序有问题，需要修改代码
@@ -86,6 +88,7 @@ public class UserFragment extends Fragment {
             public void onChanged(List<User> users) {
                 if(adapter.getData().size() == 0)
                     adapter.setNewInstance(users);
+                adapter.setDiffNewData(users);
                 adapter.setList(users);
                 list = users;
             }
@@ -128,47 +131,5 @@ public class UserFragment extends Fragment {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
-
-
-        // 侧滑监听
-        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
-            User user;
-
-            @Override
-            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Test: swipe pos", "view swiped start: " + pos);
-                user = list.get(pos);
-            }
-
-            @Override
-            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "view swiped reset: " + pos);
-            }
-
-            @Override
-            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "View Swiped: " + pos);
-                userViewModel.deleteUser(user);
-                Log.d("Test: deleteUser", user.toString());
-                PopTip.show("用户信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
-                    @Override
-                    public boolean onClick(PopTip baseDialog, View v) {
-                        PopTip.show("已撤销删除操作");
-                        userViewModel.insertUser(user);
-                        return false;
-                    }
-                });
-            }
-
-            @Override
-            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
-                canvas.drawColor(ContextCompat.getColor(getContext(), R.color.background_gray));
-            }
-        };
-
-        adapter.getDraggableModule().setSwipeEnabled(true);
-        adapter.getDraggableModule().setOnItemSwipeListener(onItemSwipeListener);
-        //END即只允许向右滑动
-        adapter.getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
     }
 }

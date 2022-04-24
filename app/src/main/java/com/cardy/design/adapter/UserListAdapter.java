@@ -1,5 +1,7 @@
 package com.cardy.design.adapter;
 
+import android.graphics.Canvas;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -7,12 +9,18 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.entity.User;
 import com.cardy.design.viewmodel.UserViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.chad.library.adapter.base.module.BaseDraggableModule;
 import com.chad.library.adapter.base.module.BaseLoadMoreModule;
 import com.chad.library.adapter.base.module.DraggableModule;
@@ -26,12 +34,13 @@ import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 import java.util.List;
 
 public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> implements DraggableModule, LoadMoreModule {
+    List<User> list;
     public UserListAdapter(int layoutResId, UserViewModel userViewModel) {
         super(layoutResId);
+        list = getData();
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                List<User> list = getData();
                 final EditText[] editTextId = new EditText[1];
                 final EditText[] editTextName = new EditText[1];
                 final EditText[] editTextPassword = new EditText[1];
@@ -72,6 +81,51 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
             }
         });
         addDraggableModule(this);
+
+        // 侧滑监听
+        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+            User user;
+
+            @Override
+            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+                Log.d("Test: swipe pos", "view swiped start: " + pos);
+                user = list.get(pos);
+            }
+
+            @Override
+            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+                Log.d("Swipe", "view swiped reset: " + pos);
+            }
+
+            @Override
+            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+                Log.d("Swipe", "View Swiped: " + pos);
+                userViewModel.deleteUser(user);
+                Log.d("Test: deleteUser", user.toString());
+                PopTip.show("用户信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
+                    @Override
+                    public boolean onClick(PopTip baseDialog, View v) {
+                        PopTip.show("已撤销删除操作");
+                        userViewModel.insertUser(user);
+                        return false;
+                    }
+                });
+            }
+
+            @Override
+            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+                canvas.drawColor(ContextCompat.getColor(getContext(), R.color.background_gray));
+            }
+        };
+
+        getDraggableModule().setSwipeEnabled(true);
+        getDraggableModule().setOnItemSwipeListener(onItemSwipeListener);
+        //END即只允许向右滑动
+        getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
+    }
+
+    public void setList(List<User> list) {
+        this.list = list;
     }
 
     @Override
@@ -83,6 +137,12 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
             holder.avatar.setImageDrawable(getContext().getDrawable(R.drawable.manager_green));
         else
             holder.avatar.setImageDrawable(getContext().getDrawable(R.drawable.normal_blue));
+    }
+
+    @Override
+    public void setNewInstance(@Nullable List<User> list) {
+        super.setNewInstance(list);
+        this.list = list;
     }
 
     @NonNull
