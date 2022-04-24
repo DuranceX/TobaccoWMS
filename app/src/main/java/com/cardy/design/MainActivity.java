@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 //                endTime,"申请中","");
 //        dao.insertUser(user);
 //        orderDao.insertPurchaseOrder(order);
-        Log.d("TestDatabase", String.valueOf(dao.getAllUserNotLive()));
-        Log.d("TestDatabase_order", String.valueOf(orderDao.getAllPurchaseOrder().getValue()));
+//        Log.d("TestDatabase", String.valueOf(dao.getAllUserNotLive()));
+//        Log.d("TestDatabase_order", String.valueOf(orderDao.getAllPurchaseOrder().getValue()));
     }
 }

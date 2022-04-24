@@ -1,36 +1,32 @@
 package com.cardy.design.adapter;
 
-import android.media.Image;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.cardy.design.R;
-import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.entity.User;
-import com.cardy.design.util.TestDatabase;
+import com.cardy.design.viewmodel.UserViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.module.BaseDraggableModule;
+import com.chad.library.adapter.base.module.BaseLoadMoreModule;
 import com.chad.library.adapter.base.module.DraggableModule;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.kongzue.dialogx.dialogs.BottomDialog;
 import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> implements DraggableModule {
-
-    public UserListAdapter(int layoutResId) {
+public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> implements DraggableModule, LoadMoreModule {
+    public UserListAdapter(int layoutResId, UserViewModel userViewModel) {
         super(layoutResId);
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -41,8 +37,7 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
                 final EditText[] editTextPassword = new EditText[1];
                 final Switch[] adminSwitch = new Switch[1];
 
-                BottomDialog.show("修改用户信息",new OnBindView<BottomDialog>(R.layout.dialog_add_user) {
-                    //TODO: 添加”修改“功能
+                BottomDialog.show("修改用户信息", new OnBindView<BottomDialog>(R.layout.dialog_add_user) {
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
                         editTextId[0] = v.findViewById(R.id.editTextId);
@@ -64,11 +59,11 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
                         String password = editTextPassword[0].getText().toString();
                         boolean permission = adminSwitch[0].isChecked();
 
-                        User user = new User(Id,name,password,permission);
-                        try{
-                            TestDatabase.Companion.getINSTANCE().userDao().updateUser(user);
+                        User user = new User(Id, name, password, permission);
+                        try {
+                            userViewModel.updateUser(user);
                             PopTip.show("修改成功");
-                        }catch(Exception exception){
+                        } catch (Exception exception) {
                             PopTip.show("修改信息出错");
                         }
                         return false;
@@ -84,7 +79,7 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
         holder.id.setText(user.getId());
         holder.name.setText(user.getUsername());
         holder.password.setText(user.getPassword());
-        if(user.getPermission())
+        if (user.getPermission())
             holder.avatar.setImageDrawable(getContext().getDrawable(R.drawable.manager_green));
         else
             holder.avatar.setImageDrawable(getContext().getDrawable(R.drawable.normal_blue));
@@ -95,11 +90,18 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
     public BaseDraggableModule addDraggableModule(@NonNull BaseQuickAdapter<?, ?> baseQuickAdapter) {
         return new BaseDraggableModule(baseQuickAdapter);
     }
+
+    @NonNull
+    @Override
+    public BaseLoadMoreModule addLoadMoreModule(@NonNull BaseQuickAdapter<?, ?> baseQuickAdapter) {
+        return new BaseLoadMoreModule(baseQuickAdapter);
+    }
 }
 
-class MyUserViewHolder extends BaseViewHolder{
-    TextView id,name,password;
+class MyUserViewHolder extends BaseViewHolder {
+    TextView id, name, password;
     ImageView avatar;
+
     public MyUserViewHolder(@NonNull View view) {
         super(view);
         id = view.findViewById(R.id.userId);

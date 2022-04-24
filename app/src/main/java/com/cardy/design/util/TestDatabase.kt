@@ -20,7 +20,7 @@ abstract class TestDatabase:RoomDatabase(){
 
         fun getINSTANCE(context: Context):TestDatabase ? {
             if(INSTANCE == null){
-                INSTANCE = Room.databaseBuilder(context,TestDatabase::class.java,"test.db").allowMainThreadQueries().build()
+                INSTANCE = Room.databaseBuilder(context,TestDatabase::class.java,"test.db").build()
             }
             return INSTANCE
         }
