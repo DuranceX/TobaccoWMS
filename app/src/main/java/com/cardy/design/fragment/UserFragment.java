@@ -1,30 +1,22 @@
 package com.cardy.design.fragment;
 
-import android.graphics.Canvas;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Switch;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.adapter.UserListAdapter;
@@ -32,13 +24,10 @@ import com.cardy.design.entity.User;
 import com.cardy.design.util.diff.UserDiffCallback;
 import com.cardy.design.viewmodel.UserViewModel;
 import com.cardy.design.widget.IconFontTextView;
-import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
 import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
-import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
-import java.sql.Array;
 import java.util.List;
 
 public class UserFragment extends Fragment {
@@ -46,7 +35,7 @@ public class UserFragment extends Fragment {
     UserListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
-    IconFontTextView addButton,menuButton;
+    IconFontTextView addButton, menuButton;
     UserViewModel userViewModel;
     List<User> list;
 
@@ -70,7 +59,7 @@ public class UserFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        adapter = new UserListAdapter(R.layout.item_user_information,userViewModel);
+        adapter = new UserListAdapter(R.layout.item_user_information, userViewModel);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.userRecycleview);
         searchView = getView().findViewById(R.id.userSearchView);
@@ -79,27 +68,29 @@ public class UserFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.getLoadMoreModule().setEnableLoadMore(true);
+
+        //设置diffCallback
         adapter.setDiffCallback(new UserDiffCallback());
 
-        //TODO: 看看能不能修复动画
-        //TODO: 数据顺序有问题，需要修改代码
         userViewModel.getAllUserLive().observe(getActivity(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
-                if(adapter.getData().size() == 0)
+                if (adapter.getData().size() == 0)
                     adapter.setNewInstance(users);
+                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                 adapter.setDiffNewData(users);
                 adapter.setList(users);
+                //重写的setList方法更新adapter中的list数据
                 list = users;
             }
         });
 
-        addButton.setOnClickListener(v->{
+        addButton.setOnClickListener(v -> {
             final EditText[] editTextId = new EditText[1];
             final EditText[] editTextName = new EditText[1];
             final EditText[] editTextPassword = new EditText[1];
             final Switch[] adminSwitch = new Switch[1];
-            BottomDialog.show("添加用户",new OnBindView<BottomDialog>(R.layout.dialog_add_user) {
+            BottomDialog.show("添加用户", new OnBindView<BottomDialog>(R.layout.dialog_add_user) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     editTextId[0] = v.findViewById(R.id.editTextId);
@@ -115,19 +106,19 @@ public class UserFragment extends Fragment {
                 String password = editTextPassword[0].getText().toString();
                 boolean permission = adminSwitch[0].isChecked();
 
-                User user = new User(Id,name,password,permission);
-                try{
+                User user = new User(Id, name, password, permission);
+                try {
                     userViewModel.insertUser(user);
                     adapter.addData(user);
                     PopTip.show("添加成功");
-                }catch(Exception exception){
+                } catch (Exception exception) {
                     PopTip.show("添加出错");
                 }
                 return false;
             }).setCancelButton("取消");
         });
 
-        menuButton.setOnClickListener(v->{
+        menuButton.setOnClickListener(v -> {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });

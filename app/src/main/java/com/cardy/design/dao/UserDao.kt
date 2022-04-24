@@ -17,7 +17,4 @@ interface UserDao {
 
     @Query("SELECT * FROM user ORDER BY id")
     fun getAllUser():LiveData<List<User>>
-
-    @Query("SELECT * FROM user")
-    fun getAllUserNotLive():List<User>
 }

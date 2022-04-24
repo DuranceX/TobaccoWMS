@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,9 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.chad.library.adapter.base.module.BaseDraggableModule;
-import com.chad.library.adapter.base.module.BaseLoadMoreModule;
 import com.chad.library.adapter.base.module.DraggableModule;
-import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.kongzue.dialogx.dialogs.BottomDialog;
 import com.kongzue.dialogx.dialogs.PopTip;
@@ -33,8 +30,9 @@ import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
 import java.util.List;
 
-public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> implements DraggableModule, LoadMoreModule {
+public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> implements DraggableModule {
     List<User> list;
+
     public UserListAdapter(int layoutResId, UserViewModel userViewModel) {
         super(layoutResId);
         list = getData();
@@ -102,7 +100,7 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
                 Log.d("Swipe", "View Swiped: " + pos);
                 userViewModel.deleteUser(user);
                 Log.d("Test: deleteUser", user.toString());
-                PopTip.show("用户信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
+                PopTip.show("用户信息已删除", "撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
                     @Override
                     public boolean onClick(PopTip baseDialog, View v) {
                         PopTip.show("已撤销删除操作");
@@ -124,7 +122,23 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
         getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
     }
 
+    /**
+     * 重写setList方法，更新列表数据
+     *
+     * @param list
+     */
     public void setList(List<User> list) {
+        this.list = list;
+    }
+
+    /**
+     * 重写setNewInstance方法，初始化数据时同时更新adapter内部list
+     *
+     * @param list
+     */
+    @Override
+    public void setNewInstance(@Nullable List<User> list) {
+        super.setNewInstance(list);
         this.list = list;
     }
 
@@ -139,22 +153,10 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
             holder.avatar.setImageDrawable(getContext().getDrawable(R.drawable.normal_blue));
     }
 
-    @Override
-    public void setNewInstance(@Nullable List<User> list) {
-        super.setNewInstance(list);
-        this.list = list;
-    }
-
     @NonNull
     @Override
     public BaseDraggableModule addDraggableModule(@NonNull BaseQuickAdapter<?, ?> baseQuickAdapter) {
         return new BaseDraggableModule(baseQuickAdapter);
-    }
-
-    @NonNull
-    @Override
-    public BaseLoadMoreModule addLoadMoreModule(@NonNull BaseQuickAdapter<?, ?> baseQuickAdapter) {
-        return new BaseLoadMoreModule(baseQuickAdapter);
     }
 }
 
