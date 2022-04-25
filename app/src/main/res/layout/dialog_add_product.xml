@@ -217,7 +217,7 @@
         app:layout_constraintGuide_begin="80dp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewProduct"
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline32"

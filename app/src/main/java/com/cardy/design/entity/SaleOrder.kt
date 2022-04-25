@@ -5,12 +5,17 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.sql.Date
 
-
 @Entity(tableName = "sale_order")
 data class SaleOrder(
     //订单号
     @PrimaryKey(autoGenerate = true)
     val orderId:Int=1,
+    //经办人ID
+    @ColumnInfo(name = "userId")
+    var userId:String = "",
+    //经办人名称
+    @ColumnInfo(name = "userName")
+    var userName:String = "",
     //售出产品名称
     @ColumnInfo(name = "productName")
     var productName:String = "",

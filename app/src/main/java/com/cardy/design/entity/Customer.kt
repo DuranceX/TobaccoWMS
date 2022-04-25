@@ -7,22 +7,33 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "customer")
 data class Customer(
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    val id:Int =1,
     //客户名称
-    @PrimaryKey
-    var name:String,
+    @ColumnInfo(name = "name")
+    var name:String="",
     //客户地址
     @ColumnInfo(name = "address")
-    var address:String,
+    var address:String="",
     //客户优先级
     @ColumnInfo(name = "priority")
-    var priority:Int,
+    var priority:Int=3,
     //客户头像地址
     @ColumnInfo(name = "logo")
-    var logo: String,
+    var logo: String="",
     //客户主要购买产品
     @ColumnInfo(name = "mainPurchase")
-    var mainPurchase:String,
+    var mainPurchase:String="",
 ){
+    constructor(name: String,address: String,priority: Int,logo: String,mainPurchase: String):this(){
+        this.name = name
+        this.address = address
+        this.priority = priority
+        this.logo = logo
+        this.mainPurchase = mainPurchase
+    }
+
     companion object{
         const val PRIORITY_HIGH:Int=1
         const val PRIORITY_MIDDLE:Int=2

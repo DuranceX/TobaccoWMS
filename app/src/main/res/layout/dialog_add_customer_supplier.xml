@@ -39,7 +39,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
-        android:id="@+id/editTextAvatar"
+        android:id="@+id/editTextLogo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -116,16 +116,25 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="402dp" />
 
-    <com.ruffian.library.widget.RImageView
-        android:id="@+id/imageView4"
+    <com.lihang.ShadowLayout
         android:layout_width="90dp"
         android:layout_height="90dp"
-        app:corner_radius="45dp"
+        app:hl_cornerRadius="45dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toStartOf="@+id/guideline23"
         app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
-        app:srcCompat="@drawable/avatar_placeholder" />
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <ImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/avatar_placeholder" />
+    </com.lihang.ShadowLayout>
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline22"

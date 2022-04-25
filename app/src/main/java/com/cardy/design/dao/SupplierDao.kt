@@ -15,6 +15,6 @@ interface SupplierDao {
     @Delete
     fun deleteSupplier(vararg supplier: Supplier):Int
 
-    @Query("SELECT * FROM supplier")
+    @Query("SELECT * FROM supplier ORDER BY priority")
     fun getAllSupplier(): LiveData<List<Supplier>>
 }

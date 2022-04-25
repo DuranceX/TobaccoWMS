@@ -12,6 +12,12 @@ data class PurchaseOrder(
     //订单号
         @PrimaryKey(autoGenerate = true)
         val orderId:Int=1,
+    //经办人ID
+        @ColumnInfo(name = "userId")
+        var userId:String = "",
+    //经办人名称
+        @ColumnInfo(name = "userName")
+        var userName:String = "",
     //采购原料名称
         @ColumnInfo(name = "materialName")
         var materialName:String = "",

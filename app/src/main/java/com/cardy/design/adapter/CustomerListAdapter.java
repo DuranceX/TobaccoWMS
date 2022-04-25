@@ -1,6 +1,5 @@
 package com.cardy.design.adapter;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -38,7 +37,7 @@ public class CustomerListAdapter extends BaseQuickAdapter<CustomerTest, MyCustom
                         EditText editTextName,editTextAddress,editTextAvatar;
                         RadioButton radioButtonLow,radioButtonMid,radioButtonHigh;
 
-                        editTextAvatar = v.findViewById(R.id.editTextAvatar);
+                        editTextAvatar = v.findViewById(R.id.editTextLogo);
                         editTextName = v.findViewById(R.id.editTextName);
                         editTextAddress = v.findViewById(R.id.editTextModel);
                         textViewMain = v.findViewById(R.id.textViewMain);

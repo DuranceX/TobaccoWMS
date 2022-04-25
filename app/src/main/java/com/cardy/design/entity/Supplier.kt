@@ -6,22 +6,33 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "supplier")
 data class Supplier(
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    val id:Int = 0,
     //供货商名称
-    @PrimaryKey
-    var name:String,
+    @ColumnInfo(name = "name")
+    var name:String = "",
     //供货商地址
     @ColumnInfo(name = "address")
-    var address:String,
+    var address:String="",
     //供货商优先级
     @ColumnInfo(name = "priority")
-    var priority:Int,
+    var priority:Int=3,
     //供货商头像地址
     @ColumnInfo(name = "logo")
-    var logo:String,
+    var logo:String="",
     //客户主要购买产品
     @ColumnInfo(name = "mainSupply")
-    var mainSupply:String,
+    var mainSupply:String="",
 ){
+    constructor(name: String,address: String,priority: Int,logo: String,mainSupply: String):this(){
+        this.name = name
+        this.address = address
+        this.priority = priority
+        this.logo = logo
+        this.mainSupply = mainSupply
+    }
+
     companion object{
         const val PRIORITY_HIGH:Int=1
         const val PRIORITY_MIDDLE:Int=2

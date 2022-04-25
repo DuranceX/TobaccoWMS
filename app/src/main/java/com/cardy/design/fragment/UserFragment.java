@@ -67,7 +67,7 @@ public class UserFragment extends Fragment {
         menuButton = getView().findViewById(R.id.menuButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-        adapter.getLoadMoreModule().setEnableLoadMore(true);
+        adapter.setEmptyView(R.layout.empty_layout);
 
         //设置diffCallback
         adapter.setDiffCallback(new UserDiffCallback());
@@ -85,6 +85,15 @@ public class UserFragment extends Fragment {
             }
         });
 
+       initAddMethod();
+
+        menuButton.setOnClickListener(v -> {
+            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+    }
+
+    public void initAddMethod(){
         addButton.setOnClickListener(v -> {
             final EditText[] editTextId = new EditText[1];
             final EditText[] editTextName = new EditText[1];
@@ -116,11 +125,6 @@ public class UserFragment extends Fragment {
                 }
                 return false;
             }).setCancelButton("取消");
-        });
-
-        menuButton.setOnClickListener(v -> {
-            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
-            drawerLayout.openDrawer(GravityCompat.START);
         });
     }
 }

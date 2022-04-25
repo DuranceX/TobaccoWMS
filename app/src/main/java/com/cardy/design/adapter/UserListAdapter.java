@@ -32,94 +32,13 @@ import java.util.List;
 
 public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> implements DraggableModule {
     List<User> list;
+    UserViewModel viewModel;
 
     public UserListAdapter(int layoutResId, UserViewModel userViewModel) {
         super(layoutResId);
-        list = getData();
-        this.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                final EditText[] editTextId = new EditText[1];
-                final EditText[] editTextName = new EditText[1];
-                final EditText[] editTextPassword = new EditText[1];
-                final Switch[] adminSwitch = new Switch[1];
-
-                BottomDialog.show("修改用户信息", new OnBindView<BottomDialog>(R.layout.dialog_add_user) {
-                    @Override
-                    public void onBind(BottomDialog dialog, View v) {
-                        editTextId[0] = v.findViewById(R.id.editTextId);
-                        editTextName[0] = v.findViewById(R.id.editTextName);
-                        editTextPassword[0] = v.findViewById(R.id.editTextPassword);
-                        adminSwitch[0] = v.findViewById(R.id.adminSwitch);
-
-                        editTextId[0].setFocusable(false);
-                        editTextId[0].setText(list.get(position).getId());
-                        editTextName[0].setText(list.get(position).getUsername());
-                        editTextPassword[0].setText(list.get(position).getPassword());
-                        adminSwitch[0].setChecked(list.get(position).getPermission());
-                    }
-                }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
-                    @Override
-                    public boolean onClick(BottomDialog baseDialog, View v) {
-                        String Id = editTextId[0].getText().toString();
-                        String name = editTextName[0].getText().toString();
-                        String password = editTextPassword[0].getText().toString();
-                        boolean permission = adminSwitch[0].isChecked();
-
-                        User user = new User(Id, name, password, permission);
-                        try {
-                            userViewModel.updateUser(user);
-                            PopTip.show("修改成功");
-                        } catch (Exception exception) {
-                            PopTip.show("修改信息出错");
-                        }
-                        return false;
-                    }
-                }).setCancelButton("取消");
-            }
-        });
-        addDraggableModule(this);
-
-        // 侧滑监听
-        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
-            User user;
-
-            @Override
-            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Test: swipe pos", "view swiped start: " + pos);
-                user = list.get(pos);
-            }
-
-            @Override
-            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "view swiped reset: " + pos);
-            }
-
-            @Override
-            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "View Swiped: " + pos);
-                userViewModel.deleteUser(user);
-                Log.d("Test: deleteUser", user.toString());
-                PopTip.show("用户信息已删除", "撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
-                    @Override
-                    public boolean onClick(PopTip baseDialog, View v) {
-                        PopTip.show("已撤销删除操作");
-                        userViewModel.insertUser(user);
-                        return false;
-                    }
-                });
-            }
-
-            @Override
-            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
-                canvas.drawColor(ContextCompat.getColor(getContext(), R.color.background_gray));
-            }
-        };
-
-        getDraggableModule().setSwipeEnabled(true);
-        getDraggableModule().setOnItemSwipeListener(onItemSwipeListener);
-        //END即只允许向右滑动
-        getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
+        viewModel = userViewModel;
+        initClickListener();
+        initSwipeListener();
     }
 
     /**
@@ -157,6 +76,101 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
     @Override
     public BaseDraggableModule addDraggableModule(@NonNull BaseQuickAdapter<?, ?> baseQuickAdapter) {
         return new BaseDraggableModule(baseQuickAdapter);
+    }
+
+    /**
+     * 初始化Item的点击事件
+     */
+    public void initClickListener(){
+        this.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                final EditText[] editTextId = new EditText[1];
+                final EditText[] editTextName = new EditText[1];
+                final EditText[] editTextPassword = new EditText[1];
+                final Switch[] adminSwitch = new Switch[1];
+
+                BottomDialog.show("修改用户信息", new OnBindView<BottomDialog>(R.layout.dialog_add_user) {
+                    @Override
+                    public void onBind(BottomDialog dialog, View v) {
+                        editTextId[0] = v.findViewById(R.id.editTextId);
+                        editTextName[0] = v.findViewById(R.id.editTextName);
+                        editTextPassword[0] = v.findViewById(R.id.editTextPassword);
+                        adminSwitch[0] = v.findViewById(R.id.adminSwitch);
+
+                        editTextId[0].setFocusable(false);
+                        editTextId[0].setText(list.get(position).getId());
+                        editTextName[0].setText(list.get(position).getUsername());
+                        editTextPassword[0].setText(list.get(position).getPassword());
+                        adminSwitch[0].setChecked(list.get(position).getPermission());
+                    }
+                }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
+                    @Override
+                    public boolean onClick(BottomDialog baseDialog, View v) {
+                        String Id = editTextId[0].getText().toString();
+                        String name = editTextName[0].getText().toString();
+                        String password = editTextPassword[0].getText().toString();
+                        boolean permission = adminSwitch[0].isChecked();
+
+                        User user = new User(Id, name, password, permission);
+                        try {
+                            viewModel.updateUser(user);
+                            PopTip.show("修改成功");
+                        } catch (Exception exception) {
+                            PopTip.show("修改信息出错");
+                        }
+                        return false;
+                    }
+                }).setCancelButton("取消");
+            }
+        });
+    }
+
+    /**
+     * 初始化Item的侧滑事件
+     */
+    public void initSwipeListener(){
+        addDraggableModule(this);
+        // 侧滑监听
+        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+            User user;
+
+            @Override
+            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+                Log.d("Test: swipe pos", "view swiped start: " + pos);
+                user = list.get(pos);
+            }
+
+            @Override
+            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+                Log.d("Swipe", "view swiped reset: " + pos);
+            }
+
+            @Override
+            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+                Log.d("Swipe", "View Swiped: " + pos);
+                viewModel.deleteUser(user);
+                Log.d("Test: deleteUser", user.toString());
+                PopTip.show("用户信息已删除", "撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
+                    @Override
+                    public boolean onClick(PopTip baseDialog, View v) {
+                        PopTip.show("已撤销删除操作");
+                        viewModel.insertUser(user);
+                        return false;
+                    }
+                });
+            }
+
+            @Override
+            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+                canvas.drawColor(ContextCompat.getColor(getContext(), R.color.background_gray));
+            }
+        };
+
+        getDraggableModule().setSwipeEnabled(true);
+        getDraggableModule().setOnItemSwipeListener(onItemSwipeListener);
+        //END即只允许向右滑动
+        getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
     }
 }
 

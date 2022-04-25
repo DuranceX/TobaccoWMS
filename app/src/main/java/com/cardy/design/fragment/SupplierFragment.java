@@ -1,44 +1,69 @@
 package com.cardy.design.fragment;
 
-import android.graphics.Canvas;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.adapter.SupplierListAdapter;
-import com.cardy.design.entity.CustomerTest;
+import com.cardy.design.entity.Supplier;
+import com.cardy.design.util.diff.SupplierDiffCallback;
+import com.cardy.design.viewmodel.SupplierViewModel;
 import com.cardy.design.widget.IconFontTextView;
-import com.chad.library.adapter.base.listener.OnItemSwipeListener;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
 import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
+import com.ruffian.library.widget.RImageView;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
-//TODO: 将CustomerTest改成Supplier
 public class SupplierFragment extends Fragment {
 
     SupplierListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
-    IconFontTextView addButton,menuButton;
+    IconFontTextView addButton, menuButton;
+    SupplierViewModel viewModel;
+    List<Supplier> list;
+    ActivityResultLauncher<Intent> intentActivityResultLauncher;
+//    final ImageView[] imageViewLogo = new ImageView[1];
+//    final EditText[] editTextLogo = new EditText[1];
+    ImageView imageViewLogo;
+    EditText editTextLogo;
 
     public SupplierFragment() {
         // Required empty public constructor
@@ -47,6 +72,19 @@ public class SupplierFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),new ActivityResultCallback<ActivityResult>(){
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode() == Activity.RESULT_OK) {
+                    Uri uri = result.getData().getData();
+                    if(imageViewLogo!=null && editTextLogo!= null){
+                        Picasso.with(getContext()).load(uri).into(imageViewLogo);
+                        editTextLogo.setText(uri.toString());
+                    }
+                    adapter.setImage(uri);
+                }
+            }
+        });
     }
 
     @Override
@@ -59,7 +97,8 @@ public class SupplierFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new SupplierListAdapter(R.layout.item_supplier_information);
+        viewModel = new ViewModelProvider(this).get(SupplierViewModel.class);
+        adapter = new SupplierListAdapter(R.layout.item_supplier_information, viewModel,intentActivityResultLauncher);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.supplierRecycleview);
         searchView = getView().findViewById(R.id.supplierSearchView);
@@ -67,88 +106,100 @@ public class SupplierFragment extends Fragment {
         menuButton = getView().findViewById(R.id.menuButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        adapter.setEmptyView(R.layout.empty_layout);
 
-        //TODO: 从数据库中获取数据
-        List<CustomerTest> list = new ArrayList<CustomerTest>(5);
-        for (int i = 0; i < 5; i++) {
-            CustomerTest customerTest = new CustomerTest();
-            customerTest.setName("陆玩具有限责任公司");
-            customerTest.setAddress("天河区大信商圈大信南路32号");
-            customerTest.setMainPurchase(new String[]{"烟草","香烟"});
-            list.add(customerTest);
-        }
-        list.get(1).setName("测试有限责任公司");
-        list.get(1).setAddress("测试区测试路32号");
-        list.get(1).setMainPurchase(new String[]{"烟草","香烟","测试产品"});
+        //设置diffCallback
+        adapter.setDiffCallback(new SupplierDiffCallback());
 
-        adapter.setNewInstance(list);
-        adapter.setList(list);
-
-        addButton.setOnClickListener(v->{
-            BottomDialog.show("添加供货商",new OnBindView<BottomDialog>(R.layout.dialog_add_customer_supplier) {
-                @Override
-                public void onBind(BottomDialog dialog, View v) {
-                    //TODO: 添加“添加”事件
-                    TextView textViewNameLabel,textViewAddressLabel,textViewMainLabel,textViewPriorityLabel;
-                    textViewNameLabel = v.findViewById(R.id.textViewNameLabel);
-                    textViewAddressLabel = v.findViewById(R.id.textViewModelLabel);
-                    textViewMainLabel = v.findViewById(R.id.textViewPriceLabel);
-                    textViewPriorityLabel = v.findViewById(R.id.textViewPriorityLabel);
-
-                    //修改界面为供货商
-                    textViewNameLabel.setText("供货商名称：");
-                    textViewAddressLabel.setText("供货商地址：");
-                    textViewMainLabel.setText("主要供货原料：");
-                    textViewPriorityLabel.setText("供货商优先级：");
-                }
-            }).setOkButton("确定").setCancelButton("取消");
+        viewModel.getAllSupplierLive().observe(getActivity(), new Observer<List<Supplier>>() {
+            @Override
+            public void onChanged(List<Supplier> suppliers) {
+                if (adapter.getData().size() == 0)
+                    adapter.setNewInstance(suppliers);
+                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                adapter.setDiffNewData(suppliers);
+                adapter.setList(suppliers);
+                //重写的setList方法更新adapter中的list数据
+                list = suppliers;
+            }
         });
 
-        menuButton.setOnClickListener(v->{
+        initAddMethod();
+
+        menuButton.setOnClickListener(v -> {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
-
-
-        // 侧滑监听
-        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
-            CustomerTest customer;
-
-            @Override
-            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "view swiped start: " + pos);
-                customer = list.get(pos);
-            }
-
-            @Override
-            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "view swiped reset: " + pos);
-            }
-
-            @Override
-            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "View Swiped: " + pos);
-                // TODO: 调用Supplier的删除方法
-                PopTip.show("供货商信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
-                    @Override
-                    public boolean onClick(PopTip baseDialog, View v) {
-                        // TODO: 调用Supplier的添加方法重新添加
-                        PopTip.show("已撤销删除操作");
-                        adapter.addData(pos,customer);
-                        return false;
-                    }
-                });
-            }
-
-            @Override
-            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
-                canvas.drawColor(ContextCompat.getColor(getContext(), R.color.background_gray));
-            }
-        };
-
-        adapter.getDraggableModule().setSwipeEnabled(true);
-        adapter.getDraggableModule().setOnItemSwipeListener(onItemSwipeListener);
-        //END即只允许向右滑动
-        adapter.getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
     }
+
+    public void initAddMethod() {
+        addButton.setOnClickListener(v -> {
+            final TextView[] textViewNameLabel = new TextView[1];
+            final TextView[] textViewAddressLabel = new TextView[1];
+            final TextView[] textViewMainLabel = new TextView[1];
+            final TextView[] textViewPriorityLabel = new TextView[1];
+            final TextView[] textViewMain = new TextView[1];
+            final EditText[] editTextName = new EditText[1];
+            final EditText[] editTextAddress = new EditText[1];
+            final RadioButton[] radioButtonLow = new RadioButton[1];
+            final RadioButton[] radioButtonMid = new RadioButton[1];
+            final RadioButton[] radioButtonHigh = new RadioButton[1];
+            BottomDialog.show("添加供货商", new OnBindView<BottomDialog>(R.layout.dialog_add_customer_supplier) {
+                @Override
+                public void onBind(BottomDialog dialog, View v) {
+                    imageViewLogo = v.findViewById(R.id.imageViewLogo);
+                    textViewNameLabel[0] = v.findViewById(R.id.textViewNameLabel);
+                    textViewAddressLabel[0] = v.findViewById(R.id.textViewModelLabel);
+                    textViewMainLabel[0] = v.findViewById(R.id.textViewPriceLabel);
+                    textViewPriorityLabel[0] = v.findViewById(R.id.textViewPriorityLabel);
+                    editTextLogo = v.findViewById(R.id.editTextLogo);
+                    editTextName[0] = v.findViewById(R.id.editTextName);
+                    editTextAddress[0] = v.findViewById(R.id.editTextModel);
+                    textViewMain[0] = v.findViewById(R.id.textViewMain);
+                    radioButtonLow[0] = v.findViewById(R.id.radioButtonLow);
+                    radioButtonMid[0] = v.findViewById(R.id.radioButtonMid);
+                    radioButtonHigh[0] = v.findViewById(R.id.radioButtonHigh);
+
+                    //修改界面为供货商
+                    textViewNameLabel[0].setText("供货商名称：");
+                    textViewAddressLabel[0].setText("供货商地址：");
+                    textViewMainLabel[0].setText("主要供货原料：");
+                    textViewPriorityLabel[0].setText("供货商优先级：");
+
+                    //添加点击事件
+                    imageViewLogo.setOnClickListener(imageView->{
+                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, null);
+                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                        intentActivityResultLauncher.launch(intent);
+                    });
+                }
+            }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
+                @Override
+                public boolean onClick(BottomDialog baseDialog, View v) {
+                    String name = editTextName[0].getText().toString();
+                    String logo = editTextLogo.getText().toString();
+                    String address = editTextAddress[0].getText().toString();
+                    String main = textViewMain[0].getText().toString();
+                    int priority = 0;
+                    if (radioButtonLow[0].isChecked())
+                        priority = Supplier.PRIORITY_LOW;
+                    else if (radioButtonMid[0].isChecked())
+                        priority = Supplier.PRIORITY_MIDDLE;
+                    else if (radioButtonHigh[0].isChecked())
+                        priority = Supplier.PRIORITY_HIGH;
+
+                    Supplier supplier = new Supplier(name, address, priority, logo, main);
+                    try {
+                        viewModel.insertSupplier(supplier);
+                        PopTip.show("添加成功");
+                    } catch (Exception exception) {
+                        PopTip.show("添加信息出错");
+                    }
+                    return false;
+                }
+            }).setCancelButton("取消");
+        });
+    }
+
+
 }
