@@ -224,6 +224,6 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline23"
         app:layout_constraintStart_toStartOf="@+id/guideline22"
         app:layout_constraintTop_toTopOf="@+id/guideline32"
-        app:srcCompat="@drawable/zhonghua" />
+        app:srcCompat="@drawable/product_placeholder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@ data class Product(
     var image: String,
     //产品建议价格
     @ColumnInfo(name = "price")
-    var price:Float,
+    var price:Double,
     //产品原料
     @ColumnInfo(name = "usedMaterial")
     var usedMaterial:String

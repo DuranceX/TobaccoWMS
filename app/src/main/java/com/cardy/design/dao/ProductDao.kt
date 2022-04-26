@@ -15,6 +15,6 @@ interface ProductDao {
     @Delete
     fun deleteProduct(vararg product: Product):Int
 
-    @Query("SELECT * FROM product")
+    @Query("SELECT * FROM product ORDER BY model")
     fun getAllProduct(): LiveData<List<Product>>
 }

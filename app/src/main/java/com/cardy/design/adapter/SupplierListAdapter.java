@@ -61,14 +61,12 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
         this.launcher = intentActivityResultLauncher;
         initClickListener();
         initSwipeListener();
-        setEmptyView(R.layout.empty_layout);
     }
 
     @Override
     protected void convert(@NonNull MySupplierViewHolder holder, Supplier supplier) {
         try{
             if(!supplier.getLogo().equals("")){
-                Log.d("test:dddddd", "convert: "+supplier.getLogo());
                 Picasso.with(getContext()).load(supplier.getLogo()).into(holder.logo);
             }
             else

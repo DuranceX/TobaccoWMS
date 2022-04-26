@@ -1,8 +1,15 @@
 package com.cardy.design.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -10,25 +17,35 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.cardy.design.R;
 import com.cardy.design.adapter.ProductListAdapter;
 import com.cardy.design.entity.CustomerTest;
+import com.cardy.design.entity.Product;
+import com.cardy.design.entity.Supplier;
+import com.cardy.design.util.diff.ProductDiffCallback;
+import com.cardy.design.util.diff.UserDiffCallback;
+import com.cardy.design.viewmodel.ProductViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
 import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +56,14 @@ public class ProductFragment extends Fragment {
     RecyclerView recyclerView;
     SearchView searchView;
     IconFontTextView addButton,menuButton;
+    ProductViewModel viewModel;
+    List<Product> list;
+    ActivityResultLauncher<Intent> intentActivityResultLauncher;
+
+    EditText editTextName,editTextModel,editTextUsedMaterial,editTextPrice,editTextImagePath;
+    ImageView imageProduct;
+
+    Boolean firstFlag = true;
 
     public ProductFragment() {
         // Required empty public constructor
@@ -48,6 +73,19 @@ public class ProductFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),new ActivityResultCallback<ActivityResult>(){
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode() == Activity.RESULT_OK) {
+                    Uri uri = result.getData().getData();
+                    if(imageProduct!=null && editTextImagePath!= null){
+                        Picasso.with(getContext()).load(uri).into(imageProduct);
+                        editTextImagePath.setText(uri.toString());
+                    }
+                    adapter.setImage(uri);
+                }
+            }
+        });
     }
 
     @Override
@@ -60,7 +98,8 @@ public class ProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new ProductListAdapter(R.layout.item_product_information);
+        viewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+        adapter = new ProductListAdapter(R.layout.item_product_information,viewModel,intentActivityResultLauncher);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.productRecycleview);
         searchView = getView().findViewById(R.id.productSearchView);
@@ -68,83 +107,73 @@ public class ProductFragment extends Fragment {
         menuButton = getView().findViewById(R.id.menuButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        adapter.setEmptyView(R.layout.empty_layout);
 
-        //TODO: 从数据库中获取数据
-        List<CustomerTest> list = new ArrayList<CustomerTest>(5);
-        for (int i = 0; i < 5; i++) {
-            CustomerTest customerTest = new CustomerTest();
-            customerTest.setName("“中华”香烟");
-            customerTest.setAddress("SC20210512");
-            customerTest.setMainPurchase(new String[]{"烟草","香烟"});
-            list.add(customerTest);
-        }
-        list.get(1).setName("”云烟“香烟");
-        list.get(1).setAddress("SC20200123");
-        list.get(1).setMainPurchase(new String[]{"烟草","香烟","测试产品"});
+        //设置diffCallback
+        adapter.setDiffCallback(new ProductDiffCallback());
 
-        adapter.setNewInstance(list);
-        adapter.setList(list);
+        viewModel.getAllSupplierLive().observe(getActivity(), new Observer<List<Product>>() {
+            @Override
+            public void onChanged(List<Product> products) {
+                if (adapter.getData().size() == 0)
+                    adapter.setNewInstance(products);
+                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                adapter.setDiffNewData(products);
+                adapter.setMyList(products);
+
+                //如果是第一次
+                if(firstFlag){
+                    adapter.setList(products);
+                    firstFlag = false;
+                }
+                //重写的setList方法更新adapter中的list数据
+                list = products;
+            }
+        });
 
         addButton.setOnClickListener(v->{
             BottomDialog.show("添加产品",new OnBindView<BottomDialog>(R.layout.dialog_add_product) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
-                    //TODO: 添加“添加”事件
-                    EditText editTextName,editTextModel,editTextUsedMaterial,editTextPrice;
-
+                    imageProduct = v.findViewById(R.id.imageViewProduct);
+                    editTextImagePath = v.findViewById(R.id.editTextImagePath);
                     editTextName = v.findViewById(R.id.editTextName);
                     editTextModel = v.findViewById(R.id.editTextModel);
                     editTextUsedMaterial = v.findViewById(R.id.editTextUsedMaterial);
                     editTextPrice = v.findViewById(R.id.editTextPrice);
+                    editTextModel.setFocusable(true);
+
+                    //添加点击事件
+                    imageProduct.setOnClickListener(imageView->{
+                        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, null);
+                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                        intentActivityResultLauncher.launch(intent);
+                    });
                 }
-            }).setOkButton("确定").setCancelButton("取消");
+            }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
+                @Override
+                public boolean onClick(BottomDialog baseDialog, View v) {
+                    String name = editTextName.getText().toString();
+                    String image = editTextImagePath.getText().toString();
+                    String model = editTextModel.getText().toString();
+                    String usedMaterial = editTextUsedMaterial.getText().toString();
+                    Double price = Double.parseDouble(editTextPrice.getText().toString());
+
+                    Product product = new Product(name,model,image,price,usedMaterial);
+                    try {
+                        viewModel.insertProduct(product);
+                        PopTip.show("添加成功");
+                    } catch (Exception exception) {
+                        PopTip.show("添加出错");
+                    }
+                    return false;
+                }
+            }).setCancelButton("取消");
         });
 
         menuButton.setOnClickListener(v->{
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
-
-
-        // 侧滑监听
-        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
-            CustomerTest customer;
-
-            @Override
-            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "view swiped start: " + pos);
-                customer = list.get(pos);
-            }
-
-            @Override
-            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "view swiped reset: " + pos);
-            }
-
-            @Override
-            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
-                Log.d("Swipe", "View Swiped: " + pos);
-                // TODO: 调用Customer的删除方法
-                PopTip.show("产品信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
-                    @Override
-                    public boolean onClick(PopTip baseDialog, View v) {
-                        // TODO: 调用Customer的添加方法重新添加
-                        PopTip.show("已撤销删除操作");
-                        adapter.addData(pos,customer);
-                        return false;
-                    }
-                });
-            }
-
-            @Override
-            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
-                canvas.drawColor(ContextCompat.getColor(getContext(), R.color.background_gray));
-            }
-        };
-
-        adapter.getDraggableModule().setSwipeEnabled(true);
-        adapter.getDraggableModule().setOnItemSwipeListener(onItemSwipeListener);
-        //END即只允许向右滑动
-        adapter.getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
     }
 }

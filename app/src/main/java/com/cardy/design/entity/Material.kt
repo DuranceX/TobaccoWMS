@@ -15,5 +15,5 @@ data class Material(
     var model:String,
     //原料参考价格
     @ColumnInfo(name = "price")
-    var price:Float
+    var price:Double
 )
