@@ -12,6 +12,7 @@ import com.cardy.design.dao.SupplierDao;
 import com.cardy.design.entity.Product;
 import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.TestDatabase;
+import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
 
@@ -50,7 +51,13 @@ public class ProductViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Product... products) {
-            dao.insertProduct(products);
+            try {
+                dao.insertProduct(products);
+                PopTip.show("添加成功");
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                PopTip.show("添加出错");
+            }
             return null;
         }
     }
@@ -64,7 +71,13 @@ public class ProductViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Product... products) {
-            dao.updateProduct(products);
+            try {
+                dao.updateProduct(products);
+                PopTip.show("修改成功");
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                PopTip.show("修改出错");
+            }
             return null;
         }
     }

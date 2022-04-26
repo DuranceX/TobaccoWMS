@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import com.cardy.design.dao.UserDao;
 import com.cardy.design.entity.User;
 import com.cardy.design.util.TestDatabase;
+import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
 
@@ -50,7 +51,13 @@ public class UserViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(User... users) {
-            dao.insertUser(users);
+            try {
+                dao.insertUser(users);
+                PopTip.show("添加成功");
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                PopTip.show("添加出错");
+            }
             return null;
         }
     }
@@ -64,7 +71,13 @@ public class UserViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(User... users) {
-            dao.updateUser(users);
+            try {
+                dao.updateUser(users);
+                PopTip.show("修改成功");
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                PopTip.show("修改出错");
+            }
             return null;
         }
     }

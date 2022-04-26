@@ -84,7 +84,7 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
      *
      * @param list
      */
-    public void setList(List<Supplier> list) {
+    public void setMyList(List<Supplier> list) {
         this.list = list;
     }
 
@@ -123,7 +123,6 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
                 final RadioButton[] radioButtonMid = new RadioButton[1];
                 final RadioButton[] radioButtonHigh = new RadioButton[1];
                 BottomDialog.show("修改供货商信息", new OnBindView<BottomDialog>(R.layout.dialog_add_customer_supplier) {
-                    //TODO: 添加”修改“功能
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
                         imageViewLogo = v.findViewById(R.id.imageViewLogo);
@@ -188,12 +187,7 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
                             priority = Supplier.PRIORITY_HIGH;
 
                         Supplier supplier = new Supplier(list.get(position).getId(),name, address, priority, logo, main);
-                        try {
-                            viewModel.updateSupplier(supplier);
-                            PopTip.show("修改成功");
-                        } catch (Exception exception) {
-                            PopTip.show("修改信息出错");
-                        }
+                        viewModel.updateSupplier(supplier);
                         return false;
                     }
                 }).setCancelButton("取消");
@@ -202,8 +196,10 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
     }
 
     public void setImage(Uri uri){
-        Picasso.with(getContext()).load(uri).into(imageViewLogo);
-        editTextLogo.setText(uri.toString());
+        if(imageViewLogo!=null && editTextLogo!=null){
+            Picasso.with(getContext()).load(uri).into(imageViewLogo);
+            editTextLogo.setText(uri.toString());
+        }
     }
 
     /**

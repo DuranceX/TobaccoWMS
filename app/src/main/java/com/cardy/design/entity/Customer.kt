@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class Customer(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    val id:Int =1,
+    val id:Int =0,
     //客户名称
     @ColumnInfo(name = "name")
     var name:String="",

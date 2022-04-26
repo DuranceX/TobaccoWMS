@@ -60,10 +60,10 @@ public class SupplierFragment extends Fragment {
     SupplierViewModel viewModel;
     List<Supplier> list;
     ActivityResultLauncher<Intent> intentActivityResultLauncher;
-//    final ImageView[] imageViewLogo = new ImageView[1];
-//    final EditText[] editTextLogo = new EditText[1];
     ImageView imageViewLogo;
     EditText editTextLogo;
+
+    Boolean firstFlag = true;
 
     public SupplierFragment() {
         // Required empty public constructor
@@ -118,8 +118,16 @@ public class SupplierFragment extends Fragment {
                     adapter.setNewInstance(suppliers);
                 //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                 adapter.setDiffNewData(suppliers);
-                adapter.setList(suppliers);
                 //重写的setList方法更新adapter中的list数据
+                adapter.setMyList(suppliers);
+
+                //如果是第一次
+                //通过setList方法来重设数据，使得第一次更换头像后也能刷新显示，而不用从其他界面重新返回才刷新
+                if(firstFlag){
+                    adapter.setList(suppliers);
+                    firstFlag = false;
+                }
+
                 list = suppliers;
             }
         });
@@ -189,12 +197,7 @@ public class SupplierFragment extends Fragment {
                         priority = Supplier.PRIORITY_HIGH;
 
                     Supplier supplier = new Supplier(name, address, priority, logo, main);
-                    try {
-                        viewModel.insertSupplier(supplier);
-                        PopTip.show("添加成功");
-                    } catch (Exception exception) {
-                        PopTip.show("添加信息出错");
-                    }
+                    viewModel.insertSupplier(supplier);
                     return false;
                 }
             }).setCancelButton("取消");

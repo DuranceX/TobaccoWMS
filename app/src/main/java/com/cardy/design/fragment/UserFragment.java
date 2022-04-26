@@ -116,13 +116,7 @@ public class UserFragment extends Fragment {
                 boolean permission = adminSwitch[0].isChecked();
 
                 User user = new User(Id, name, password, permission);
-                try {
-                    userViewModel.insertUser(user);
-                    adapter.addData(user);
-                    PopTip.show("添加成功");
-                } catch (Exception exception) {
-                    PopTip.show("添加出错");
-                }
+                userViewModel.insertUser(user);
                 return false;
             }).setCancelButton("取消");
         });

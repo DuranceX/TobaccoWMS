@@ -76,7 +76,6 @@ public class ProductListAdapter extends BaseQuickAdapter<Product, MyProductViewH
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
                 BottomDialog.show("修改产品信息",new OnBindView<BottomDialog>(R.layout.dialog_add_product) {
-                    //TODO: 添加”修改“功能
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
 
@@ -152,7 +151,6 @@ public class ProductListAdapter extends BaseQuickAdapter<Product, MyProductViewH
                 PopTip.show("产品信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
                     @Override
                     public boolean onClick(PopTip baseDialog, View v) {
-                        // TODO: 调用Customer的添加方法重新添加
                         PopTip.show("已撤销删除操作");
                         viewModel.insertProduct(product);
                         return false;

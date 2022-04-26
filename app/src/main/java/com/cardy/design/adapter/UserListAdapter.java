@@ -113,12 +113,7 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
                         boolean permission = adminSwitch[0].isChecked();
 
                         User user = new User(Id, name, password, permission);
-                        try {
-                            viewModel.updateUser(user);
-                            PopTip.show("修改成功");
-                        } catch (Exception exception) {
-                            PopTip.show("修改信息出错");
-                        }
+                        viewModel.updateUser(user);
                         return false;
                     }
                 }).setCancelButton("取消");
@@ -150,12 +145,11 @@ public class UserListAdapter extends BaseQuickAdapter<User, MyUserViewHolder> im
             public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("Swipe", "View Swiped: " + pos);
                 viewModel.deleteUser(user);
-                Log.d("Test: deleteUser", user.toString());
                 PopTip.show("用户信息已删除", "撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
                     @Override
                     public boolean onClick(PopTip baseDialog, View v) {
-                        PopTip.show("已撤销删除操作");
                         viewModel.insertUser(user);
+                        PopTip.show("已撤销删除操作");
                         return false;
                     }
                 });

@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.cardy.design.dao.SupplierDao;
 import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.TestDatabase;
+import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
 
@@ -49,7 +50,13 @@ public class SupplierViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Supplier... suppliers) {
-            dao.insertSupplier(suppliers);
+            try {
+                dao.insertSupplier(suppliers);
+                PopTip.show("添加成功");
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                PopTip.show("添加出错");
+            }
             return null;
         }
     }
@@ -63,7 +70,13 @@ public class SupplierViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Supplier... suppliers) {
-            dao.updateSupplier(suppliers);
+            try {
+                dao.updateSupplier(suppliers);
+                PopTip.show("修改成功");
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                PopTip.show("修改出错");
+            }
             return null;
         }
     }

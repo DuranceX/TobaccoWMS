@@ -160,12 +160,7 @@ public class ProductFragment extends Fragment {
                     Double price = Double.parseDouble(editTextPrice.getText().toString());
 
                     Product product = new Product(name,model,image,price,usedMaterial);
-                    try {
-                        viewModel.insertProduct(product);
-                        PopTip.show("添加成功");
-                    } catch (Exception exception) {
-                        PopTip.show("添加出错");
-                    }
+                    viewModel.insertProduct(product);
                     return false;
                 }
             }).setCancelButton("取消");

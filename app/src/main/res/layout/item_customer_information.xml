@@ -71,18 +71,23 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
-    <com.ruffian.library.widget.RImageView
-        android:id="@+id/imageView"
-        android:layout_width="63dp"
-        android:layout_height="62dp"
-        android:background="@color/white"
-        android:backgroundTint="@color/white"
-        app:corner_radius="30dp"
+    <com.lihang.ShadowLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:hl_cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline19"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/manager_green" />
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <com.ruffian.library.widget.RImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/avatar_placeholder" />
+    </com.lihang.ShadowLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/address_guideline"
