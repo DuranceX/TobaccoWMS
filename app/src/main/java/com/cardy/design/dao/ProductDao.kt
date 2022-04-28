@@ -2,6 +2,7 @@ package com.cardy.design.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.cardy.design.entity.Material
 import com.cardy.design.entity.Product
 import java.lang.Exception
 import kotlin.jvm.Throws
@@ -21,4 +22,7 @@ interface ProductDao {
 
     @Query("SELECT * FROM product ORDER BY name,model")
     fun getAllProduct(): LiveData<List<Product>>
+
+    @Query("SELECT * FROM product ORDER BY name,model")
+    fun getAllProductNoLive(): List<Product>
 }

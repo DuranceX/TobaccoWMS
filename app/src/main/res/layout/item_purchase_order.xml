@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lihang.ShadowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shadowLayout"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginBottom="@dimen/customer_information_item_margin"
+    app:hl_cornerRadius="@dimen/customer_information_item_margin"
+    app:hl_shadowColor="@color/black_light"
+    app:hl_shadowLimit="5dp"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.lihang.ShadowLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:hl_shadowColor="@color/black_light"
+            app:hl_shadowHiddenLeft="true"
+            app:hl_shadowHiddenRight="true"
+            app:hl_shadowHiddenTop="true"
+            app:hl_shadowLimit="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline63"
+            app:layout_constraintEnd_toStartOf="@+id/guideline64"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="@+id/guideline62"
+            app:layout_constraintTop_toTopOf="@+id/guideline63"
+            app:layout_constraintVertical_bias="0.282">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textViewOrderId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123452"
+                    android:textAppearance="@style/font_family_pingfang_black"
+                    android:textColor="@color/gray"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline69"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline69" />
+
+                <TextView
+                    android:id="@+id/textViewUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="小谢"
+                    android:textAppearance="@style/font_family_pingfang_black"
+                    android:textColor="@color/gray"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline69"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline69" />
+
+                <TextView
+                    android:id="@+id/textViewUserId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="3180608067"
+                    android:textAppearance="@style/font_family_pingfang_black"
+                    android:textColor="@color/gray"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline69"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewUserName"
+                    app:layout_constraintTop_toTopOf="@+id/guideline69" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline69"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.lihang.ShadowLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline62"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05109489" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline63"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline64"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline65"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline66"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline67"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline68"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.78" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline71"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <TextView
+            android:id="@+id/textViewMaterialName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="鸦片"
+            android:textAppearance="@style/font_family_pingfang_black"
+            app:layout_constraintBottom_toTopOf="@+id/guideline65"
+            app:layout_constraintStart_toStartOf="@+id/guideline62"
+            app:layout_constraintTop_toTopOf="@+id/guideline65" />
+
+        <TextView
+            android:id="@+id/textViewMaterialModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SISS12345682"
+            android:textAppearance="@style/font_family_pingfang_black"
+            android:textColor="@color/gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline66"
+            app:layout_constraintStart_toStartOf="@+id/guideline62"
+            app:layout_constraintTop_toTopOf="@+id/guideline66" />
+
+        <TextView
+            android:id="@+id/textViewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="x 50"
+            android:textAppearance="@style/font_family_pingfang_black"
+            android:textColor="@color/gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline66"
+            app:layout_constraintEnd_toStartOf="@+id/guideline64"
+            app:layout_constraintTop_toTopOf="@+id/guideline66" />
+
+        <TextView
+            android:id="@+id/textViewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥20020"
+            android:textAppearance="@style/font_family_pingfang_black"
+            app:layout_constraintBottom_toTopOf="@+id/guideline65"
+            app:layout_constraintEnd_toStartOf="@+id/guideline64"
+            app:layout_constraintTop_toTopOf="@+id/guideline65" />
+
+        <TextView
+            android:id="@+id/textViewSupplier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="蓝天种植园"
+            android:textAppearance="@style/font_family_pingfang_black"
+            app:layout_constraintBottom_toTopOf="@+id/guideline67"
+            app:layout_constraintEnd_toStartOf="@+id/guideline64"
+            app:layout_constraintTop_toTopOf="@+id/guideline67" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/purchase_order_fragment_order_purchase_date"
+            android:textAppearance="@style/font_family_pingfang_black"
+            android:textColor="@color/gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline68"
+            app:layout_constraintStart_toStartOf="@+id/guideline62"
+            app:layout_constraintTop_toTopOf="@+id/guideline68" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/purchase_order_fragment_order_delivery_date"
+            android:textAppearance="@style/font_family_pingfang_black"
+            android:textColor="@color/gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline68"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDeliveryDate"
+            app:layout_constraintTop_toTopOf="@+id/guideline68" />
+
+        <TextView
+            android:id="@+id/textViewPurchaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2021-03-13"
+            android:textAppearance="@style/font_family_pingfang_gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline68"
+            app:layout_constraintStart_toEndOf="@+id/textView21"
+            app:layout_constraintTop_toTopOf="@+id/guideline68" />
+
+        <TextView
+            android:id="@+id/textViewComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:text="太贵了啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊大苏打大大"
+            android:textAppearance="@style/font_family_pingfang_gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline71"
+            app:layout_constraintEnd_toStartOf="@+id/guideline64"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintTop_toTopOf="@+id/guideline71" />
+
+        <TextView
+            android:id="@+id/textViewDeliveryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minEms="4"
+            android:text="2022-05-23"
+            android:textAppearance="@style/font_family_pingfang_gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline68"
+            app:layout_constraintEnd_toStartOf="@+id/guideline64"
+            app:layout_constraintTop_toTopOf="@+id/guideline68" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/purchase_order_fragment_order_state"
+            android:textAppearance="@style/font_family_pingfang_gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline70"
+            app:layout_constraintStart_toStartOf="@+id/guideline62"
+            app:layout_constraintTop_toTopOf="@+id/guideline70" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/purchase_order_fragment_order_comment"
+            android:textAppearance="@style/font_family_pingfang_gray"
+            app:layout_constraintBottom_toTopOf="@+id/guideline71"
+            app:layout_constraintStart_toStartOf="@+id/guideline62"
+            app:layout_constraintTop_toTopOf="@+id/guideline71" />
+
+        <com.lihang.ShadowLayout
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            app:hl_cornerRadius="@dimen/customer_information_item_margin"
+            app:layout_constraintBottom_toTopOf="@+id/guideline70"
+            app:layout_constraintStart_toEndOf="@+id/textView25"
+            app:layout_constraintTop_toTopOf="@+id/guideline70">
+
+            <TextView
+                android:id="@+id/textViewState"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/orange_trans"
+                android:gravity="center"
+                android:text="申请中"
+                android:textAppearance="@style/font_family_pingfang_black"
+                android:textColor="@color/orange"
+                android:textSize="12sp"
+                tools:ignore="TextContrastCheck" />
+        </com.lihang.ShadowLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.lihang.ShadowLayout>

@@ -9,7 +9,7 @@ import java.sql.Date
 data class SaleOrder(
     //订单号
     @PrimaryKey(autoGenerate = true)
-    val orderId:Int=1,
+    val orderId:Int=0,
     //经办人ID
     @ColumnInfo(name = "userId")
     var userId:String = "",

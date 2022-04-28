@@ -41,6 +41,10 @@ public class SupplierViewModel extends AndroidViewModel {
         return listLive;
     }
 
+    public List<String> getNameList(){
+        return supplierDao.getSupplierNameList();
+    }
+
     static class InsertAsyncTask extends AsyncTask<Supplier, Void, Void> {
         private SupplierDao dao;
 

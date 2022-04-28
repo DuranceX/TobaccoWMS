@@ -22,7 +22,7 @@ public class ProductViewModel extends AndroidViewModel {
 
     public ProductViewModel(@NonNull Application application) {
         super(application);
-        dao = TestDatabase.Companion.getINSTANCE().productDao();
+        dao = TestDatabase.Companion.getINSTANCE(application).productDao();
         listLive = dao.getAllProduct();
     }
 
@@ -38,7 +38,7 @@ public class ProductViewModel extends AndroidViewModel {
         new ProductViewModel.DeleteAsyncTask(dao).execute(products);
     }
 
-    public LiveData<List<Product>> getAllSupplierLive() {
+    public LiveData<List<Product>> getAllProductLive() {
         return listLive;
     }
 

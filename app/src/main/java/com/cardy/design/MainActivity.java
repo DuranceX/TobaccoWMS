@@ -1,5 +1,9 @@
 package com.cardy.design;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
@@ -8,9 +12,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -27,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    ActivityResultLauncher<Intent> intentActivityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +50,27 @@ public class MainActivity extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        TestDatabase database = TestDatabase.Companion.getINSTANCE(this);
-        UserDao dao = database.userDao();
-        PurchaseOrderDao orderDao = database.purchaseOrderDao();
-//        User user = new User("3180608042","小吴","3180608042",User.Permission_NORMAL);
-//        String nowTime = new Date(System.currentTimeMillis()).toString();
-//        String endTime = new Date(System.currentTimeMillis()).toString();
-//        PurchaseOrder order = new PurchaseOrder("鸦片","SICS210325",200,13250.0,"蓝天种植园",nowTime,
-//                endTime,"申请中","");
-//        dao.insertUser(user);
-//        orderDao.insertPurchaseOrder(order);
-//        Log.d("TestDatabase", String.valueOf(dao.getAllUserNotLive()));
-//        Log.d("TestDatabase_order", String.valueOf(orderDao.getAllPurchaseOrder().getValue()));
+        intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+                    if(Environment.isExternalStorageManager()){}
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            if(Environment.isExternalStorageManager()){
+
+            }else{
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:"+getPackageName()));
+                intentActivityResultLauncher.launch(intent);
+            }
+        }
     }
 }

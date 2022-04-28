@@ -2,28 +2,9 @@ package com.cardy.design.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,27 +13,34 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.adapter.CustomerListAdapter;
 import com.cardy.design.entity.Customer;
-import com.cardy.design.entity.CustomerTest;
-import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.diff.CustomerDIffCallback;
 import com.cardy.design.viewmodel.CustomerViewModel;
 import com.cardy.design.widget.IconFontTextView;
-import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
-//TODO: 将CustomerTest改成Customer
 public class CustomerFragment extends Fragment {
 
     CustomerListAdapter adapter;
@@ -60,7 +48,6 @@ public class CustomerFragment extends Fragment {
     SearchView searchView;
     IconFontTextView addButton,menuButton;
     CustomerViewModel viewModel;
-    List<Customer> list;
     ActivityResultLauncher<Intent> intentActivityResultLauncher;
 
     ImageView imageViewLogo;
@@ -129,8 +116,6 @@ public class CustomerFragment extends Fragment {
                     adapter.setList(customers);
                     firstFlag = false;
                 }
-
-                list = customers;
             }
         });
 

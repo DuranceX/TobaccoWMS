@@ -37,7 +37,6 @@ public class UserFragment extends Fragment {
     SearchView searchView;
     IconFontTextView addButton, menuButton;
     UserViewModel userViewModel;
-    List<User> list;
 
     public UserFragment() {
         // Required empty public constructor
@@ -80,8 +79,6 @@ public class UserFragment extends Fragment {
                 //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                 adapter.setDiffNewData(users);
                 adapter.setList(users);
-                //重写的setList方法更新adapter中的list数据
-                list = users;
             }
         });
 

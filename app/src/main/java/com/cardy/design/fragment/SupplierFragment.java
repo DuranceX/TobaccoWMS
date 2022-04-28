@@ -58,7 +58,6 @@ public class SupplierFragment extends Fragment {
     SearchView searchView;
     IconFontTextView addButton, menuButton;
     SupplierViewModel viewModel;
-    List<Supplier> list;
     ActivityResultLauncher<Intent> intentActivityResultLauncher;
     ImageView imageViewLogo;
     EditText editTextLogo;
@@ -127,8 +126,6 @@ public class SupplierFragment extends Fragment {
                     adapter.setList(suppliers);
                     firstFlag = false;
                 }
-
-                list = suppliers;
             }
         });
 

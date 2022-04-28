@@ -57,7 +57,6 @@ public class ProductFragment extends Fragment {
     SearchView searchView;
     IconFontTextView addButton,menuButton;
     ProductViewModel viewModel;
-    List<Product> list;
     ActivityResultLauncher<Intent> intentActivityResultLauncher;
 
     EditText editTextName,editTextModel,editTextUsedMaterial,editTextPrice,editTextImagePath;
@@ -112,7 +111,7 @@ public class ProductFragment extends Fragment {
         //设置diffCallback
         adapter.setDiffCallback(new ProductDiffCallback());
 
-        viewModel.getAllSupplierLive().observe(getActivity(), new Observer<List<Product>>() {
+        viewModel.getAllProductLive().observe(getActivity(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
                 if (adapter.getData().size() == 0)
@@ -126,8 +125,6 @@ public class ProductFragment extends Fragment {
                     adapter.setList(products);
                     firstFlag = false;
                 }
-                //重写的setList方法更新adapter中的list数据
-                list = products;
             }
         });
 

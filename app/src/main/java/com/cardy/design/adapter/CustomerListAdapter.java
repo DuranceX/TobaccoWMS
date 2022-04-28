@@ -94,7 +94,6 @@ public class CustomerListAdapter extends BaseQuickAdapter<Customer, MyCustomerVi
                 final RadioButton[] radioButtonMid = new RadioButton[1];
                 final RadioButton[] radioButtonHigh = new RadioButton[1];
                 BottomDialog.show("修改客户信息",new OnBindView<BottomDialog>(R.layout.dialog_add_customer_supplier) {
-                    //TODO: 添加”修改“功能
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
                         imageViewLogo = v.findViewById(R.id.imageViewLogo);
@@ -181,7 +180,6 @@ public class CustomerListAdapter extends BaseQuickAdapter<Customer, MyCustomerVi
                 PopTip.show("客户信息已删除","撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
                     @Override
                     public boolean onClick(PopTip baseDialog, View v) {
-                        // TODO: 调用Customer的添加方法重新添加
                         PopTip.show("已撤销删除操作");
                         viewModel.insertCustomer(customer);
                         return false;

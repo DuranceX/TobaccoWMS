@@ -2,6 +2,8 @@ package com.cardy.design.viewmodel;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -35,6 +37,18 @@ public class MaterialViewModel extends AndroidViewModel{
 
     public void deleteMaterial(Material... materials){
         new MaterialViewModel.DeleteAsyncTask(dao).execute(materials);
+    }
+
+    public List<String> getMaterialNameList(){
+        return dao.getMaterialNameList();
+    }
+
+    public List<String> getMaterialModelListByName(String name){
+        return dao.getMaterialModelListByName(name);
+    }
+
+    public Double getPriceByModel(String model){
+        return dao.getPriceByModel(model);
     }
 
     public LiveData<List<Material>> getAllMaterialsLive(){

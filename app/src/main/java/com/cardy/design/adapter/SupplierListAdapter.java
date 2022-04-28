@@ -229,7 +229,6 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
                 PopTip.show("供货商信息已删除", "撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
                     @Override
                     public boolean onClick(PopTip baseDialog, View v) {
-                        // TODO: 调用Supplier的添加方法重新添加
                         PopTip.show("已撤销删除操作");
                         viewModel.insertSupplier(supplier);
                         return false;

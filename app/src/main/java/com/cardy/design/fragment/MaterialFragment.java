@@ -44,7 +44,6 @@ public class MaterialFragment extends Fragment {
     SearchView searchView;
     IconFontTextView addButton,menuButton;
     MaterialViewModel viewModel;
-    List<Material> list;
 
     EditText editTextName,editTextModel,editTextPrice;
 
@@ -89,8 +88,6 @@ public class MaterialFragment extends Fragment {
                 //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                 adapter.setDiffNewData(materials);
                 adapter.setMyList(materials);
-                //重写的setList方法更新adapter中的list数据
-                list = materials;
             }
         });
 

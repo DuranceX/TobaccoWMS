@@ -9,6 +9,18 @@
         <item name="fontFamily">@font/pingfang</item>
     </style>
 
+    <style name="font_family_pingfang_black">
+        <item name="fontFamily">@font/pingfang</item>
+        <item name="android:textColor">@color/black_light</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="font_family_pingfang_gray">
+        <item name="fontFamily">@font/pingfang</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="fragment_title">
         <item name="fontFamily">@font/pingfang</item>
         <item name="android:textSize">30sp</item>

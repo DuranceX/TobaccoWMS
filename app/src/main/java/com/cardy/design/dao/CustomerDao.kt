@@ -21,4 +21,7 @@ interface CustomerDao {
 
     @Query("SELECT * FROM customer ORDER BY priority,name")
     fun getAllCustomer():LiveData<List<Customer>>
+
+    @Query("SELECT name FROM customer")
+    fun getCustomerNameList():List<String>
 }
