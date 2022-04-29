@@ -38,6 +38,18 @@ public class ProductViewModel extends AndroidViewModel {
         new ProductViewModel.DeleteAsyncTask(dao).execute(products);
     }
 
+    public List<String> getProductNameList(){
+        return dao.getProductNameList();
+    }
+
+    public List<String> getProductModelListByName(String name){
+        return dao.getProductModelListByName(name);
+    }
+
+    public Double getPriceByModel(String model){
+        return dao.getProductByModel(model);
+    }
+
     public LiveData<List<Product>> getAllProductLive() {
         return listLive;
     }

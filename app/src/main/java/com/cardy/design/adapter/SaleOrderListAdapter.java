@@ -21,10 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.entity.PurchaseOrder;
-import com.cardy.design.entity.User;
-import com.cardy.design.viewmodel.MaterialViewModel;
-import com.cardy.design.viewmodel.PurchaseOrderViewModel;
-import com.cardy.design.viewmodel.SupplierViewModel;
+import com.cardy.design.entity.SaleOrder;
+import com.cardy.design.viewmodel.CustomerViewModel;
+import com.cardy.design.viewmodel.ProductViewModel;
+import com.cardy.design.viewmodel.SaleOrderViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -37,46 +37,44 @@ import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, MyPurchaseOrderViewHolder> implements DraggableModule {
-    List<PurchaseOrder> list;
-    PurchaseOrderViewModel viewModel;
-    MaterialViewModel materialViewModel;
-    SupplierViewModel supplierViewModel;
+public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrderViewHolder> implements DraggableModule {
+    List<SaleOrder> list;
+    SaleOrderViewModel viewModel;
+    ProductViewModel productViewModel;
+    CustomerViewModel customerViewModel;
 
-    TextView tvUserId, tvUserName, tvPurchaseDate;
+    TextView tvUserId, tvUserName, tvSaleDate;
     IconFontTextView tvCalendarButton;
-    Spinner spinnerName, spinnerModel, spinnerSupplier;
+    Spinner spinnerName, spinnerModel, spinnerCustomer;
     EditText etPrice, etCount, etDeliveryDate, etComment;
-    List<String> supplierList = new ArrayList<>();
-    List<String> materialNameList = new ArrayList<>();
-    List<String> materialModelList = new ArrayList<>();
+    List<String> customerList = new ArrayList<>();
+    List<String> productNameList = new ArrayList<>();
+    List<String> productModelList = new ArrayList<>();
 
     LocalDate date = LocalDate.now();
 
-    public PurchaseOrderListAdapter(int layoutResId,PurchaseOrderViewModel viewModel,MaterialViewModel materialViewModel, SupplierViewModel supplierViewModel) {
+    public SaleOrderListAdapter(int layoutResId, SaleOrderViewModel viewModel, ProductViewModel productViewModel, CustomerViewModel customerViewModel) {
         super(layoutResId);
         this.viewModel = viewModel;
-        this.materialViewModel = materialViewModel;
-        this.supplierViewModel = supplierViewModel;
+        this.productViewModel = productViewModel;
+        this.customerViewModel = customerViewModel;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                materialNameList = materialViewModel.getMaterialNameList();
+                productNameList = productViewModel.getProductNameList();
             }
         }).start();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                supplierList = supplierViewModel.getNameList();
+                customerList = customerViewModel.getNameList();
             }
         }).start();
         initClickListener();
@@ -84,31 +82,31 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
     }
 
     @Override
-    protected void convert(@NonNull MyPurchaseOrderViewHolder holder, PurchaseOrder order) {
+    protected void convert(@NonNull MySaleOrderViewHolder holder, SaleOrder order) {
         holder.orderId.setText(String.valueOf(order.getOrderId()));
         holder.userId.setText(order.getUserId());
         holder.userName.setText(order.getUserName());
-        holder.materialName.setText(order.getMaterialName());
-        holder.materialModel.setText(order.getMaterialModel());
+        holder.productName.setText(order.getProductName());
+        holder.productModel.setText(order.getProductModel());
         holder.count.setText("x" + String.valueOf(order.getCount()));
         holder.price.setText("￥" + String.valueOf(order.getPrice()));
-        holder.purchaseDate.setText(order.getPurchaseDate());
+        holder.saleDate.setText(order.getSaleDate());
         holder.deliveryDate.setText(order.getDeliveryDate());
         holder.comment.setText(order.getComment());
-        holder.supplier.setText(order.getSupplier());
-        if(order.getState().equals(PurchaseOrder.STATE_REQUEST)){
+        holder.customer.setText(order.getCustomer());
+        if (order.getState().equals(PurchaseOrder.STATE_REQUEST)) {
             holder.state.setBackgroundColor(getContext().getColor(R.color.orange_trans));
             holder.state.setTextColor(getContext().getColor(R.color.orange));
             holder.state.setText(PurchaseOrder.STATE_REQUEST);
-        }else if(order.getState().equals(PurchaseOrder.STATE_DELIVERY)){
+        } else if (order.getState().equals(PurchaseOrder.STATE_DELIVERY)) {
             holder.state.setBackgroundColor(getContext().getColor(R.color.blue_trans));
             holder.state.setTextColor(getContext().getColor(R.color.blue_light));
             holder.state.setText(PurchaseOrder.STATE_DELIVERY);
-        }else if(order.getState().equals(PurchaseOrder.STATE_REFUSED)){
+        } else if (order.getState().equals(PurchaseOrder.STATE_REFUSED)) {
             holder.state.setBackgroundColor(getContext().getColor(R.color.red_trans));
             holder.state.setTextColor(getContext().getColor(R.color.red));
             holder.state.setText(PurchaseOrder.STATE_REFUSED);
-        }else{
+        } else {
             holder.state.setBackgroundColor(getContext().getColor(R.color.green_trans));
             holder.state.setTextColor(getContext().getColor(R.color.green_soft));
             holder.state.setText(PurchaseOrder.STATE_COMPLETE);
@@ -121,83 +119,95 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
         return new BaseDraggableModule(baseQuickAdapter);
     }
 
-    public void initClickListener(){
+    @Override
+    public void setNewInstance(@Nullable List<SaleOrder> list) {
+        super.setNewInstance(list);
+        this.list = list;
+    }
+
+    public void setMyList(List<SaleOrder> list) {
+        this.list = list;
+    }
+
+    public void initClickListener() {
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                BottomDialog.show("修改采购订单",new OnBindView<BottomDialog>(R.layout.dialog_add_purchase_order) {
+                BottomDialog.show("修改销售订单", new OnBindView<BottomDialog>(R.layout.dialog_add_sale_order) {
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
                         tvUserId = v.findViewById(R.id.textViewUserId);
                         tvUserName = v.findViewById(R.id.textViewUserName);
-                        tvPurchaseDate = v.findViewById(R.id.textViewPurchaseDate);
+                        tvSaleDate = v.findViewById(R.id.textViewSaleDate);
                         tvCalendarButton = v.findViewById(R.id.calendarButton);
                         spinnerName = v.findViewById(R.id.spinnerName);
                         spinnerModel = v.findViewById(R.id.spinnerModel);
-                        spinnerSupplier = v.findViewById(R.id.spinnerSupplier);
+                        spinnerCustomer = v.findViewById(R.id.spinnerCustomer);
                         etPrice = v.findViewById(R.id.editTextPrice);
                         etCount = v.findViewById(R.id.editTextCount);
                         etDeliveryDate = v.findViewById(R.id.editTextDeliveryDate);
                         etComment = v.findViewById(R.id.editTextComment);
 
-                        PurchaseOrder order = list.get(position);
+                        SaleOrder order = list.get(position);
                         tvUserId.setText(order.getUserId());
                         tvUserName.setText(order.getUserName());
-                        tvPurchaseDate.setText(order.getPurchaseDate());
+                        tvSaleDate.setText(order.getSaleDate());
                         etPrice.setText(String.valueOf(order.getPrice()));
                         etCount.setText(String.valueOf(order.getCount()));
                         etDeliveryDate.setText(order.getDeliveryDate());
                         etComment.setText(order.getComment());
 
                         //下拉框相关初始化
-                        ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,materialNameList);
-                        ArrayAdapter<String> supplierAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,supplierList);
+                        ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, productNameList);
+                        ArrayAdapter<String> supplierAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, customerList);
                         spinnerName.setAdapter(nameAdapter);
-                        spinnerSupplier.setAdapter(supplierAdapter);
-                        String name = order.getMaterialName();
-                        String model = order.getMaterialModel();
-                        String supplier = order.getSupplier();
-                        spinnerName.setSelection(materialNameList.indexOf(name));
-                        spinnerSupplier.setSelection(supplierList.indexOf(supplier));
+                        spinnerCustomer.setAdapter(supplierAdapter);
+                        String name = order.getProductName();
+                        String model = order.getProductModel();
+                        String supplier = order.getCustomer();
+                        spinnerName.setSelection(productNameList.indexOf(name));
+                        spinnerCustomer.setSelection(customerList.indexOf(supplier));
                         spinnerName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                materialModelList.clear();
+                                productModelList.clear();
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
                                         String name = spinnerName.getSelectedItem().toString();
-                                        materialModelList = materialViewModel.getMaterialModelListByName(name);
-                                        ArrayAdapter<String> modelAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,materialModelList);
+                                        productModelList = productViewModel.getProductModelListByName(name);
+                                        ArrayAdapter<String> modelAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, productModelList);
                                         spinnerModel.setAdapter(modelAdapter);
-                                        spinnerModel.setSelection(materialModelList.indexOf(model));
+                                        spinnerModel.setSelection(productModelList.indexOf(model));
                                     }
                                 }).start();
                             }
+
                             @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) { }
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+                            }
                         });
 
                         //日期相关初始化
-                        tvPurchaseDate.setText(order.getPurchaseDate());
+                        tvSaleDate.setText(order.getSaleDate());
                         etDeliveryDate.setText(order.getDeliveryDate());
-                        if(!order.getDeliveryDate().equals("")) {
+                        if (!order.getDeliveryDate().equals("")) {
                             date = LocalDate.parse(order.getDeliveryDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                         }
-                        tvCalendarButton.setOnClickListener(v1->{
-                            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),new DatePickerDialog.OnDateSetListener() {
+                        tvCalendarButton.setOnClickListener(v1 -> {
+                            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                    date = LocalDate.of(year,month+1,day);
+                                    date = LocalDate.of(year, month + 1, day);
                                     int monthValue = date.getMonthValue();
-                                    String dateString="";
-                                    if(monthValue<10)
+                                    String dateString = "";
+                                    if (monthValue < 10)
                                         dateString = date.getYear() + "-0" + date.getMonthValue() + "-" + date.getDayOfMonth();
                                     else
                                         dateString = date.getYear() + "-" + date.getMonthValue() + "-" + date.getDayOfMonth();
                                     etDeliveryDate.setText(dateString);
                                 }
-                            },date.getYear(),date.getMonthValue()-1,date.getDayOfMonth());
+                            }, date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
                             datePickerDialog.show();
                         });
                     }
@@ -206,15 +216,15 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
                     public boolean onClick(BottomDialog baseDialog, View v) {
                         String userId = tvUserId.getText().toString();
                         String userName = tvUserName.getText().toString();
-                        String purchaseDate = tvPurchaseDate.getText().toString();
+                        String saleDate = tvSaleDate.getText().toString();
                         String name = spinnerName.getSelectedItem().toString();
                         String model = spinnerModel.getSelectedItem().toString();
-                        String supplier = spinnerSupplier.getSelectedItem().toString();
+                        String customer = spinnerCustomer.getSelectedItem().toString();
                         Double price = Double.valueOf(etPrice.getText().toString());
                         int count = Integer.parseInt(etCount.getText().toString());
                         String deliveryDate = etDeliveryDate.getText().toString();
-                        PurchaseOrder order = new PurchaseOrder(list.get(position).getOrderId(),userId,userName,name,model,count,price,supplier,purchaseDate,deliveryDate,PurchaseOrder.STATE_REQUEST,"");
-                        viewModel.updatePurchaseOrder(order);
+                        SaleOrder order = new SaleOrder(list.get(position).getOrderId(), userId, userName, name, model, count, price, customer, saleDate, deliveryDate, PurchaseOrder.STATE_REQUEST, "");
+                        viewModel.updateSaleOrder(order);
                         return false;
                     }
                 }).setCancelButton("取消");
@@ -222,11 +232,11 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
         });
     }
 
-    public void initSwipeListener(){
+    public void initSwipeListener() {
         addDraggableModule(this);
         // 侧滑监听
         OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
-            PurchaseOrder order;
+            SaleOrder order;
 
             @Override
             public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
@@ -242,11 +252,11 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
             @Override
             public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
                 Log.d("Swipe", "View Swiped: " + pos);
-                viewModel.deletePurchaseOrder(order);
-                PopTip.show("采购订单已删除", "撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
+                viewModel.deleteSaleOrder(order);
+                PopTip.show("销售订单已删除", "撤回").setOnButtonClickListener(new OnDialogButtonClickListener<PopTip>() {
                     @Override
                     public boolean onClick(PopTip baseDialog, View v) {
-                        viewModel.insertPurchaseOrder(order);
+                        viewModel.insertSaleOrder(order);
                         PopTip.show("已撤销删除操作");
                         return false;
                     }
@@ -264,34 +274,24 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
         //END即只允许向右滑动
         getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
     }
-
-    @Override
-    public void setNewInstance(@Nullable List<PurchaseOrder> list) {
-        super.setNewInstance(list);
-        this.list = list;
-    }
-
-    public void setMyList(List<PurchaseOrder> list){
-        this.list = list;
-    }
 }
 
-class MyPurchaseOrderViewHolder extends BaseViewHolder{
-    TextView orderId,userId,userName,materialName,materialModel,price,count,supplier,purchaseDate,deliveryDate,state,comment;
-    public MyPurchaseOrderViewHolder(@NonNull View view) {
+class MySaleOrderViewHolder extends BaseViewHolder {
+    TextView orderId, userId, userName, productName, productModel, price, count, customer, saleDate, deliveryDate, state, comment;
+
+    public MySaleOrderViewHolder(@NonNull View view) {
         super(view);
         orderId = view.findViewById(R.id.textViewOrderId);
         userId = view.findViewById(R.id.textViewUserId);
         userName = view.findViewById(R.id.textViewUserName);
-        materialName = view.findViewById(R.id.textViewMaterialName);
-        materialModel = view.findViewById(R.id.textViewMaterialModel);
+        productName = view.findViewById(R.id.textViewProductName);
+        productModel = view.findViewById(R.id.textViewProductModel);
         price = view.findViewById(R.id.textViewPrice);
         count = view.findViewById(R.id.textViewCount);
-        supplier = view.findViewById(R.id.textViewSupplier);
-        purchaseDate = view.findViewById(R.id.textViewPurchaseDate);
+        customer = view.findViewById(R.id.textViewCustomer);
+        saleDate = view.findViewById(R.id.textViewSaleDate);
         deliveryDate = view.findViewById(R.id.textViewDeliveryDate);
         state = view.findViewById(R.id.textViewState);
         comment = view.findViewById(R.id.textViewComment);
     }
 }
-

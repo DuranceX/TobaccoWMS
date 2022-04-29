@@ -28,7 +28,7 @@ public class PurchaseOrderViewModel extends AndroidViewModel {
         super(application);
         TestDatabase database = TestDatabase.Companion.getINSTANCE(application);
         dao = database.purchaseOrderDao();
-        listLive = dao.getAllPurchaseOrderTest();
+        listLive = dao.getAllPurchaseOrder();
     }
 
     public void insertPurchaseOrder(PurchaseOrder... purchaseOrders) {

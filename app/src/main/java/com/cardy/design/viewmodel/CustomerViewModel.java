@@ -39,6 +39,10 @@ public class CustomerViewModel extends AndroidViewModel {
         new CustomerViewModel.DeleteAsyncTask(dao).execute(customers);
     }
 
+    public List<String> getNameList(){
+        return dao.getCustomerNameList();
+    }
+
     public LiveData<List<Customer>> getAllCustomerLive() {
         return listLive;
     }

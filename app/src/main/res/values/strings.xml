@@ -13,6 +13,7 @@
     <string name="purchase_order_fragment_order_comment">管理员批注：</string>
     <string name="sale_order_fragment_title">销售订单</string>
     <string name="sale_order_fragment_order_label">订单号：</string>
+    <string name="sale_order_fragment_order_customer">客户：</string>
     <string name="sale_order_fragment_order_sale_date">销售日期：</string>
     <string name="sale_order_fragment_order_delivery_date">送达日期：</string>
     <string name="sale_order_fragment_order_state">当前状态：</string>

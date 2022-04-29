@@ -19,9 +19,7 @@ interface PurchaseOrderDao {
     @Delete
     fun deletePurchaseOrder(vararg PurchaseOrder: PurchaseOrder):Int
 
-    @Query("SELECT orderId,userId,user.username AS userName,materialName,materialModel,count,price,supplier,purchaseDate,deliveryDate,state,comment " +
-            "FROM purchase_order,user WHERE userId = user.id " +
-            "ORDER BY ( CASE WHEN state = '申请中' THEN 0 WHEN state = '已拒绝' THEN 1 WHEN state = '运输中' THEN 2 ELSE 3 END )")
+    @Query("SELECT * FROM purchase_order ORDER BY ( CASE WHEN state = '申请中' THEN 0 WHEN state = '已拒绝' THEN 1 WHEN state = '运输中' THEN 2 ELSE 3 END )")
     fun getAllPurchaseOrder(): LiveData<List<PurchaseOrder>>
 
     @Query("SELECT * from purchase_order")

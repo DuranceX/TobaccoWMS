@@ -25,4 +25,13 @@ interface ProductDao {
 
     @Query("SELECT * FROM product ORDER BY name,model")
     fun getAllProductNoLive(): List<Product>
+
+    @Query("SELECT name FROM product GROUP BY name")
+    fun getProductNameList():List<String>
+
+    @Query("SELECT model FROM product WHERE name=:name")
+    fun getProductModelListByName(name:String):List<String>
+
+    @Query("SELECT price FROM product WHERE model=:model")
+    fun getProductByModel(model:String):Double
 }

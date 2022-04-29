@@ -127,7 +127,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/material_fragment_name"
+        android:text="@string/product_fragment_name"
         android:textAppearance="@style/font_family_pingfang_black"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline47"
@@ -147,7 +147,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/material_fragment_model"
+        android:text="@string/product_fragment_model"
         android:textAppearance="@style/font_family_pingfang_black"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline72"
@@ -167,7 +167,7 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/purchase_order_fragment_order_supplier"
+        android:text="@string/sale_order_fragment_order_customer"
         android:textAppearance="@style/font_family_pingfang_black"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline74"
@@ -200,7 +200,7 @@
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/purchase_order_fragment_order_purchase_date"
+        android:text="@string/sale_order_fragment_order_sale_date"
         android:textAppearance="@style/font_family_pingfang_black"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline77"
@@ -230,7 +230,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline79" />
 
     <Spinner
-        android:id="@+id/spinnerSupplier"
+        android:id="@+id/spinnerCustomer"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline74"
@@ -276,7 +276,7 @@
         tools:text="20000.5" />
 
     <TextView
-        android:id="@+id/textViewPurchaseDate"
+        android:id="@+id/textViewSaleDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2021-09-23"
