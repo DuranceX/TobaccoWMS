@@ -9,4 +9,9 @@
         <item name="android:windowNoTitle"> true</item>
         <item name="android:windowFullscreen"> true</item>
     </style>
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/enabled_text_color</item>
+        <item name="android:color">@color/enabled_text_color</item>
+    </style>
 </resources>

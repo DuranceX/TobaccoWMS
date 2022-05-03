@@ -15,6 +15,12 @@ interface InventoryDao {
     @Delete
     fun deleteInventory(vararg inventory: Inventory):Int
 
-    @Query("SELECT * FROM inventory Where type = :type")
+    @Query("SELECT * from inventory GROUP BY model ORDER BY name,model")
+    fun getAllInventory():LiveData<List<Inventory>>
+
+    @Query("SELECT * FROM inventory Where type = :type GROUP BY model ORDER BY name,model")
     fun getAllSelectedInventory(type:Int): LiveData<List<Inventory>>
+
+    @Query("SELECT image FROM inventory,product WHERE inventory.model == :model")
+    fun getProductImage(model:String):String
 }

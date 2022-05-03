@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.entity.PurchaseOrder;
-import com.cardy.design.entity.User;
 import com.cardy.design.viewmodel.MaterialViewModel;
 import com.cardy.design.viewmodel.PurchaseOrderViewModel;
 import com.cardy.design.viewmodel.SupplierViewModel;
@@ -37,10 +36,8 @@ import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,6 +119,8 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
     }
 
     public void initClickListener(){
+        final String[] buttonStr = {"提交申请"};
+
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
@@ -148,6 +147,35 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
                         etCount.setText(String.valueOf(order.getCount()));
                         etDeliveryDate.setText(order.getDeliveryDate());
                         etComment.setText(order.getComment());
+                        etComment.setEnabled(false);
+
+                        //底部菜单初始化
+                        switch (order.getState()){
+                            case PurchaseOrder.STATE_REQUEST:
+                                buttonStr[0] = "提交申请";
+                                break;
+                            case PurchaseOrder.STATE_DELIVERY:
+                                buttonStr[0] = "确认收货";
+                                etPrice.setEnabled(false);
+                                etCount.setEnabled(false);
+                                spinnerName.setEnabled(false);
+                                spinnerModel.setEnabled(false);
+                                spinnerSupplier.setEnabled(false);
+                                break;
+                            case PurchaseOrder.STATE_REFUSED:
+                                buttonStr[0] = "重新提交";
+                                break;
+                            case PurchaseOrder.STATE_COMPLETE:
+                                buttonStr[0] = "确定";
+                                etPrice.setEnabled(false);
+                                etCount.setEnabled(false);
+                                etDeliveryDate.setEnabled(false);
+                                spinnerName.setEnabled(false);
+                                spinnerModel.setEnabled(false);
+                                spinnerSupplier.setEnabled(false);
+                                tvCalendarButton.setVisibility(View.GONE);
+                                break;
+                        }
 
                         //下拉框相关初始化
                         ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,materialNameList);
@@ -201,7 +229,7 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
                             datePickerDialog.show();
                         });
                     }
-                }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
+                }).setOkButton(buttonStr[0], new OnDialogButtonClickListener<BottomDialog>() {
                     @Override
                     public boolean onClick(BottomDialog baseDialog, View v) {
                         String userId = tvUserId.getText().toString();
@@ -213,8 +241,21 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
                         Double price = Double.valueOf(etPrice.getText().toString());
                         int count = Integer.parseInt(etCount.getText().toString());
                         String deliveryDate = etDeliveryDate.getText().toString();
-                        PurchaseOrder order = new PurchaseOrder(list.get(position).getOrderId(),userId,userName,name,model,count,price,supplier,purchaseDate,deliveryDate,PurchaseOrder.STATE_REQUEST,"");
-                        viewModel.updatePurchaseOrder(order);
+                        PurchaseOrder order;
+                        switch (buttonStr[0]){
+                            case PurchaseOrder.STATE_REQUEST:
+                            case PurchaseOrder.STATE_REFUSED:
+                                order = new PurchaseOrder(list.get(position).getOrderId(),userId,userName,name,model,count,price,supplier,purchaseDate,deliveryDate,PurchaseOrder.STATE_REQUEST,"");
+                                viewModel.updatePurchaseOrder(order);
+                                break;
+                            case PurchaseOrder.STATE_DELIVERY:
+                                order = new PurchaseOrder(list.get(position).getOrderId(),userId,userName,name,model,count,price,supplier,purchaseDate,deliveryDate,PurchaseOrder.STATE_COMPLETE,"");
+                                viewModel.updatePurchaseOrder(order);
+                                break;
+                            case PurchaseOrder.STATE_COMPLETE:
+                                baseDialog.dismiss();
+                                break;
+                        }
                         return false;
                     }
                 }).setCancelButton("取消");

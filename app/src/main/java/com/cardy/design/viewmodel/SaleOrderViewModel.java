@@ -43,6 +43,10 @@ public class SaleOrderViewModel extends AndroidViewModel {
         return listLive;
     }
 
+    public List<SaleOrder> getSelectedStateOrder(String state){
+        return dao.getSelectedStateOrder(state);
+    }
+
     static class InsertAsyncTask extends AsyncTask<SaleOrder, Void, Void> {
         private SaleOrderDao dao;
 

@@ -136,8 +136,10 @@
 
     <Spinner
         android:id="@+id/spinnerName"
+        style="@style/mySpinnerItemStyle"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:theme="@style/mySpinnerItemStyle"
         app:layout_constraintBottom_toTopOf="@+id/guideline47"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/guideline47"
@@ -156,8 +158,10 @@
 
     <Spinner
         android:id="@+id/spinnerModel"
+        style="@style/mySpinnerItemStyle"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:theme="@style/mySpinnerItemStyle"
         app:layout_constraintBottom_toTopOf="@+id/guideline72"
         app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="@+id/guideline72"
@@ -231,8 +235,10 @@
 
     <Spinner
         android:id="@+id/spinnerSupplier"
+        style="@style/mySpinnerItemStyle"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:theme="@style/mySpinnerItemStyle"
         app:layout_constraintBottom_toTopOf="@+id/guideline74"
         app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toTopOf="@+id/guideline74"
@@ -244,6 +250,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
+        android:textColor="@color/enabled_text_color"
         app:layout_constraintBottom_toTopOf="@+id/guideline75"
         app:layout_constraintStart_toEndOf="@+id/textView19"
         app:layout_constraintTop_toTopOf="@+id/guideline75"
@@ -256,6 +263,7 @@
         android:layout_height="41dp"
         android:ems="10"
         android:inputType="date"
+        android:textColor="@color/enabled_text_color"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline78"
         app:layout_constraintStart_toEndOf="@+id/textView28"
@@ -269,6 +277,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
+        android:textColor="@color/enabled_text_color"
         app:layout_constraintBottom_toTopOf="@+id/guideline76"
         app:layout_constraintStart_toEndOf="@+id/textView23"
         app:layout_constraintTop_toTopOf="@+id/guideline76"

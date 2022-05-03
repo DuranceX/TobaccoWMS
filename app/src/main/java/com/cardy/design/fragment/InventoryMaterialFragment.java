@@ -8,6 +8,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +19,10 @@ import android.view.ViewGroup;
 
 import com.cardy.design.R;
 import com.cardy.design.adapter.InventoryListAdapter;
+import com.cardy.design.entity.Inventory;
 import com.cardy.design.entity.InventoryTest;
+import com.cardy.design.util.diff.InventoryDiffCallback;
+import com.cardy.design.viewmodel.InventoryViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.kongzue.dialogx.dialogs.BottomDialog;
 import com.kongzue.dialogx.interfaces.OnBindView;
@@ -31,11 +36,11 @@ public class InventoryMaterialFragment extends Fragment {
     RecyclerView recyclerView;
     SearchView searchView;
     IconFontTextView addButton,menuButton;
+    InventoryViewModel viewModel;
 
     public InventoryMaterialFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,8 @@ public class InventoryMaterialFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new InventoryListAdapter(R.layout.item_inventory_material);
+        viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
+        adapter = new InventoryListAdapter(R.layout.item_inventory_material,viewModel);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.inventoryMaterialRecycleview);
         searchView = getView().findViewById(R.id.inventoryMaterialSearchView);
@@ -60,24 +66,18 @@ public class InventoryMaterialFragment extends Fragment {
         menuButton = getView().findViewById(R.id.menuButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        adapter.setEmptyView(R.layout.empty_layout);
 
-        //TODO: 从数据库中获取数据
-        List<InventoryTest> list = new ArrayList<InventoryTest>(5);
-        for (int i = 0; i < 5; i++) {
-            InventoryTest inventoryTest = new InventoryTest("鸦片","SICS202312","",300,200,"B区22号",InventoryTest.TYPE_MATERIAL);
-            list.add(inventoryTest);
-        }
+        adapter.setDiffCallback(new InventoryDiffCallback());
 
-        adapter.setList(list);
-
-        addButton.setOnClickListener(v->{
-            BottomDialog.show("确认送达",new OnBindView<BottomDialog>(R.layout.dialog_add_customer_supplier) {
-                @Override
-                public void onBind(BottomDialog dialog, View v) {
-                    //TODO: 添加“添加”事件
-
-                }
-            }).setOkButton("确定").setCancelButton("取消");
+        viewModel.getAllMaterialInventory().observe(getActivity(), new Observer<List<Inventory>>() {
+            @Override
+            public void onChanged(List<Inventory> inventories) {
+                if (adapter.getData().size() == 0)
+                    adapter.setNewInstance(inventories);
+                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                adapter.setDiffNewData(inventories);
+            }
         });
 
         //呼出抽屉菜单

@@ -64,4 +64,8 @@ data class PurchaseOrder(
         const val STATE_REFUSED:String="已拒绝"
         const val STATE_COMPLETE:String="已完成"
     }
+
+    override fun toString(): String {
+        return "订单号=$orderId, 购买产品型号=$materialModel"
+    }
 }

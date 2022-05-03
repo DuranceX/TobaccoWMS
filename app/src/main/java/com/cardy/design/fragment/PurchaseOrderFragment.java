@@ -201,7 +201,7 @@ public class PurchaseOrderFragment extends Fragment {
                     Double price = Double.valueOf(etPrice.getText().toString());
                     int count = Integer.parseInt(etCount.getText().toString());
                     String deliveryDate = etDeliveryDate.getText().toString();
-                    PurchaseOrder order = new PurchaseOrder(0,userId,userName,name,model,count,price,supplier,purchaseDate,deliveryDate,PurchaseOrder.STATE_REQUEST,"");
+                    PurchaseOrder order = new PurchaseOrder(0,userId,userName,name,model,count,price,supplier,purchaseDate,deliveryDate,PurchaseOrder.STATE_DELIVERY,"");
                     viewModel.insertPurchaseOrder(order);
                     return false;
                 }
