@@ -38,7 +38,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline43"
-            app:layout_constraintStart_toStartOf="@+id/guideline42"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
             app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
         <TextView

@@ -55,6 +55,10 @@ public class MaterialViewModel extends AndroidViewModel{
         return listLive;
     }
 
+    public List<Material> getAllMaterialsNoLive(){
+        return dao.getAllMaterialNoLive();
+    }
+
     static class InsertAsyncTask extends AsyncTask<Material, Void, Void> {
         private MaterialDao dao;
 

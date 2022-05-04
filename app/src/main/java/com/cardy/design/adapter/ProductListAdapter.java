@@ -84,7 +84,6 @@ public class ProductListAdapter extends BaseQuickAdapter<Product, MyProductViewH
     }
 
 
-    //TODO: 修改所有涉及到访问图片的内容
     public void initClickListener(){
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override

@@ -92,16 +92,26 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="@+id/guideline13">
 
-        <com.cardy.design.widget.IconFontTextView
-            android:id="@+id/inventoryMaterialAddButton"
+        <Button
+            android:id="@+id/inventoryMaterialOutButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="&#xe63f;"
-            android:textAppearance="@style/fragment_title"
+            android:text="出库"
             android:textColor="@color/black_light"
-            android:textSize="28sp"
-            tools:layout_editor_absoluteX="373dp" />
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="307dp" />
+
+        <Button
+            android:id="@+id/inventoryMaterialInButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="入库"
+            android:textColor="@color/black_light"
+            tools:layout_editor_absoluteX="307dp" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/inventoryMaterialSearchView"

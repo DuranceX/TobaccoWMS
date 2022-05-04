@@ -16,4 +16,8 @@ data class Material(
     //原料参考价格
     @ColumnInfo(name = "price")
     var price:Double
-)
+){
+    override fun toString(): String {
+        return "名称=$name, 型号=$model"
+    }
+}

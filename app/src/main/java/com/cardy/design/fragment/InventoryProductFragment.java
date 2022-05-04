@@ -34,9 +34,7 @@ import com.cardy.design.entity.Product;
 import com.cardy.design.entity.SaleOrder;
 import com.cardy.design.util.diff.InventoryDiffCallback;
 import com.cardy.design.viewmodel.InventoryViewModel;
-import com.cardy.design.viewmodel.MaterialViewModel;
 import com.cardy.design.viewmodel.ProductViewModel;
-import com.cardy.design.viewmodel.PurchaseOrderViewModel;
 import com.cardy.design.viewmodel.SaleOrderViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.kongzue.dialogx.dialogs.BottomDialog;
@@ -57,11 +55,8 @@ public class InventoryProductFragment extends Fragment {
     InventoryViewModel viewModel;
     SaleOrderViewModel saleOrderViewModel;
     ProductViewModel productViewModel;
-    MaterialViewModel materialViewModel;
-    PurchaseOrderViewModel purchaseOrderViewModel;
 
     List<SaleOrder> orders;
-    List<Inventory> inventoryList;
     List<Product> products;
     LocalDate date = LocalDate.now();
 
@@ -92,8 +87,6 @@ public class InventoryProductFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
         saleOrderViewModel = new ViewModelProvider(this).get(SaleOrderViewModel.class);
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        materialViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
-        purchaseOrderViewModel = new ViewModelProvider(this).get(PurchaseOrderViewModel.class);
         adapter = new InventoryProductListAdapter(R.layout.item_inventory_product,viewModel,productViewModel);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.inventoryProductRecycleview);
@@ -114,7 +107,6 @@ public class InventoryProductFragment extends Fragment {
                     adapter.setNewInstance(inventories);
                 //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                 adapter.setDiffNewData(inventories);
-                inventoryList = inventories;
             }
         });
 
@@ -126,7 +118,6 @@ public class InventoryProductFragment extends Fragment {
             }
         }).start();
 
-        //TODO: 完成入库功能
         inButton.setOnClickListener(v->{
             final Inventory[] inventory = new Inventory[1];
             final Product[] product = new Product[1];
@@ -134,7 +125,7 @@ public class InventoryProductFragment extends Fragment {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     spinner = v.findViewById(R.id.orderSpinner);
-                    etInCount = v.findViewById(R.id.editTextInCount);
+                    etInCount = v.findViewById(R.id.editTextOutCount);
                     etArea = v.findViewById(R.id.editTextArea);
 
                     ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, products);
@@ -178,13 +169,12 @@ public class InventoryProductFragment extends Fragment {
             }).setCancelButton("取消");
         });
 
-        //TODO: 完成出库功能
+        //TODO: 将订单与库存信息联动
         outButton.setOnClickListener(v->{
             final Inventory[] inventory = new Inventory[1];
             BottomDialog.show("出库",new OnBindView<BottomDialog>(R.layout.dialog_inventory_product_check_out) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
-                    //TODO: 添加“确认”事件
                     spinner = v.findViewById(R.id.orderSpinner);
                     tvName = v.findViewById(R.id.textViewName);
                     tvModel = v.findViewById(R.id.textViewModel);
@@ -268,12 +258,12 @@ public class InventoryProductFragment extends Fragment {
                     String saleDate = tvSaleDate.getText().toString();
                     String deliveryDate = etDeliveryDate.getText().toString();
 
-                    SaleOrder order = new SaleOrder(name,model,count,price,customer,saleDate,deliveryDate,SaleOrder.STATE_COMPLETE,"");
+                    SaleOrder order = new SaleOrder(name,model,count,price,customer,saleDate,deliveryDate,SaleOrder.STATE_DELIVERY,"");
                     saleOrderViewModel.updateSaleOrder(order);
 
                     inventory[0].setHostCount(inventory[0].getHostCount()-count);
                     inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()+count);
-                    viewModel.updateInventory(inventory);
+                    viewModel.updateInventory(inventory[0]);
                     return false;
                 }
             }).setCancelButton("取消");

@@ -38,7 +38,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="选择产品："
+        android:text="选择原料："
         android:textAppearance="@style/inventory_check_label"
         android:textColor="@color/black_light"
         app:layout_constraintBottom_toTopOf="@+id/guideline50"
@@ -65,48 +65,16 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="90dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline54"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="130dp" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="入库数量："
+        android:text="出库数量："
         android:textAppearance="@style/inventory_check_label"
         android:textColor="@color/black_light"
         app:layout_constraintBottom_toTopOf="@+id/guideline53"
         app:layout_constraintStart_toStartOf="@+id/guideline48"
         app:layout_constraintTop_toTopOf="@+id/guideline53" />
-
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="存放区域："
-        android:textAppearance="@style/inventory_check_label"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline54"
-        app:layout_constraintStart_toStartOf="@+id/guideline48"
-        app:layout_constraintTop_toTopOf="@+id/guideline54" />
-
-    <EditText
-        android:id="@+id/editTextArea"
-        style="@style/inventory_check_text"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline54"
-        app:layout_constraintStart_toEndOf="@+id/textView29"
-        app:layout_constraintTop_toTopOf="@+id/guideline54"
-        tools:ignore="TouchTargetSizeCheck"
-        tools:text="A区25号" />
 
     <EditText
         android:id="@+id/editTextOutCount"
@@ -117,7 +85,7 @@
         android:inputType="text"
         android:textColor="@color/black_light"
         app:layout_constraintBottom_toTopOf="@+id/guideline53"
-        app:layout_constraintStart_toEndOf="@+id/textView29"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
         app:layout_constraintTop_toTopOf="@+id/guideline53"
         tools:ignore="TouchTargetSizeCheck"
         tools:text="2000" />
