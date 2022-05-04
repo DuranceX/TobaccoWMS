@@ -113,7 +113,7 @@ public class InventoryProductFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                orders = saleOrderViewModel.getSelectedStateOrder(SaleOrder.STATE_DELIVERY);
+                orders = saleOrderViewModel.getSelectedStateOrder(SaleOrder.STATE_WAIT);
                 products = productViewModel.getAllProductNoLive();
             }
         }).start();
@@ -169,9 +169,9 @@ public class InventoryProductFragment extends Fragment {
             }).setCancelButton("取消");
         });
 
-        //TODO: 将订单与库存信息联动
         outButton.setOnClickListener(v->{
             final Inventory[] inventory = new Inventory[1];
+            final SaleOrder[] order = new SaleOrder[1];
             BottomDialog.show("出库",new OnBindView<BottomDialog>(R.layout.dialog_inventory_product_check_out) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
@@ -192,18 +192,18 @@ public class InventoryProductFragment extends Fragment {
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            SaleOrder order = orders.get(i);
-                            tvName.setText(order.getProductName());
-                            tvModel.setText(order.getProductModel());
-                            tvCustomer.setText(order.getCustomer());
-                            tvCount.setText(String.valueOf(order.getCount()));
-                            tvPrice.setText(String.valueOf(order.getPrice()));
-                            tvSaleDate.setText(order.getSaleDate());
+                            order[0] = orders.get(i);
+                            tvName.setText(order[0].getProductName());
+                            tvModel.setText(order[0].getProductModel());
+                            tvCustomer.setText(order[0].getCustomer());
+                            tvCount.setText(String.valueOf(order[0].getCount()));
+                            tvPrice.setText(String.valueOf(order[0].getPrice()));
+                            tvSaleDate.setText(order[0].getSaleDate());
 
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    inventory[0] = viewModel.getInventoryByModel(order.getProductModel());
+                                    inventory[0] = viewModel.getInventoryByModel(order[0].getProductModel());
                                 }
                             }).start();
                         }
@@ -211,7 +211,6 @@ public class InventoryProductFragment extends Fragment {
                         @Override
                         public void onNothingSelected(AdapterView<?> adapterView) { }
                     });
-
 //                    final int[] mYear = new int[1];
 //                    final int[] mMonth = new int[1];
 //                    final int[] mDay = new int[1];
@@ -250,15 +249,11 @@ public class InventoryProductFragment extends Fragment {
             }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
                 @Override
                 public boolean onClick(BottomDialog baseDialog, View v) {
-                    String name = tvName.getText().toString();
-                    String model = tvModel.getText().toString();
-                    String customer = tvCustomer.getText().toString();
                     int count = Integer.parseInt(tvCount.getText().toString());
-                    double price = Double.parseDouble(tvPrice.getText().toString());
-                    String saleDate = tvSaleDate.getText().toString();
                     String deliveryDate = etDeliveryDate.getText().toString();
 
-                    SaleOrder order = new SaleOrder(name,model,count,price,customer,saleDate,deliveryDate,SaleOrder.STATE_DELIVERY,"");
+                    order[0].setState(SaleOrder.STATE_DELIVERY);
+                    order[0].setDeliveryDate(deliveryDate);
                     saleOrderViewModel.updateSaleOrder(order);
 
                     inventory[0].setHostCount(inventory[0].getHostCount()-count);

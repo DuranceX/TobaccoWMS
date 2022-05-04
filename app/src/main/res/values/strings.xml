@@ -4,7 +4,7 @@
     <string name="purchase_order_fragment_title">采购订单</string>
     <string name="purchase_order_fragment_order_label">订单号：</string>
     <string name="purchase_order_fragment_order_purchase_date">采购日期：</string>
-    <string name="purchase_order_fragment_order_delivery_date">送达日期：</string>
+    <string name="purchase_order_fragment_order_delivery_date">入库日期：</string>
     <string name="purchase_order_fragment_order_user">经办人：</string>
     <string name="purchase_order_fragment_order_supplier">供货商：</string>
     <string name="purchase_order_fragment_order_price">总价格：</string>
@@ -15,7 +15,7 @@
     <string name="sale_order_fragment_order_label">订单号：</string>
     <string name="sale_order_fragment_order_customer">客户：</string>
     <string name="sale_order_fragment_order_sale_date">销售日期：</string>
-    <string name="sale_order_fragment_order_delivery_date">送达日期：</string>
+    <string name="sale_order_fragment_order_delivery_date">出库日期：</string>
     <string name="sale_order_fragment_order_state">当前状态：</string>
     <string name="sale_order_fragment_order_comment">管理员批注：</string>
     <string name="product_fragment_title">产品信息</string>

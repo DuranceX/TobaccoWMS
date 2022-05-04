@@ -13,9 +13,11 @@ import androidx.annotation.NonNull;
 
 import com.cardy.design.R;
 import com.cardy.design.entity.Inventory;
+import com.cardy.design.entity.PurchaseOrder;
 import com.cardy.design.util.Util;
 import com.cardy.design.viewmodel.InventoryViewModel;
 import com.cardy.design.viewmodel.ProductViewModel;
+import com.cardy.design.viewmodel.PurchaseOrderViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;

@@ -66,6 +66,6 @@ data class PurchaseOrder(
     }
 
     override fun toString(): String {
-        return "订单号=$orderId, 购买产品型号=$materialModel"
+        return "订单号=$orderId, 名称=$materialName, 型号=$materialModel"
     }
 }

@@ -3,6 +3,9 @@ package com.cardy.design.fragment;
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +33,7 @@ import com.cardy.design.R;
 import com.cardy.design.adapter.PurchaseOrderListAdapter;
 import com.cardy.design.entity.PurchaseOrder;
 import com.cardy.design.util.diff.PurchaseOrderDiffCallback;
+import com.cardy.design.viewmodel.InventoryViewModel;
 import com.cardy.design.viewmodel.MaterialViewModel;
 import com.cardy.design.viewmodel.PurchaseOrderViewModel;
 import com.cardy.design.viewmodel.SupplierViewModel;
@@ -51,16 +55,17 @@ public class PurchaseOrderFragment extends Fragment {
     PurchaseOrderViewModel viewModel;
     MaterialViewModel materialViewModel;
     SupplierViewModel supplierViewModel;
+    InventoryViewModel inventoryViewModel;
     List<String> supplierList = new ArrayList<>();
     List<String> materialNameList = new ArrayList<>();
     List<String> materialModelList = new ArrayList<>();
 
     TextView tvUserId, tvUserName, tvPurchaseDate;
-    IconFontTextView tvCalendarButton;
     Spinner spinnerName, spinnerModel, spinnerSupplier;
-    EditText etPrice, etCount, etDeliveryDate;
+    EditText etPrice, etCount;
 
     LocalDate date = LocalDate.now();
+    int SET_SECOND_SPINNER = 1;
 
     public PurchaseOrderFragment() {
         // Required empty public constructor
@@ -84,7 +89,8 @@ public class PurchaseOrderFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(PurchaseOrderViewModel.class);
         materialViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
         supplierViewModel = new ViewModelProvider(this).get(SupplierViewModel.class);
-        adapter = new PurchaseOrderListAdapter(R.layout.item_purchase_order,viewModel,materialViewModel,supplierViewModel);
+        inventoryViewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
+        adapter = new PurchaseOrderListAdapter(R.layout.item_purchase_order,viewModel,materialViewModel,supplierViewModel,inventoryViewModel);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.purchaseOrderRecycleview);
         searchView = getView().findViewById(R.id.purchaseOrderSearchView);
@@ -101,8 +107,6 @@ public class PurchaseOrderFragment extends Fragment {
             public void onChanged(List<PurchaseOrder> purchaseOrders) {
                 if (adapter.getData().size() == 0)
                     adapter.setNewInstance(purchaseOrders);
-                Log.d("Test: data", String.valueOf(adapter.getData().size()));
-                Log.d("Test: data", String.valueOf(purchaseOrders.size()));
                 adapter.setDiffNewData(purchaseOrders);
                 adapter.setMyList(purchaseOrders);
             }
@@ -133,13 +137,11 @@ public class PurchaseOrderFragment extends Fragment {
                     tvUserId = v.findViewById(R.id.textViewUserId);
                     tvUserName = v.findViewById(R.id.textViewUserName);
                     tvPurchaseDate = v.findViewById(R.id.textViewPurchaseDate);
-                    tvCalendarButton = v.findViewById(R.id.calendarButton);
                     spinnerName = v.findViewById(R.id.spinnerName);
                     spinnerModel = v.findViewById(R.id.spinnerModel);
                     spinnerSupplier = v.findViewById(R.id.spinnerSupplier);
                     etPrice = v.findViewById(R.id.editTextPrice);
                     etCount = v.findViewById(R.id.editTextCount);
-                    etDeliveryDate = v.findViewById(R.id.editTextDeliveryDate);
 
                     ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,materialNameList);
                     ArrayAdapter<String> supplierAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,supplierList);
@@ -147,6 +149,17 @@ public class PurchaseOrderFragment extends Fragment {
                     spinnerName.setAdapter(nameAdapter);
                     spinnerSupplier.setAdapter(supplierAdapter);
 
+                    Handler mHandler = new Handler(Looper.myLooper()){
+                        @Override
+                        public void handleMessage(@NonNull Message msg) {
+                            super.handleMessage(msg);
+                            if(msg.what == SET_SECOND_SPINNER){
+                                List<String> modelList = msg.getData().getStringArrayList("modelList");
+                                ArrayAdapter<String> modelAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,modelList);
+                                spinnerModel.setAdapter(modelAdapter);
+                            }
+                        }
+                    };
                     spinnerName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -155,9 +168,13 @@ public class PurchaseOrderFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     String name = spinnerName.getSelectedItem().toString();
-                                    materialModelList = materialViewModel.getMaterialModelListByName(name);
-                                    ArrayAdapter<String> modelAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,materialModelList);
-                                    spinnerModel.setAdapter(modelAdapter);
+                                    materialModelList =  materialViewModel.getMaterialModelListByName(name);
+                                    Message message = Message.obtain();
+                                    message.what = SET_SECOND_SPINNER;;
+                                    Bundle bundle = new Bundle();
+                                    bundle.putStringArrayList("modelList", (ArrayList<String>) materialModelList);
+                                    message.setData(bundle);
+                                    mHandler.sendMessage(message);
                                 }
                             }).start();
                         }
@@ -167,22 +184,6 @@ public class PurchaseOrderFragment extends Fragment {
                     });
 
                     tvPurchaseDate.setText(LocalDate.now().toString());
-                    tvCalendarButton.setOnClickListener(v1->{
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                date = LocalDate.of(year,month+1,day);
-                                int monthValue = date.getMonthValue();
-                                String dateString = "";
-                                if(monthValue<10)
-                                    dateString = date.getYear() + "-0" + date.getMonthValue() + "-" + date.getDayOfMonth();
-                                else
-                                    dateString = date.getYear() + "-" + date.getMonthValue() + "-" + date.getDayOfMonth();
-                                etDeliveryDate.setText(dateString);
-                            }
-                        },date.getYear(),date.getMonthValue()-1,date.getDayOfMonth());
-                        datePickerDialog.show();
-                    });
                 }
             }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
                 @Override
@@ -195,8 +196,7 @@ public class PurchaseOrderFragment extends Fragment {
                     String supplier = spinnerSupplier.getSelectedItem().toString();
                     Double price = Double.valueOf(etPrice.getText().toString());
                     int count = Integer.parseInt(etCount.getText().toString());
-                    String deliveryDate = etDeliveryDate.getText().toString();
-                    PurchaseOrder order = new PurchaseOrder(0,userId,userName,name,model,count,price,supplier,purchaseDate,deliveryDate,PurchaseOrder.STATE_DELIVERY,"");
+                    PurchaseOrder order = new PurchaseOrder(0,userId,userName,name,model,count,price,supplier,purchaseDate,"",PurchaseOrder.STATE_REQUEST,"");
                     viewModel.insertPurchaseOrder(order);
                     return false;
                 }

@@ -211,7 +211,7 @@
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/purchase_order_fragment_order_delivery_date"
+            android:text="@string/sale_order_fragment_order_delivery_date"
             android:textAppearance="@style/font_family_pingfang_black"
             android:textColor="@color/gray"
             app:layout_constraintBottom_toTopOf="@+id/guideline68"

@@ -120,7 +120,7 @@ public class InventoryMaterialFragment extends Fragment {
 
         outButton.setOnClickListener(v->{
             final Inventory[] inventory = new Inventory[1];
-            BottomDialog.show("入库", new OnBindView<BottomDialog>(R.layout.dialog_inventory_material_check_out) {
+            BottomDialog.show("出库", new OnBindView<BottomDialog>(R.layout.dialog_inventory_material_check_out) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     spinner = v.findViewById(R.id.orderSpinner);
@@ -161,7 +161,8 @@ public class InventoryMaterialFragment extends Fragment {
 
         inButton.setOnClickListener(v->{
             final Inventory[] inventory = new Inventory[1];
-            BottomDialog.show("出库",new OnBindView<BottomDialog>(R.layout.dialog_inventory_material_check_in) {
+            final PurchaseOrder[] order = new PurchaseOrder[1];
+            BottomDialog.show("入库",new OnBindView<BottomDialog>(R.layout.dialog_inventory_material_check_in) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     spinner = v.findViewById(R.id.orderSpinner);
@@ -182,18 +183,18 @@ public class InventoryMaterialFragment extends Fragment {
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            PurchaseOrder order = orders.get(i);
-                            tvName.setText(order.getMaterialName());
-                            tvModel.setText(order.getMaterialModel());
-                            tvSupplier.setText(order.getSupplier());
-                            tvCount.setText(String.valueOf(order.getCount()));
-                            tvPrice.setText(String.valueOf(order.getPrice()));
-                            tvPurchaseDate.setText(order.getPurchaseDate());
+                            order[0] = orders.get(i);
+                            tvName.setText(order[0].getMaterialName());
+                            tvModel.setText(order[0].getMaterialModel());
+                            tvSupplier.setText(order[0].getSupplier());
+                            tvCount.setText(String.valueOf(order[0].getCount()));
+                            tvPrice.setText(String.valueOf(order[0].getPrice()));
+                            tvPurchaseDate.setText(order[0].getPurchaseDate());
 
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    inventory[0] = viewModel.getInventoryByModel(order.getMaterialModel());
+                                    inventory[0] = viewModel.getInventoryByModel(order[0].getMaterialModel());
                                 }
                             }).start();
                         }
@@ -202,24 +203,6 @@ public class InventoryMaterialFragment extends Fragment {
                         public void onNothingSelected(AdapterView<?> adapterView) { }
                     });
 
-//                    final int[] mYear = new int[1];
-//                    final int[] mMonth = new int[1];
-//                    final int[] mDay = new int[1];
-//                    mYear[0] = Calendar.getInstance(Locale.CHINA).get(Calendar.YEAR);
-//                    mMonth[0] = Calendar.getInstance(Locale.CHINA).get(Calendar.MONTH);
-//                    mDay[0] = Calendar.getInstance(Locale.CHINA).get(Calendar.DAY_OF_MONTH);
-//                    calendar.setOnClickListener(view1->{
-//                        DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-//                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                                mYear[0] = year;
-//                                mMonth[0] = monthOfYear;
-//                                mDay[0] = dayOfMonth;
-//                                deliveryDate.setText(new StringBuilder().append(mYear[0]).append("-")
-//                                        .append(mMonth[0] + 1).append("-").append(mDay[0]));
-//                            }
-//                        };
-//                        new DatePickerDialog(getActivity(), mDateSetListener, mYear[0], mMonth[0], mDay[0]).show();
-//                    });
                     calendar.setOnClickListener(v1->{
                         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -240,26 +223,18 @@ public class InventoryMaterialFragment extends Fragment {
             }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
                 @Override
                 public boolean onClick(BottomDialog baseDialog, View v) {
-                    String name = tvName.getText().toString();
-                    String model = tvModel.getText().toString();
-                    String supplier = tvSupplier.getText().toString();
                     int count = Integer.parseInt(tvCount.getText().toString());
-                    double price = Double.parseDouble(tvPrice.getText().toString());
-                    String purchaseDate = tvPurchaseDate.getText().toString();
                     String deliveryDate = etDeliveryDate.getText().toString();
                     String area = etArea.getText().toString();
 
-                    PurchaseOrder order = new PurchaseOrder(name,model,count,price,supplier,purchaseDate,deliveryDate,SaleOrder.STATE_COMPLETE,"");
+                    order[0].setState(PurchaseOrder.STATE_COMPLETE);
+                    order[0].setDeliveryDate(deliveryDate);
                     purchaseOrderViewModel.updatePurchaseOrder(order);
 
-                    if(inventory[0]==null){
-                        Inventory temp = new Inventory(name,model,"",count,0,area,Inventory.TYPE_MATERIAL);
-                        viewModel.insertInventory(temp);
-                    }else{
-                        inventory[0].setHostCount(inventory[0].getHostCount()+count);
-                        inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()-count);
-                        viewModel.updateInventory(inventory[0]);
-                    }
+                    inventory[0].setHostCount(inventory[0].getHostCount()+count);
+                    inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()-count);
+                    inventory[0].setArea(inventory[0].getArea() + "," + area);
+                    viewModel.updateInventory(inventory[0]);
                     return false;
                 }
             }).setCancelButton("取消");

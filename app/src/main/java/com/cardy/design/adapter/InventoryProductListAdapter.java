@@ -97,7 +97,6 @@ public class InventoryProductListAdapter extends BaseQuickAdapter<Inventory, MyI
                     Message message = Message.obtain();
                     Bundle bundle = new Bundle();
                     bundle.putString("imgPath",imgPath);
-                    Log.d("Test: inventory", imgPath);
                     message.what = SET_IMAGE;
                     message.setData(bundle);
                     mHandler.sendMessage(message);

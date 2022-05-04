@@ -61,9 +61,10 @@ data class SaleOrder(
         const val STATE_DELIVERY:String="运输中"
         const val STATE_REFUSED:String="已拒绝"
         const val STATE_COMPLETE:String="已完成"
+        const val STATE_WAIT:String="待发货"
     }
 
     override fun toString(): String {
-        return "订单号=$orderId, 销售产品型号=$productModel"
+        return "订单号=$orderId, 名称=$productName, 型号=$productModel"
     }
 }

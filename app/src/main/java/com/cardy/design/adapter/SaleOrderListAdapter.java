@@ -3,6 +3,10 @@ package com.cardy.design.adapter;
 import android.app.DatePickerDialog;
 import android.graphics.Canvas;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,9 +24,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
+import com.cardy.design.entity.Inventory;
 import com.cardy.design.entity.PurchaseOrder;
 import com.cardy.design.entity.SaleOrder;
 import com.cardy.design.viewmodel.CustomerViewModel;
+import com.cardy.design.viewmodel.InventoryViewModel;
 import com.cardy.design.viewmodel.ProductViewModel;
 import com.cardy.design.viewmodel.SaleOrderViewModel;
 import com.cardy.design.widget.IconFontTextView;
@@ -48,35 +54,31 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
     SaleOrderViewModel viewModel;
     ProductViewModel productViewModel;
     CustomerViewModel customerViewModel;
+    InventoryViewModel inventoryViewModel;
 
-    TextView tvUserId, tvUserName, tvSaleDate;
-    IconFontTextView tvCalendarButton;
+    TextView tvUserId, tvUserName, tvSaleDate, tvDeliveryDate;
     Spinner spinnerName, spinnerModel, spinnerCustomer;
-    EditText etPrice, etCount, etDeliveryDate, etComment;
+    EditText etPrice, etCount, etComment;
     List<String> customerList = new ArrayList<>();
     List<String> productNameList = new ArrayList<>();
     List<String> productModelList = new ArrayList<>();
 
     LocalDate date = LocalDate.now();
 
-    public SaleOrderListAdapter(int layoutResId, SaleOrderViewModel viewModel, ProductViewModel productViewModel, CustomerViewModel customerViewModel) {
+    public SaleOrderListAdapter(int layoutResId, SaleOrderViewModel viewModel, ProductViewModel productViewModel, CustomerViewModel customerViewModel,InventoryViewModel inventoryViewModel) {
         super(layoutResId);
         this.viewModel = viewModel;
         this.productViewModel = productViewModel;
         this.customerViewModel = customerViewModel;
+        this.inventoryViewModel = inventoryViewModel;
         new Thread(new Runnable() {
             @Override
             public void run() {
                 productNameList = productViewModel.getProductNameList();
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 customerList = customerViewModel.getNameList();
             }
         }).start();
+
         initClickListener();
         initSwipeListener();
     }
@@ -94,22 +96,26 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
         holder.deliveryDate.setText(order.getDeliveryDate());
         holder.comment.setText(order.getComment());
         holder.customer.setText(order.getCustomer());
-        if (order.getState().equals(PurchaseOrder.STATE_REQUEST)) {
+        if (order.getState().equals(SaleOrder.STATE_REQUEST)) {
             holder.state.setBackgroundColor(getContext().getColor(R.color.orange_trans));
             holder.state.setTextColor(getContext().getColor(R.color.orange));
-            holder.state.setText(PurchaseOrder.STATE_REQUEST);
-        } else if (order.getState().equals(PurchaseOrder.STATE_DELIVERY)) {
+            holder.state.setText(SaleOrder.STATE_REQUEST);
+        } else if(order.getState().equals(SaleOrder.STATE_WAIT)){
+            holder.state.setBackgroundColor(getContext().getColor(R.color.purple_trans));
+            holder.state.setTextColor(getContext().getColor(R.color.purple));
+            holder.state.setText(SaleOrder.STATE_WAIT);
+        } else if (order.getState().equals(SaleOrder.STATE_DELIVERY)) {
             holder.state.setBackgroundColor(getContext().getColor(R.color.blue_trans));
             holder.state.setTextColor(getContext().getColor(R.color.blue_light));
-            holder.state.setText(PurchaseOrder.STATE_DELIVERY);
-        } else if (order.getState().equals(PurchaseOrder.STATE_REFUSED)) {
+            holder.state.setText(SaleOrder.STATE_DELIVERY);
+        } else if (order.getState().equals(SaleOrder.STATE_REFUSED)) {
             holder.state.setBackgroundColor(getContext().getColor(R.color.red_trans));
             holder.state.setTextColor(getContext().getColor(R.color.red));
-            holder.state.setText(PurchaseOrder.STATE_REFUSED);
+            holder.state.setText(SaleOrder.STATE_REFUSED);
         } else {
             holder.state.setBackgroundColor(getContext().getColor(R.color.green_trans));
             holder.state.setTextColor(getContext().getColor(R.color.green_soft));
-            holder.state.setText(PurchaseOrder.STATE_COMPLETE);
+            holder.state.setText(SaleOrder.STATE_COMPLETE);
         }
     }
 
@@ -130,43 +136,88 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
     }
 
     public void initClickListener() {
+        final String[] buttonStr = {"提交申请"};
+        final SaleOrder[] order = new SaleOrder[1];
+        final Inventory[] inventory = new Inventory[1];
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                BottomDialog.show("修改销售订单", new OnBindView<BottomDialog>(R.layout.dialog_add_sale_order) {
+                BottomDialog.show("修改销售订单", new OnBindView<BottomDialog>(R.layout.dialog_update_sale_order) {
                     @Override
                     public void onBind(BottomDialog dialog, View v) {
                         tvUserId = v.findViewById(R.id.textViewUserId);
                         tvUserName = v.findViewById(R.id.textViewUserName);
                         tvSaleDate = v.findViewById(R.id.textViewSaleDate);
-                        tvCalendarButton = v.findViewById(R.id.calendarButton);
+                        tvDeliveryDate = v.findViewById(R.id.textViewDeliveryDate);
                         spinnerName = v.findViewById(R.id.spinnerName);
                         spinnerModel = v.findViewById(R.id.spinnerModel);
                         spinnerCustomer = v.findViewById(R.id.spinnerCustomer);
                         etPrice = v.findViewById(R.id.editTextPrice);
                         etCount = v.findViewById(R.id.editTextCount);
-                        etDeliveryDate = v.findViewById(R.id.editTextDeliveryDate);
                         etComment = v.findViewById(R.id.editTextComment);
 
-                        SaleOrder order = list.get(position);
-                        tvUserId.setText(order.getUserId());
-                        tvUserName.setText(order.getUserName());
-                        tvSaleDate.setText(order.getSaleDate());
-                        etPrice.setText(String.valueOf(order.getPrice()));
-                        etCount.setText(String.valueOf(order.getCount()));
-                        etDeliveryDate.setText(order.getDeliveryDate());
-                        etComment.setText(order.getComment());
+                        order[0] = list.get(position);
+                        tvUserId.setText(order[0].getUserId());
+                        tvUserName.setText(order[0].getUserName());
+                        tvSaleDate.setText(order[0].getSaleDate());
+                        etPrice.setText(String.valueOf(order[0].getPrice()));
+                        etCount.setText(String.valueOf(order[0].getCount()));
+                        tvDeliveryDate.setText(order[0].getDeliveryDate());
+                        etComment.setText(order[0].getComment());
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                inventory[0] = inventoryViewModel.getInventoryByModel(order[0].getProductModel());
+                            }
+                        }).start();
+
+                        //底部菜单初始化
+                        switch (order[0].getState()){
+                            case SaleOrder.STATE_DELIVERY:
+                                buttonStr[0] = "确认送达";
+                                etPrice.setEnabled(false);
+                                etCount.setEnabled(false);
+                                spinnerName.setEnabled(false);
+                                spinnerModel.setEnabled(false);
+                                spinnerCustomer.setEnabled(false);
+                                break;
+                            case SaleOrder.STATE_REQUEST:
+                            case SaleOrder.STATE_REFUSED:
+                                buttonStr[0] = "重新提交";
+                                break;
+                            case SaleOrder.STATE_WAIT:
+                            case SaleOrder.STATE_COMPLETE:
+                                buttonStr[0] = "确定";
+                                etPrice.setEnabled(false);
+                                etCount.setEnabled(false);
+                                etComment.setEnabled(false);
+                                spinnerName.setEnabled(false);
+                                spinnerModel.setEnabled(false);
+                                spinnerCustomer.setEnabled(false);
+                                break;
+                        }
 
                         //下拉框相关初始化
                         ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, productNameList);
                         ArrayAdapter<String> supplierAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, customerList);
                         spinnerName.setAdapter(nameAdapter);
                         spinnerCustomer.setAdapter(supplierAdapter);
-                        String name = order.getProductName();
-                        String model = order.getProductModel();
-                        String supplier = order.getCustomer();
+                        String name = order[0].getProductName();
+                        String model = order[0].getProductModel();
+                        String supplier = order[0].getCustomer();
                         spinnerName.setSelection(productNameList.indexOf(name));
                         spinnerCustomer.setSelection(customerList.indexOf(supplier));
+                        Handler mHandler = new Handler(Looper.myLooper()){
+                            @Override
+                            public void handleMessage(@NonNull Message msg) {
+                                super.handleMessage(msg);
+                                if(msg.what == 1){
+                                    List<String> modelList = msg.getData().getStringArrayList("modelList");
+                                    ArrayAdapter<String> modelAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,modelList);
+                                    spinnerModel.setAdapter(modelAdapter);
+                                }
+                            }
+                        };
                         spinnerName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -175,43 +226,26 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
                                     @Override
                                     public void run() {
                                         String name = spinnerName.getSelectedItem().toString();
-                                        productModelList = productViewModel.getProductModelListByName(name);
-                                        ArrayAdapter<String> modelAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, productModelList);
-                                        spinnerModel.setAdapter(modelAdapter);
-                                        spinnerModel.setSelection(productModelList.indexOf(model));
+                                        productModelList =  productViewModel.getProductModelListByName(name);
+                                        Message message = Message.obtain();
+                                        message.what = 1;;
+                                        Bundle bundle = new Bundle();
+                                        bundle.putStringArrayList("modelList", (ArrayList<String>) productModelList);
+                                        message.setData(bundle);
+                                        mHandler.sendMessage(message);
                                     }
                                 }).start();
                             }
 
                             @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-                            }
+                            public void onNothingSelected(AdapterView<?> adapterView) { }
                         });
 
                         //日期相关初始化
-                        tvSaleDate.setText(order.getSaleDate());
-                        etDeliveryDate.setText(order.getDeliveryDate());
-                        if (!order.getDeliveryDate().equals("")) {
-                            date = LocalDate.parse(order.getDeliveryDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                        }
-                        tvCalendarButton.setOnClickListener(v1 -> {
-                            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                    date = LocalDate.of(year, month + 1, day);
-                                    int monthValue = date.getMonthValue();
-                                    String dateString = "";
-                                    if (monthValue < 10)
-                                        dateString = date.getYear() + "-0" + date.getMonthValue() + "-" + date.getDayOfMonth();
-                                    else
-                                        dateString = date.getYear() + "-" + date.getMonthValue() + "-" + date.getDayOfMonth();
-                                    etDeliveryDate.setText(dateString);
-                                }
-                            }, date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
-                            datePickerDialog.show();
-                        });
+                        tvSaleDate.setText(order[0].getSaleDate());
+                        tvDeliveryDate.setText(order[0].getDeliveryDate());
                     }
-                }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
+                }).setOkButton(buttonStr[0], new OnDialogButtonClickListener<BottomDialog>() {
                     @Override
                     public boolean onClick(BottomDialog baseDialog, View v) {
                         String userId = tvUserId.getText().toString();
@@ -222,9 +256,25 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
                         String customer = spinnerCustomer.getSelectedItem().toString();
                         Double price = Double.valueOf(etPrice.getText().toString());
                         int count = Integer.parseInt(etCount.getText().toString());
-                        String deliveryDate = etDeliveryDate.getText().toString();
-                        SaleOrder order = new SaleOrder(list.get(position).getOrderId(), userId, userName, name, model, count, price, customer, saleDate, deliveryDate, PurchaseOrder.STATE_REQUEST, "");
-                        viewModel.updateSaleOrder(order);
+                        String deliveryDate = tvDeliveryDate.getText().toString();
+
+                        switch (order[0].getState()){
+                            case SaleOrder.STATE_REQUEST:
+                            case SaleOrder.STATE_REFUSED:
+                                order[0] = new SaleOrder(list.get(position).getOrderId(),userId,userName,name,model,count,price,customer,saleDate,deliveryDate,PurchaseOrder.STATE_REQUEST,"");
+                                viewModel.updateSaleOrder(order[0]);
+                                break;
+                            case SaleOrder.STATE_DELIVERY:
+                                order[0] = new SaleOrder(list.get(position).getOrderId(),userId,userName,name,model,count,price,customer,saleDate,deliveryDate,PurchaseOrder.STATE_COMPLETE,"");
+                                viewModel.updateSaleOrder(order[0]);
+                                inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()-count);
+                                inventoryViewModel.updateInventory(inventory[0]);
+                                break;
+                            case SaleOrder.STATE_COMPLETE:
+                            case SaleOrder.STATE_WAIT:
+                                baseDialog.dismiss();
+                                break;
+                        }
                         return false;
                     }
                 }).setCancelButton("取消");

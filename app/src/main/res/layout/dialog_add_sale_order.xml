@@ -48,27 +48,6 @@
         app:layout_constraintGuide_begin="256dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline78"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="293dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline79"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="339dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline80"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="314dp" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline73"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -207,28 +186,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline60"
         app:layout_constraintTop_toTopOf="@+id/guideline77" />
 
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/purchase_order_fragment_order_delivery_date"
-        android:textAppearance="@style/font_family_pingfang_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline78"
-        app:layout_constraintStart_toStartOf="@+id/guideline60"
-        app:layout_constraintTop_toTopOf="@+id/guideline78" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/purchase_order_fragment_order_comment"
-        android:textAppearance="@style/font_family_pingfang_black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline79"
-        app:layout_constraintStart_toStartOf="@+id/guideline60"
-        app:layout_constraintTop_toTopOf="@+id/guideline79" />
-
     <Spinner
         android:id="@+id/spinnerCustomer"
         android:layout_width="wrap_content"
@@ -249,19 +206,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline75"
         tools:ignore="TouchTargetSizeCheck"
         tools:text="200" />
-
-    <EditText
-        android:id="@+id/editTextDeliveryDate"
-        android:layout_width="125dp"
-        android:layout_height="41dp"
-        android:ems="10"
-        android:inputType="date"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline78"
-        app:layout_constraintStart_toEndOf="@+id/textView28"
-        app:layout_constraintTop_toTopOf="@+id/guideline78"
-        tools:ignore="TouchTargetSizeCheck"
-        tools:text="2022-01-17" />
 
     <EditText
         android:id="@+id/editTextPrice"
@@ -285,27 +229,5 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline77"
         app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toTopOf="@+id/guideline77" />
-
-    <com.cardy.design.widget.IconFontTextView
-        android:id="@+id/calendarButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&#xe915;"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline78"
-        app:layout_constraintStart_toEndOf="@+id/editTextDeliveryDate"
-        app:layout_constraintTop_toTopOf="@+id/guideline78" />
-
-    <EditText
-        android:id="@+id/editTextComment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toStartOf="@+id/guideline61"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/guideline80" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

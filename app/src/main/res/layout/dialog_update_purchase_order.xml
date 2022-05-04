@@ -48,6 +48,27 @@
         app:layout_constraintGuide_begin="256dp" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline78"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="293dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline79"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="330dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline80"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="314dp" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline73"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -190,6 +211,28 @@
         app:layout_constraintStart_toStartOf="@+id/guideline60"
         app:layout_constraintTop_toTopOf="@+id/guideline77" />
 
+    <TextView
+        android:id="@+id/textViewDeliveryDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/purchase_order_fragment_order_delivery_date"
+        android:textAppearance="@style/font_family_pingfang_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline78"
+        app:layout_constraintStart_toStartOf="@+id/guideline60"
+        app:layout_constraintTop_toTopOf="@+id/guideline78" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/purchase_order_fragment_order_comment"
+        android:textAppearance="@style/font_family_pingfang_black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline79"
+        app:layout_constraintStart_toStartOf="@+id/guideline60"
+        app:layout_constraintTop_toTopOf="@+id/guideline79" />
+
     <Spinner
         android:id="@+id/spinnerSupplier"
         style="@style/mySpinnerItemStyle"
@@ -238,5 +281,27 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline77"
         app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toTopOf="@+id/guideline77" />
+
+    <TextView
+        android:id="@+id/textViewDeliveryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2021-09-23"
+        android:textAppearance="@style/font_family_pingfang_gray"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline78"
+        app:layout_constraintStart_toEndOf="@+id/textView26"
+        app:layout_constraintTop_toTopOf="@+id/guideline78" />
+
+    <EditText
+        android:id="@+id/editTextComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toStartOf="@+id/guideline61"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/guideline80" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
