@@ -39,6 +39,7 @@
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/pingfang"
             android:text="“中华”香烟"
             android:textColor="@color/black_light"

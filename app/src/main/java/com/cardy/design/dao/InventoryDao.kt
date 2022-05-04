@@ -21,6 +21,6 @@ interface InventoryDao {
     @Query("SELECT * FROM inventory Where type = :type GROUP BY model ORDER BY name,model")
     fun getAllSelectedInventory(type:Int): LiveData<List<Inventory>>
 
-    @Query("SELECT image FROM inventory,product WHERE inventory.model == :model")
-    fun getProductImage(model:String):String
+    @Query("SELECT * FROM inventory WHERE model == :model")
+    fun getInventoryByModel(model: String):Inventory
 }

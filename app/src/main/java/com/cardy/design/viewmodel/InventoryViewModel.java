@@ -44,8 +44,8 @@ public class InventoryViewModel extends AndroidViewModel {
         return dao.getAllSelectedInventory(Inventory.TYPE_MATERIAL);
     }
 
-    public String getProductImage(String model){
-        return dao.getProductImage(model);
+    public Inventory getInventoryByModel(String model){
+        return dao.getInventoryByModel(model);
     }
 
     static class InsertAsyncTask extends AsyncTask<Inventory, Void, Void> {

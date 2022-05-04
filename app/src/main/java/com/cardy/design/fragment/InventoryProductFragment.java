@@ -28,11 +28,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cardy.design.R;
-import com.cardy.design.adapter.InventoryListAdapter;
+import com.cardy.design.adapter.InventoryProductListAdapter;
 import com.cardy.design.entity.Inventory;
+import com.cardy.design.entity.Product;
 import com.cardy.design.entity.SaleOrder;
 import com.cardy.design.util.diff.InventoryDiffCallback;
 import com.cardy.design.viewmodel.InventoryViewModel;
+import com.cardy.design.viewmodel.MaterialViewModel;
+import com.cardy.design.viewmodel.ProductViewModel;
+import com.cardy.design.viewmodel.PurchaseOrderViewModel;
 import com.cardy.design.viewmodel.SaleOrderViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.kongzue.dialogx.dialogs.BottomDialog;
@@ -45,21 +49,25 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class InventoryProductFragment extends Fragment {
 
-    InventoryListAdapter adapter;
+    InventoryProductListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
     IconFontTextView menuButton;
     Button inButton,outButton;
     InventoryViewModel viewModel;
     SaleOrderViewModel saleOrderViewModel;
+    ProductViewModel productViewModel;
+    MaterialViewModel materialViewModel;
+    PurchaseOrderViewModel purchaseOrderViewModel;
 
     List<SaleOrder> orders;
     List<Inventory> inventoryList;
+    List<Product> products;
     LocalDate date = LocalDate.now();
 
     Spinner spinner;
     TextView tvName, tvModel, tvCustomer, tvCount, tvPrice, tvSaleDate,calendar;
-    EditText etDeliveryDate;
+    EditText etDeliveryDate,etInCount,etArea;
 
     public InventoryProductFragment() {
         // Required empty public constructor
@@ -83,7 +91,10 @@ public class InventoryProductFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
         saleOrderViewModel = new ViewModelProvider(this).get(SaleOrderViewModel.class);
-        adapter = new InventoryListAdapter(R.layout.item_inventory_product,viewModel);
+        productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+        materialViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
+        purchaseOrderViewModel = new ViewModelProvider(this).get(PurchaseOrderViewModel.class);
+        adapter = new InventoryProductListAdapter(R.layout.item_inventory_product,viewModel,productViewModel);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.inventoryProductRecycleview);
         searchView = getView().findViewById(R.id.inventoryProductSearchView);
@@ -111,19 +122,57 @@ public class InventoryProductFragment extends Fragment {
             @Override
             public void run() {
                 orders = saleOrderViewModel.getSelectedStateOrder(SaleOrder.STATE_DELIVERY);
+                products = productViewModel.getAllProductNoLive();
             }
         }).start();
 
         //TODO: 完成入库功能
         inButton.setOnClickListener(v->{
+            final Inventory[] inventory = new Inventory[1];
+            final Product[] product = new Product[1];
             BottomDialog.show("入库", new OnBindView<BottomDialog>(R.layout.dialog_inventory_product_check_in) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
+                    spinner = v.findViewById(R.id.orderSpinner);
+                    etInCount = v.findViewById(R.id.editTextInCount);
+                    etArea = v.findViewById(R.id.editTextArea);
 
+                    ArrayAdapter<Product> productAdapter = new ArrayAdapter<Product>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, products);
+                    spinner.setAdapter(productAdapter);
+
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            product[0] = products.get(spinner.getSelectedItemPosition());
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    inventory[0] = viewModel.getInventoryByModel(product[0].getModel());
+                                }
+                            }).start();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
                 }
             }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
                 @Override
                 public boolean onClick(BottomDialog baseDialog, View v) {
+                    String name = product[0].getName();
+                    String model = product[0].getModel();
+                    int inCount = Integer.parseInt(etInCount.getText().toString());
+                    String area = etArea.getText().toString();
+                    if(inventory[0]==null){
+                        Inventory temp = new Inventory(name,model,"",inCount,0,area,Inventory.TYPE_PRODUCT);
+                        viewModel.insertInventory(temp);
+                    }else{
+                        int hostCount = inventory[0].getHostCount() + inCount;
+                        Inventory temp = new Inventory(name,model,"",hostCount,inventory[0].getDeliveryCount(),inventory[0].getArea()+","+area,Inventory.TYPE_PRODUCT);
+                        viewModel.updateInventory(temp);
+                    }
                     return false;
                 }
             }).setCancelButton("取消");
@@ -131,7 +180,8 @@ public class InventoryProductFragment extends Fragment {
 
         //TODO: 完成出库功能
         outButton.setOnClickListener(v->{
-            BottomDialog.show("确认送达",new OnBindView<BottomDialog>(R.layout.dialog_inventory_product_check_out) {
+            final Inventory[] inventory = new Inventory[1];
+            BottomDialog.show("出库",new OnBindView<BottomDialog>(R.layout.dialog_inventory_product_check_out) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     //TODO: 添加“确认”事件
@@ -159,6 +209,13 @@ public class InventoryProductFragment extends Fragment {
                             tvCount.setText(String.valueOf(order.getCount()));
                             tvPrice.setText(String.valueOf(order.getPrice()));
                             tvSaleDate.setText(order.getSaleDate());
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    inventory[0] = viewModel.getInventoryByModel(order.getProductModel());
+                                }
+                            }).start();
                         }
 
                         @Override
@@ -214,14 +271,8 @@ public class InventoryProductFragment extends Fragment {
                     SaleOrder order = new SaleOrder(name,model,count,price,customer,saleDate,deliveryDate,SaleOrder.STATE_COMPLETE,"");
                     saleOrderViewModel.updateSaleOrder(order);
 
-                    Inventory inventory = null;
-                    for (Inventory temp:inventoryList) {
-                        if(temp.getModel().equals(model)){
-                            inventory = temp;
-                            break;
-                        }
-                    }
-                    inventory.setDeliveryCount(inventory.getDeliveryCount()-count);
+                    inventory[0].setHostCount(inventory[0].getHostCount()-count);
+                    inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()+count);
                     viewModel.updateInventory(inventory);
                     return false;
                 }

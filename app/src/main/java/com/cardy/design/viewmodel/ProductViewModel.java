@@ -47,11 +47,17 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
     public Double getPriceByModel(String model){
-        return dao.getProductByModel(model);
+        return dao.getProductByModel(model).getPrice();
     }
+
+    public Product getProductByModel(String model){return dao.getProductByModel(model);}
 
     public LiveData<List<Product>> getAllProductLive() {
         return listLive;
+    }
+
+    public List<Product> getAllProductNoLive(){
+        return dao.getAllProductNoLive();
     }
 
     static class InsertAsyncTask extends AsyncTask<Product, Void, Void> {

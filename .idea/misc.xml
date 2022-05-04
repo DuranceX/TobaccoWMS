@@ -17,6 +17,7 @@
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_inventory_check.xml" value="0.5" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_inventory_check_product.xml" value="0.67" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_inventory_product_check_in.xml" value="0.5" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_inventory_product_check_out.xml" value="0.35507246376811596" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/drawer_header_layout.xml" value="0.35507246376811596" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/empty_layout.xml" value="0.33" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/fragment_blank.xml" value="0.35507246376811596" />

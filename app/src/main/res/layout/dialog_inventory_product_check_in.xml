@@ -38,7 +38,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="选择运输中订单："
+        android:text="选择产品："
         android:textAppearance="@style/inventory_check_label"
         android:textColor="@color/black_light"
         app:layout_constraintBottom_toTopOf="@+id/guideline50"
@@ -72,184 +72,16 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="130dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline55"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="170dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline56"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="210dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline57"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="250dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline58"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="290dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline59"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="330dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline81"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="365dp" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="产品名称："
+        android:text="入库数量："
         android:textAppearance="@style/inventory_check_label"
         android:textColor="@color/black_light"
         app:layout_constraintBottom_toTopOf="@+id/guideline53"
         app:layout_constraintStart_toStartOf="@+id/guideline48"
         app:layout_constraintTop_toTopOf="@+id/guideline53" />
-
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="“云烟”香烟"
-        android:textAppearance="@style/inventory_check_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline53"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="@+id/guideline53" />
-
-    <TextView
-        android:id="@+id/textViewModel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SC20210513"
-        android:textAppearance="@style/inventory_check_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline54"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/guideline54" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="产品型号："
-        android:textAppearance="@style/inventory_check_label"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline54"
-        app:layout_constraintStart_toStartOf="@+id/guideline48"
-        app:layout_constraintTop_toTopOf="@+id/guideline54" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="客户："
-        android:textAppearance="@style/inventory_check_label"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline55"
-        app:layout_constraintStart_toStartOf="@+id/guideline48"
-        app:layout_constraintTop_toTopOf="@+id/guideline55" />
-
-    <TextView
-        android:id="@+id/textViewCustomer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="陆玩具有限责任公司"
-        android:textAppearance="@style/inventory_check_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline55"
-        app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/guideline55" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="数量："
-        android:textAppearance="@style/inventory_check_label"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline56"
-        app:layout_constraintStart_toStartOf="@+id/guideline48"
-        app:layout_constraintTop_toTopOf="@+id/guideline56" />
-
-    <TextView
-        android:id="@+id/textViewCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="200"
-        android:textAppearance="@style/inventory_check_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline56"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="@+id/guideline56" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="总价格："
-        android:textAppearance="@style/inventory_check_label"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline57"
-        app:layout_constraintStart_toStartOf="@+id/guideline48"
-        app:layout_constraintTop_toTopOf="@+id/guideline57" />
-
-    <TextView
-        android:id="@+id/textViewPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="15315"
-        android:textAppearance="@style/inventory_check_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline57"
-        app:layout_constraintStart_toEndOf="@+id/textView18"
-        app:layout_constraintTop_toTopOf="@+id/guideline57" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="销售日期："
-        android:textAppearance="@style/inventory_check_label"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline58"
-        app:layout_constraintStart_toStartOf="@+id/guideline48"
-        app:layout_constraintTop_toTopOf="@+id/guideline58" />
-
-    <TextView
-        android:id="@+id/textViewSaleDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2021-08-15"
-        android:textAppearance="@style/inventory_check_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline58"
-        app:layout_constraintStart_toEndOf="@+id/textView20"
-        app:layout_constraintTop_toTopOf="@+id/guideline58" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="送达日期："
-        android:textAppearance="@style/inventory_check_label"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline59"
-        app:layout_constraintStart_toStartOf="@+id/guideline48"
-        app:layout_constraintTop_toTopOf="@+id/guideline59" />
 
     <TextView
         android:id="@+id/textView29"
@@ -258,23 +90,9 @@
         android:text="存放区域："
         android:textAppearance="@style/inventory_check_label"
         android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline81"
+        app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintStart_toStartOf="@+id/guideline48"
-        app:layout_constraintTop_toTopOf="@+id/guideline81" />
-
-    <EditText
-        android:id="@+id/editTextDeliveryDate"
-        style="@style/inventory_check_text"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:inputType="date"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline59"
-        app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toTopOf="@+id/guideline59"
-        tools:ignore="TouchTargetSizeCheck"
-        tools:text="2021-09-01" />
+        app:layout_constraintTop_toTopOf="@+id/guideline54" />
 
     <EditText
         android:id="@+id/editTextArea"
@@ -284,22 +102,24 @@
         android:ems="10"
         android:inputType="text"
         android:textColor="@color/black_light"
-        app:layout_constraintBottom_toTopOf="@+id/guideline81"
-        app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toTopOf="@+id/guideline81"
+        app:layout_constraintBottom_toTopOf="@+id/guideline54"
+        app:layout_constraintStart_toEndOf="@+id/textView29"
+        app:layout_constraintTop_toTopOf="@+id/guideline54"
         tools:ignore="TouchTargetSizeCheck"
         tools:text="A区25号" />
 
-    <com.cardy.design.widget.IconFontTextView
-        android:id="@+id/textViewCalendar"
+    <EditText
+        android:id="@+id/editTextInCount"
+        style="@style/inventory_check_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&#xe915;"
-        android:textAppearance="@style/inventory_check_text"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="text"
         android:textColor="@color/black_light"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline59"
-        app:layout_constraintStart_toEndOf="@+id/editTextDeliveryDate"
-        app:layout_constraintTop_toTopOf="@+id/guideline59" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline53"
+        app:layout_constraintStart_toEndOf="@+id/textView29"
+        app:layout_constraintTop_toTopOf="@+id/guideline53"
+        tools:ignore="TouchTargetSizeCheck"
+        tools:text="2000" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

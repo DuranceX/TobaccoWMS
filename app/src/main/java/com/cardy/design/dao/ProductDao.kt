@@ -32,6 +32,6 @@ interface ProductDao {
     @Query("SELECT model FROM product WHERE name=:name")
     fun getProductModelListByName(name:String):List<String>
 
-    @Query("SELECT price FROM product WHERE model=:model")
-    fun getProductByModel(model:String):Double
+    @Query("SELECT * FROM product WHERE model=:model")
+    fun getProductByModel(model:String):Product
 }

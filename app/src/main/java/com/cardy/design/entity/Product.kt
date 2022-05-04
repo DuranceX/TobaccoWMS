@@ -24,5 +24,8 @@ data class Product(
     //产品原料
     @ColumnInfo(name = "usedMaterial")
     var usedMaterial:String
-
-)
+){
+    override fun toString(): String {
+        return "名称=$name, 型号=$model"
+    }
+}

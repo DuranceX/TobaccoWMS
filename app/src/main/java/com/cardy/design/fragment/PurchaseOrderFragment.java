@@ -112,15 +112,10 @@ public class PurchaseOrderFragment extends Fragment {
             @Override
             public void run() {
                 materialNameList = materialViewModel.getMaterialNameList();
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 supplierList = supplierViewModel.getNameList();
             }
         }).start();
+
 
         initAddMethod();
 

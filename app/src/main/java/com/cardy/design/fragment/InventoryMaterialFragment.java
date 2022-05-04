@@ -18,21 +18,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cardy.design.R;
-import com.cardy.design.adapter.InventoryListAdapter;
+import com.cardy.design.adapter.InventoryMaterialListAdapter;
 import com.cardy.design.entity.Inventory;
-import com.cardy.design.entity.InventoryTest;
 import com.cardy.design.util.diff.InventoryDiffCallback;
 import com.cardy.design.viewmodel.InventoryViewModel;
 import com.cardy.design.widget.IconFontTextView;
-import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.interfaces.OnBindView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryMaterialFragment extends Fragment {
 
-    InventoryListAdapter adapter;
+    InventoryMaterialListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
     IconFontTextView addButton,menuButton;
@@ -58,7 +54,7 @@ public class InventoryMaterialFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
-        adapter = new InventoryListAdapter(R.layout.item_inventory_material,viewModel);
+        adapter = new InventoryMaterialListAdapter(R.layout.item_inventory_material,viewModel);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.inventoryMaterialRecycleview);
         searchView = getView().findViewById(R.id.inventoryMaterialSearchView);
