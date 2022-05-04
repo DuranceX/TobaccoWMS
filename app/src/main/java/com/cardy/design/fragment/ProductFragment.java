@@ -1,7 +1,10 @@
 package com.cardy.design.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,7 +72,6 @@ public class ProductFragment extends Fragment {
     public ProductFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -169,4 +172,5 @@ public class ProductFragment extends Fragment {
             drawerLayout.openDrawer(GravityCompat.START);
         });
     }
+
 }

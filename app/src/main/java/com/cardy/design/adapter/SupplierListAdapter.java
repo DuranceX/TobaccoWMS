@@ -2,11 +2,13 @@ package com.cardy.design.adapter;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.net.Uri;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.entity.Supplier;
+import com.cardy.design.util.Util;
 import com.cardy.design.viewmodel.SupplierViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -67,7 +70,13 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
     protected void convert(@NonNull MySupplierViewHolder holder, Supplier supplier) {
         try{
             if(!supplier.getLogo().equals("")){
-                Picasso.with(getContext()).load(supplier.getLogo()).into(holder.logo);
+                if(!supplier.getLogo().startsWith("http")){
+                    Uri pathUri = Util.getImagePath(getContext(),supplier.getLogo());
+                    holder.logo.setImageURI(pathUri);
+                }
+                else {
+                    Picasso.with(getContext()).load(supplier.getLogo()).into(holder.logo);
+                }
             }
             else
                 throw new Exception();

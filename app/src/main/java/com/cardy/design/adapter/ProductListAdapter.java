@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cardy.design.R;
 import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.entity.Product;
+import com.cardy.design.util.Util;
 import com.cardy.design.viewmodel.ProductViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -61,25 +62,11 @@ public class ProductListAdapter extends BaseQuickAdapter<Product, MyProductViewH
     @Override
     protected void convert(@NonNull MyProductViewHolder holder, Product product) {
         //填充数值
-        String TAG = "Test: file";
         try{
             if(!product.getImage().equals("")){
-                if(DocumentsContract.isDocumentUri(getContext(),Uri.parse(product.getImage()))){
-                    Uri uri = Uri.parse(product.getImage());
-                    String imagePath = "";
-                    String docId = DocumentsContract.getDocumentId(uri);
-                    Log.d(TAG, "docId: " + docId);
-                    if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-                        if (docId.startsWith("raw:")) {
-                            imagePath = docId.replaceFirst("raw:", "");
-                        } else {
-                            Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.parseLong(docId));
-                            imagePath = getImagePath(contentUri, null);
-                        }
-                        Log.d(TAG, imagePath);
-                    }
-                    //Picasso.with(getContext()).load(Uri.parse(imagePath)).into(holder.imageView);
-                    holder.imageView.setImageURI(Uri.parse(imagePath));
+                if(!product.getImage().startsWith("http")){
+                    Uri pathUri = Util.getImagePath(getContext(),product.getImage());
+                    holder.imageView.setImageURI(pathUri);
                 }
                 else {
                     Picasso.with(getContext()).load(product.getImage()).into(holder.imageView);
@@ -96,20 +83,6 @@ public class ProductListAdapter extends BaseQuickAdapter<Product, MyProductViewH
         holder.price.setText("￥"+ String.valueOf(product.getPrice()));
     }
 
-    @SuppressLint("Range")
-    private String getImagePath(Uri uri, String selection) {
-        String path = null;
-        // 通过Uri和selection来获取真实的图片路径
-        Cursor cursor = getContext().getContentResolver().query(uri, null, selection, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }
-            cursor.close();
-        }
-        Log.e("TAG", "getImagePath: " + path);
-        return path;
-    }
 
     //TODO: 修改所有涉及到访问图片的内容
     public void initClickListener(){

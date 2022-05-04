@@ -1,6 +1,9 @@
 package com.cardy.design.adapter;
 
+import android.content.ContentUris;
 import android.net.Uri;
+import android.provider.DocumentsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.cardy.design.R;
 import com.cardy.design.entity.Inventory;
 import com.cardy.design.entity.InventoryTest;
+import com.cardy.design.util.Util;
 import com.cardy.design.viewmodel.InventoryViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -47,7 +51,22 @@ public class InventoryListAdapter extends BaseQuickAdapter<Inventory, MyInventor
                 @Override
                 public void run() {
                     //设置图片路径
-                    Picasso.with(getContext()).load(viewModel.getProductImage(inventory.getModel())).into(holder.image);
+                    try{
+                        String path = viewModel.getProductImage(inventory.getModel());
+                        if(!path.equals("")){
+                            if(!path.startsWith("http")){
+                                Uri pathUri = Util.getImagePath(getContext(),path);
+                                holder.image.setImageURI(pathUri);
+                            }
+                            else {
+                                Picasso.with(getContext()).load(path).into(holder.image);
+                            }
+                        }
+                        else
+                            throw new Exception();
+                    }catch (Exception exception){
+                        holder.image.setImageDrawable(getContext().getDrawable(R.drawable.product_placeholder));
+                    }
                 }
             }).start();
         }
