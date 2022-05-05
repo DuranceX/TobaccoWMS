@@ -33,5 +33,9 @@
             android:id="@+id/reportFragment"
             android:icon="@drawable/ic_report"
             android:title="@string/report_fragment_title" />
+        <item
+            android:id="@+id/userFragment"
+            android:icon="@drawable/ic_user_manage_1"
+            android:title="@string/user_fragment_title" />
     </group>
 </menu>

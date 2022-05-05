@@ -7,6 +7,7 @@
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/drawable/ic_calendar.xml" value="0.3025" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/drawable/ic_customer.xml" value="0.3025" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/drawable/ic_undraw_no_data.xml" value="0.3025" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/activity_login.xml" value="0.38645833333333335" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/activity_main.xml" value="0.35507246376811596" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_add_customer_supplier.xml" value="0.3473731884057971" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/dialog_add_material.xml" value="0.35507246376811596" />
@@ -48,6 +49,7 @@
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/layout/item_user_information.xml" value="0.35507246376811596" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/menu/inventory_menu.xml" value="0.38645833333333335" />
         <entry key="..\:/Code/TobaccoWMS/app/src/main/res/menu/menu.xml" value="0.38645833333333335" />
+        <entry key="..\:/Code/TobaccoWMS/app/src/main/res/menu/menu_admin.xml" value="0.38645833333333335" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_administrator_2.xml" value="0.326" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_baseline_people_outline_24.xml" value="0.3305" />
         <entry key="..\:/Work/Work_Android/Word_Android_FinalDesign/app/src/main/res/drawable/ic_outline_event_note_24.xml" value="0.3305" />

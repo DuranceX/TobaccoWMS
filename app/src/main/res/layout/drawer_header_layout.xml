@@ -22,7 +22,7 @@
         app:layout_constraintGuide_percent="0.36" />
 
     <com.ruffian.library.widget.RImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/userImageView"
         android:layout_width="90dp"
         android:layout_height="82dp"
         app:corner_radius="45dp"

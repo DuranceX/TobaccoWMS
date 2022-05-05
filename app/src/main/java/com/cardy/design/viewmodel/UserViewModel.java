@@ -2,6 +2,10 @@ package com.cardy.design.viewmodel;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -18,12 +22,18 @@ import java.util.List;
 public class UserViewModel extends AndroidViewModel {
     private UserDao userDao;
     private LiveData<List<User>> listLive;
+    private User user;
+    private Handler handler;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
         TestDatabase testDatabase = TestDatabase.Companion.getINSTANCE(application);
         userDao = testDatabase.userDao();
         listLive = userDao.getAllUser();
+    }
+
+    public void sendHandler(Handler handler){
+        this.handler = handler;
     }
 
     public void insertUser(User... users){
@@ -36,6 +46,28 @@ public class UserViewModel extends AndroidViewModel {
 
     public void deleteUser(User... users){
         new DeleteAsyncTask(userDao).execute(users);
+    }
+
+    public void isLogin(String id, String password){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                user = userDao.getUserById(id);
+                Message message = Message.obtain();
+                message.what = 2;
+                Bundle bundle = new Bundle();
+                if(user!=null){
+                    bundle.putInt("isLogin", password.equals(user.getPassword())?1:2);
+                    bundle.putString("userId",user.getId());
+                    bundle.putString("username", user.getUsername());
+                    bundle.putBoolean("permission",user.getPermission());
+                }else{
+                    bundle.putInt("isLogin", 3);
+                }
+                message.setData(bundle);
+                handler.sendMessage(message);
+            }
+        }).start();
     }
 
     public LiveData<List<User>> getAllUserLive(){
@@ -95,5 +127,4 @@ public class UserViewModel extends AndroidViewModel {
             return null;
         }
     }
-
 }
