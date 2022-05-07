@@ -39,6 +39,8 @@ import com.cardy.design.viewmodel.MaterialViewModel;
 import com.cardy.design.viewmodel.PurchaseOrderViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.kongzue.dialogx.dialogs.BottomDialog;
+import com.kongzue.dialogx.dialogs.TipDialog;
+import com.kongzue.dialogx.dialogs.WaitDialog;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
@@ -152,8 +154,12 @@ public class InventoryMaterialFragment extends Fragment {
                 public boolean onClick(BottomDialog baseDialog, View v) {
                     int outCount = Integer.parseInt(etOutCount.getText().toString());
 
-                    inventory[0].setHostCount(inventory[0].getHostCount()-outCount);
-                    viewModel.updateInventory(inventory[0]);
+                    if(inventory[0].getHostCount()>outCount){
+                        inventory[0].setHostCount(inventory[0].getHostCount()-outCount);
+                        viewModel.updateInventory(inventory[0]);
+                    }else{
+                        TipDialog.show("库存不足", WaitDialog.TYPE.ERROR);
+                    }
                     return false;
                 }
             }).setCancelButton("取消");

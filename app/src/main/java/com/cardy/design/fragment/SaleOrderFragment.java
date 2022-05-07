@@ -1,6 +1,7 @@
 package com.cardy.design.fragment;
 
-import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,6 +47,7 @@ import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SaleOrderFragment extends Fragment {
+    Boolean permission;
     SaleOrderListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
@@ -72,6 +73,8 @@ public class SaleOrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences shp = getActivity().getSharedPreferences("userData", Context.MODE_PRIVATE);
+        permission = shp.getBoolean("permission",false);
     }
 
     @Override
@@ -194,6 +197,9 @@ public class SaleOrderFragment extends Fragment {
                     Double price = Double.valueOf(etPrice.getText().toString());
                     int count = Integer.parseInt(etCount.getText().toString());
                     SaleOrder order = new SaleOrder(0, userId, userName, name, model, count, price, customer, saleDate, "", SaleOrder.STATE_WAIT, "");
+                    if(permission){
+                        order.setState(SaleOrder.STATE_WAIT);
+                    }
                     viewModel.insertSaleOrder(order);
                     return false;
                 }

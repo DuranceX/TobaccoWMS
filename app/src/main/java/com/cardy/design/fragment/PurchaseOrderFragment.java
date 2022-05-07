@@ -1,6 +1,8 @@
 package com.cardy.design.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.adapter.PurchaseOrderListAdapter;
+import com.cardy.design.entity.Inventory;
 import com.cardy.design.entity.PurchaseOrder;
 import com.cardy.design.util.diff.PurchaseOrderDiffCallback;
 import com.cardy.design.viewmodel.InventoryViewModel;
@@ -48,6 +51,7 @@ import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class PurchaseOrderFragment extends Fragment {
+    Boolean permission;
     PurchaseOrderListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
@@ -74,6 +78,8 @@ public class PurchaseOrderFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences shp = getActivity().getSharedPreferences("userData", Context.MODE_PRIVATE);
+        permission = shp.getBoolean("permission",false);
     }
 
     @Override
@@ -130,6 +136,7 @@ public class PurchaseOrderFragment extends Fragment {
     }
 
     public void initAddMethod(){
+        final Inventory[] inventory = new Inventory[1];
         addButton.setOnClickListener(v->{
             BottomDialog.show("添加原料",new OnBindView<BottomDialog>(R.layout.dialog_add_purchase_order) {
                 @Override
@@ -183,6 +190,23 @@ public class PurchaseOrderFragment extends Fragment {
                         public void onNothingSelected(AdapterView<?> adapterView) { }
                     });
 
+                    spinnerModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    inventory[0] = inventoryViewModel.getInventoryByModel(spinnerModel.getSelectedItem().toString());
+                                }
+                            }).start();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
                     tvPurchaseDate.setText(LocalDate.now().toString());
                 }
             }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
@@ -197,6 +221,16 @@ public class PurchaseOrderFragment extends Fragment {
                     Double price = Double.valueOf(etPrice.getText().toString());
                     int count = Integer.parseInt(etCount.getText().toString());
                     PurchaseOrder order = new PurchaseOrder(0,userId,userName,name,model,count,price,supplier,purchaseDate,"",PurchaseOrder.STATE_REQUEST,"");
+                    if(permission){
+                        order.setState(PurchaseOrder.STATE_DELIVERY);
+                        if(inventory[0]==null){
+                            Inventory temp = new Inventory(name,model,"",0,count,"",Inventory.TYPE_MATERIAL);
+                            inventoryViewModel.insertInventory(temp);
+                        }else{
+                            inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()+count);
+                            inventoryViewModel.updateInventory(inventory[0]);
+                        }
+                    }
                     viewModel.insertPurchaseOrder(order);
                     return false;
                 }

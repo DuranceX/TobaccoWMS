@@ -1,6 +1,8 @@
 package com.cardy.design.adapter;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import com.cardy.design.viewmodel.ProductViewModel;
 import com.cardy.design.viewmodel.SaleOrderViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.dragswipe.DragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.chad.library.adapter.base.module.BaseDraggableModule;
@@ -50,6 +53,7 @@ import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrderViewHolder> implements DraggableModule {
+    Boolean permission;
     List<SaleOrder> list;
     SaleOrderViewModel viewModel;
     ProductViewModel productViewModel;
@@ -81,6 +85,13 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
 
         initClickListener();
         initSwipeListener();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        SharedPreferences shp = getContext().getSharedPreferences("userData", Context.MODE_PRIVATE);
+        permission = shp.getBoolean("permission",false);
     }
 
     @Override
@@ -137,6 +148,7 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
 
     public void initClickListener() {
         final String[] buttonStr = {"提交申请"};
+        final String[] cancelButtonStr = {"取消"};
         final SaleOrder[] order = new SaleOrder[1];
         final Inventory[] inventory = new Inventory[1];
         this.setOnItemClickListener(new OnItemClickListener() {
@@ -164,6 +176,7 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
                         etCount.setText(String.valueOf(order[0].getCount()));
                         tvDeliveryDate.setText(order[0].getDeliveryDate());
                         etComment.setText(order[0].getComment());
+                        etComment.setEnabled(false);
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -175,19 +188,28 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
                         switch (order[0].getState()){
                             case SaleOrder.STATE_DELIVERY:
                                 buttonStr[0] = "确认送达";
-                                etPrice.setEnabled(false);
-                                etCount.setEnabled(false);
-                                spinnerName.setEnabled(false);
-                                spinnerModel.setEnabled(false);
-                                spinnerCustomer.setEnabled(false);
+                                cancelButtonStr[0] = "取消";
                                 break;
                             case SaleOrder.STATE_REQUEST:
                             case SaleOrder.STATE_REFUSED:
-                                buttonStr[0] = "重新提交";
+                                if(permission){
+                                    buttonStr[0] = "同意";
+                                    cancelButtonStr[0] = "拒绝";
+                                    etPrice.setEnabled(false);
+                                    etCount.setEnabled(false);
+                                    etComment.setEnabled(true);
+                                    spinnerName.setEnabled(false);
+                                    spinnerModel.setEnabled(false);
+                                    spinnerCustomer.setEnabled(false);
+                                }else{
+                                    buttonStr[0] = "重新提交";
+                                    cancelButtonStr[0] = "取消";
+                                }
                                 break;
                             case SaleOrder.STATE_WAIT:
                             case SaleOrder.STATE_COMPLETE:
                                 buttonStr[0] = "确定";
+                                cancelButtonStr[0] = "取消";
                                 etPrice.setEnabled(false);
                                 etCount.setEnabled(false);
                                 etComment.setEnabled(false);
@@ -257,27 +279,42 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
                         Double price = Double.valueOf(etPrice.getText().toString());
                         int count = Integer.parseInt(etCount.getText().toString());
                         String deliveryDate = tvDeliveryDate.getText().toString();
+                        String comment = etComment.getText().toString();
 
-                        switch (order[0].getState()){
-                            case SaleOrder.STATE_REQUEST:
-                            case SaleOrder.STATE_REFUSED:
+                        switch (buttonStr[0]){
+                            case "重新提交":
                                 order[0] = new SaleOrder(list.get(position).getOrderId(),userId,userName,name,model,count,price,customer,saleDate,deliveryDate,PurchaseOrder.STATE_REQUEST,"");
                                 viewModel.updateSaleOrder(order[0]);
                                 break;
-                            case SaleOrder.STATE_DELIVERY:
-                                order[0] = new SaleOrder(list.get(position).getOrderId(),userId,userName,name,model,count,price,customer,saleDate,deliveryDate,PurchaseOrder.STATE_COMPLETE,"");
+                            case "同意":
+                                order[0].setState(SaleOrder.STATE_WAIT);
+                                order[0].setComment(comment);
+                                viewModel.updateSaleOrder(order[0]);
+                                break;
+                            case "确认送达":
+                                order[0].setState(SaleOrder.STATE_COMPLETE);
                                 viewModel.updateSaleOrder(order[0]);
                                 inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()-count);
+                                inventory[0].setHostCount(inventory[0].getHostCount()+count);
                                 inventoryViewModel.updateInventory(inventory[0]);
-                                break;
-                            case SaleOrder.STATE_COMPLETE:
-                            case SaleOrder.STATE_WAIT:
+                            case "确定":
                                 baseDialog.dismiss();
                                 break;
                         }
                         return false;
                     }
-                }).setCancelButton("取消");
+                }).setCancelButton(cancelButtonStr[0], new OnDialogButtonClickListener<BottomDialog>() {
+                    @Override
+                    public boolean onClick(BottomDialog baseDialog, View v) {
+                        String comment = etComment.getText().toString();
+                        if(cancelButtonStr[0].equals("拒绝")){
+                            order[0].setState(SaleOrder.STATE_REFUSED);
+                            order[0].setComment(comment);
+                            viewModel.updateSaleOrder(order[0]);
+                        }
+                        return false;
+                    }
+                });
             }
         });
     }
@@ -318,11 +355,10 @@ public class SaleOrderListAdapter extends BaseQuickAdapter<SaleOrder, MySaleOrde
                 canvas.drawColor(ContextCompat.getColor(getContext(), R.color.background_gray));
             }
         };
-
         getDraggableModule().setSwipeEnabled(true);
         getDraggableModule().setOnItemSwipeListener(onItemSwipeListener);
         //END即只允许向右滑动
-        getDraggableModule().getItemTouchHelperCallback().setSwipeMoveFlags(ItemTouchHelper.END);
+
     }
 }
 

@@ -38,6 +38,9 @@ import com.cardy.design.viewmodel.ProductViewModel;
 import com.cardy.design.viewmodel.SaleOrderViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.kongzue.dialogx.dialogs.BottomDialog;
+import com.kongzue.dialogx.dialogs.PopTip;
+import com.kongzue.dialogx.dialogs.TipDialog;
+import com.kongzue.dialogx.dialogs.WaitDialog;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
@@ -250,15 +253,20 @@ public class InventoryProductFragment extends Fragment {
                 @Override
                 public boolean onClick(BottomDialog baseDialog, View v) {
                     int count = Integer.parseInt(tvCount.getText().toString());
-                    String deliveryDate = etDeliveryDate.getText().toString();
+                    if(inventory[0].getHostCount()>count){
+                        String deliveryDate = etDeliveryDate.getText().toString();
 
-                    order[0].setState(SaleOrder.STATE_DELIVERY);
-                    order[0].setDeliveryDate(deliveryDate);
-                    saleOrderViewModel.updateSaleOrder(order);
+                        order[0].setState(SaleOrder.STATE_DELIVERY);
+                        order[0].setDeliveryDate(deliveryDate);
+                        saleOrderViewModel.updateSaleOrder(order);
 
-                    inventory[0].setHostCount(inventory[0].getHostCount()-count);
-                    inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()+count);
-                    viewModel.updateInventory(inventory[0]);
+                        inventory[0].setHostCount(inventory[0].getHostCount()-count);
+                        inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()+count);
+                        viewModel.updateInventory(inventory[0]);
+                    }
+                    else{
+                        TipDialog.show("库存不足", WaitDialog.TYPE.ERROR);
+                    }
                     return false;
                 }
             }).setCancelButton("取消");
