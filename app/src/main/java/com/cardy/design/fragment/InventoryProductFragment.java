@@ -62,6 +62,7 @@ public class InventoryProductFragment extends Fragment {
     List<SaleOrder> orders;
     List<Product> products;
     LocalDate date = LocalDate.now();
+    Boolean firstFlag = true;
 
     Spinner spinner;
     TextView tvName, tvModel, tvCustomer, tvCount, tvPrice, tvSaleDate,calendar;
@@ -106,10 +107,13 @@ public class InventoryProductFragment extends Fragment {
         viewModel.getAllProductInventory().observe(getActivity(), new Observer<List<Inventory>>() {
             @Override
             public void onChanged(List<Inventory> inventories) {
-                if (adapter.getData().size() == 0)
-                    adapter.setNewInstance(inventories);
-                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
-                adapter.setDiffNewData(inventories);
+                if(searchView.getQuery().equals("") || firstFlag){
+                    if (adapter.getData().size() == 0)
+                        adapter.setNewInstance(inventories);
+                    //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                    adapter.setDiffNewData(inventories);
+                    firstFlag = false;
+                }
             }
         });
 
@@ -121,6 +125,18 @@ public class InventoryProductFragment extends Fragment {
             }
         }).start();
 
+        initInButton();
+        initOutButton();
+        initSearch();
+
+        //呼出抽屉菜单
+        menuButton.setOnClickListener(v->{
+            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+    }
+
+    public void initInButton(){
         inButton.setOnClickListener(v->{
             final Inventory[] inventory = new Inventory[1];
             final Product[] product = new Product[1];
@@ -171,7 +187,9 @@ public class InventoryProductFragment extends Fragment {
                 }
             }).setCancelButton("取消");
         });
+    }
 
+    public void initOutButton(){
         outButton.setOnClickListener(v->{
             final Inventory[] inventory = new Inventory[1];
             final SaleOrder[] order = new SaleOrder[1];
@@ -271,11 +289,25 @@ public class InventoryProductFragment extends Fragment {
                 }
             }).setCancelButton("取消");
         });
+    }
 
-        //呼出抽屉菜单
-        menuButton.setOnClickListener(v->{
-            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
-            drawerLayout.openDrawer(GravityCompat.START);
+    public void initSearch(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.getAllQueriedProductInventory(newText).observe(getActivity(), new Observer<List<Inventory>>() {
+                    @Override
+                    public void onChanged(List<Inventory> inventories) {
+                        adapter.setDiffNewData(inventories);
+                    }
+                });
+                return false;
+            }
         });
     }
 }

@@ -22,6 +22,9 @@ interface UserDao {
     @Query("SELECT * FROM user ORDER BY id")
     fun getAllUser():LiveData<List<User>>
 
+    @Query("SELECT * FROM user WHERE username LIKE :arg OR id LIKE :arg ORDER BY id")
+    fun getAllQueriedUserLive(arg:String):LiveData<List<User>>
+
     @Query("SELECT * from user WHERE id==:id")
-    fun  getUserById(id:String):User
+    fun getUserById(id:String):User
 }

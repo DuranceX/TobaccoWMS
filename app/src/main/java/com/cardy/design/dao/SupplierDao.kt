@@ -22,6 +22,9 @@ interface SupplierDao {
     @Query("SELECT * FROM supplier ORDER BY priority,name")
     fun getAllSupplier(): LiveData<List<Supplier>>
 
+    @Query("SELECT * FROM supplier WHERE name LIKE :arg OR address LIKE :arg OR mainSupply LIKE :arg ORDER BY priority,name")
+    fun getAllQueriedSupplier(arg:String): LiveData<List<Supplier>>
+
     @Query("SELECT name FROM supplier")
     fun getSupplierNameList():List<String>
 }

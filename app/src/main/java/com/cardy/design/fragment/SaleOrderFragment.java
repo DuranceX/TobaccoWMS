@@ -64,7 +64,7 @@ public class SaleOrderFragment extends Fragment {
     Spinner spinnerName, spinnerModel, spinnerCustomer;
     EditText etPrice, etCount;
 
-    LocalDate date = LocalDate.now();
+    Boolean firstFlag = true;
 
     public SaleOrderFragment() {
         // Required empty public constructor
@@ -106,10 +106,13 @@ public class SaleOrderFragment extends Fragment {
         viewModel.getAllSaleOrderLive().observe(getActivity(), new Observer<List<SaleOrder>>() {
             @Override
             public void onChanged(List<SaleOrder> saleOrders) {
-                if (adapter.getData().size() == 0)
-                    adapter.setNewInstance(saleOrders);
-                adapter.setDiffNewData(saleOrders);
-                adapter.setMyList(saleOrders);
+                if(searchView.getQuery().equals("") || firstFlag){
+                    if (adapter.getData().size() == 0)
+                        adapter.setNewInstance(saleOrders);
+                    adapter.setDiffNewData(saleOrders);
+                    adapter.setMyList(saleOrders);
+                    firstFlag = false;
+                }
             }
         });
 
@@ -122,6 +125,7 @@ public class SaleOrderFragment extends Fragment {
         }).start();
 
         initAddMethod();
+        initSearch();
 
         menuButton.setOnClickListener(v -> {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
@@ -204,6 +208,27 @@ public class SaleOrderFragment extends Fragment {
                     return false;
                 }
             }).setCancelButton("取消");
+        });
+    }
+
+    public void initSearch(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.getAllQueriedSaleOrderLive(newText).observe(getActivity(), new Observer<List<SaleOrder>>() {
+                    @Override
+                    public void onChanged(List<SaleOrder> saleOrders) {
+                        adapter.setDiffNewData(saleOrders);
+                        adapter.setMyList(saleOrders);
+                    }
+                });
+                return false;
+            }
         });
     }
 }

@@ -8,9 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.cardy.design.dao.CustomerDao;
-import com.cardy.design.dao.SupplierDao;
 import com.cardy.design.entity.Customer;
-import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.TestDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
@@ -45,6 +43,11 @@ public class CustomerViewModel extends AndroidViewModel {
 
     public LiveData<List<Customer>> getAllCustomerLive() {
         return listLive;
+    }
+
+    public LiveData<List<Customer>> getAllQueriedCustomerLive(String arg){
+        String newArg = "%"+arg+"%";
+        return dao.getAllQueriedCustomer(newArg);
     }
 
     static class InsertAsyncTask extends AsyncTask<Customer, Void, Void> {

@@ -103,22 +103,28 @@ public class CustomerFragment extends Fragment {
         viewModel.getAllCustomerLive().observe(getActivity(), new Observer<List<Customer>>() {
             @Override
             public void onChanged(List<Customer> customers) {
-                if (adapter.getData().size() == 0)
-                    adapter.setNewInstance(customers);
-                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
-                adapter.setDiffNewData(customers);
-                //重写的setList方法更新adapter中的list数据
-                adapter.setMyList(customers);
-
-                //如果是第一次
-                //通过setList方法来重设数据，使得第一次更换头像后也能刷新显示，而不用从其他界面重新返回才刷新
-                if(firstFlag){
-                    adapter.setList(customers);
+                if(searchView.getQuery().equals("") || firstFlag){
+                    if (adapter.getData().size() == 0)
+                        adapter.setNewInstance(customers);
+                    //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                    adapter.setDiffNewData(customers);
+                    //重写的setList方法更新adapter中的list数据
+                    adapter.setMyList(customers);
                     firstFlag = false;
                 }
             }
         });
 
+        initClickListener();
+        initSearch();
+
+        menuButton.setOnClickListener(v->{
+            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+    }
+
+    public void initClickListener(){
         addButton.setOnClickListener(v->{
             final TextView[] textViewNameLabel = new TextView[1];
             final TextView[] textViewAddressLabel = new TextView[1];
@@ -174,11 +180,26 @@ public class CustomerFragment extends Fragment {
                 }
             }).setCancelButton("取消");
         });
+    }
 
-        menuButton.setOnClickListener(v->{
-            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
-            drawerLayout.openDrawer(GravityCompat.START);
+    public void initSearch(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.getAllQueriedCustomerLive(newText).observe(getActivity(), new Observer<List<Customer>>() {
+                    @Override
+                    public void onChanged(List<Customer> customers) {
+                        adapter.setDiffNewData(customers);
+                        adapter.setMyList(customers);
+                    }
+                });
+                return false;
+            }
         });
-
     }
 }

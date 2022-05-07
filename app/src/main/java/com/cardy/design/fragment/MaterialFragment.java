@@ -47,6 +47,8 @@ public class MaterialFragment extends Fragment {
 
     EditText editTextName,editTextModel,editTextPrice;
 
+    Boolean firstFlag = true;
+
     public MaterialFragment() {
         // Required empty public constructor
     }
@@ -83,14 +85,27 @@ public class MaterialFragment extends Fragment {
         viewModel.getAllMaterialsLive().observe(getActivity(), new Observer<List<Material>>() {
             @Override
             public void onChanged(List<Material> materials) {
-                if (adapter.getData().size() == 0)
-                    adapter.setNewInstance(materials);
-                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
-                adapter.setDiffNewData(materials);
-                adapter.setMyList(materials);
+                if(searchView.getQuery().equals("") || firstFlag){
+                    if (adapter.getData().size() == 0)
+                        adapter.setNewInstance(materials);
+                    //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                    adapter.setDiffNewData(materials);
+                    adapter.setMyList(materials);
+                    firstFlag = false;
+                }
             }
         });
 
+        initClickListener();
+        initSearch();
+
+        menuButton.setOnClickListener(v->{
+            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+    }
+
+    public void initClickListener(){
         addButton.setOnClickListener(v->{
             BottomDialog.show("添加原料",new OnBindView<BottomDialog>(R.layout.dialog_add_material) {
                 @Override
@@ -113,10 +128,26 @@ public class MaterialFragment extends Fragment {
                 }
             }).setCancelButton("取消");
         });
+    }
 
-        menuButton.setOnClickListener(v->{
-            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
-            drawerLayout.openDrawer(GravityCompat.START);
+    public void initSearch(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.getAllQueriedMaterialsLive(newText).observe(getActivity(), new Observer<List<Material>>() {
+                    @Override
+                    public void onChanged(List<Material> materials) {
+                        adapter.setDiffNewData(materials);
+                        adapter.setMyList(materials);
+                    }
+                });
+                return false;
+            }
         });
     }
 }

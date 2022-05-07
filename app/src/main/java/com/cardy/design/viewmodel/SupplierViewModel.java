@@ -41,6 +41,11 @@ public class SupplierViewModel extends AndroidViewModel {
         return listLive;
     }
 
+    public LiveData<List<Supplier>> getAllQueriedSupplierLive(String arg){
+        String newArg = "%"+arg+"%";
+        return supplierDao.getAllQueriedSupplier(newArg);
+    }
+
     public List<String> getNameList(){
         return supplierDao.getSupplierNameList();
     }

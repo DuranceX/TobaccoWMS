@@ -47,6 +47,11 @@ public class PurchaseOrderViewModel extends AndroidViewModel {
         return listLive;
     }
 
+    public LiveData<List<PurchaseOrder>> getAllQueriedPurchaseOrderLive(String arg){
+        String newArg = "%"+arg+"%";
+        return dao.getAllQueriedPurchaseOrder(newArg);
+    }
+
     public List<PurchaseOrder> getSelectedStateOrder(String state){
         return dao.getSelectedStateOrder(state);
     }

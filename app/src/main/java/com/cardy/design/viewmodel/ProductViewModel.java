@@ -56,6 +56,11 @@ public class ProductViewModel extends AndroidViewModel {
         return listLive;
     }
 
+    public LiveData<List<Product>> getAllQueriedProductLive(String arg){
+        String newArg = "%"+arg+"%";
+        return dao.getAllQueriedProduct(newArg);
+    }
+
     public List<Product> getAllProductNoLive(){
         return dao.getAllProductNoLive();
     }

@@ -118,20 +118,27 @@ public class ProductFragment extends Fragment {
         viewModel.getAllProductLive().observe(getActivity(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
-                if (adapter.getData().size() == 0)
-                    adapter.setNewInstance(products);
-                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
-                adapter.setDiffNewData(products);
-                adapter.setMyList(products);
-
-                //如果是第一次
-                if(firstFlag){
-                    adapter.setList(products);
+                if(searchView.getQuery().equals("") || firstFlag){
+                    if (adapter.getData().size() == 0)
+                        adapter.setNewInstance(products);
+                    //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                    adapter.setDiffNewData(products);
+                    adapter.setMyList(products);
                     firstFlag = false;
                 }
             }
         });
 
+        initClickListener();
+        initSearch();
+
+        menuButton.setOnClickListener(v->{
+            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+    }
+
+    public void initClickListener(){
         addButton.setOnClickListener(v->{
             BottomDialog.show("添加产品",new OnBindView<BottomDialog>(R.layout.dialog_add_product) {
                 @Override
@@ -166,11 +173,26 @@ public class ProductFragment extends Fragment {
                 }
             }).setCancelButton("取消");
         });
-
-        menuButton.setOnClickListener(v->{
-            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
-            drawerLayout.openDrawer(GravityCompat.START);
-        });
     }
 
+    public void initSearch(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.getAllQueriedProductLive(newText).observe(getActivity(), new Observer<List<Product>>() {
+                    @Override
+                    public void onChanged(List<Product> products) {
+                        adapter.setDiffNewData(products);
+                        adapter.setMyList(products);
+                    }
+                });
+                return false;
+            }
+        });
+    }
 }

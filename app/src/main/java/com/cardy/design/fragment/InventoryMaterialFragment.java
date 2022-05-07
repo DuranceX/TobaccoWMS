@@ -62,6 +62,7 @@ public class InventoryMaterialFragment extends Fragment {
     List<PurchaseOrder> orders;
     List<Material> materials;
     LocalDate date = LocalDate.now();
+    Boolean firstFlag = true;
 
     Spinner spinner;
     TextView tvName, tvModel, tvSupplier, tvCount, tvPrice, tvPurchaseDate,calendar;
@@ -105,10 +106,13 @@ public class InventoryMaterialFragment extends Fragment {
         viewModel.getAllMaterialInventory().observe(getActivity(), new Observer<List<Inventory>>() {
             @Override
             public void onChanged(List<Inventory> inventories) {
-                if (adapter.getData().size() == 0)
-                    adapter.setNewInstance(inventories);
-                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
-                adapter.setDiffNewData(inventories);
+                if(searchView.getQuery().equals("") || firstFlag){
+                    if (adapter.getData().size() == 0)
+                        adapter.setNewInstance(inventories);
+                    //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                    adapter.setDiffNewData(inventories);
+                    firstFlag = false;
+                }
             }
         });
 
@@ -120,51 +124,18 @@ public class InventoryMaterialFragment extends Fragment {
             }
         }).start();
 
-        outButton.setOnClickListener(v->{
-            final Inventory[] inventory = new Inventory[1];
-            BottomDialog.show("出库", new OnBindView<BottomDialog>(R.layout.dialog_inventory_material_check_out) {
-                @Override
-                public void onBind(BottomDialog dialog, View v) {
-                    spinner = v.findViewById(R.id.orderSpinner);
-                    etOutCount = v.findViewById(R.id.editTextOutCount);
+        initInButton();
+        initOutButton();
+        initSearch();
 
-                    ArrayAdapter<Material> materialAdapter = new ArrayAdapter<>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, materials);
-                    spinner.setAdapter(materialAdapter);
-
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            Material material = materials.get(spinner.getSelectedItemPosition());
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    inventory[0] = viewModel.getInventoryByModel(material.getModel());
-                                }
-                            }).start();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-                }
-            }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
-                @Override
-                public boolean onClick(BottomDialog baseDialog, View v) {
-                    int outCount = Integer.parseInt(etOutCount.getText().toString());
-
-                    if(inventory[0].getHostCount()>outCount){
-                        inventory[0].setHostCount(inventory[0].getHostCount()-outCount);
-                        viewModel.updateInventory(inventory[0]);
-                    }else{
-                        TipDialog.show("库存不足", WaitDialog.TYPE.ERROR);
-                    }
-                    return false;
-                }
-            }).setCancelButton("取消");
+        //呼出抽屉菜单
+        menuButton.setOnClickListener(v->{
+            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
+            drawerLayout.openDrawer(GravityCompat.START);
         });
+    }
 
+    public void initInButton(){
         inButton.setOnClickListener(v->{
             final Inventory[] inventory = new Inventory[1];
             final PurchaseOrder[] order = new PurchaseOrder[1];
@@ -245,11 +216,72 @@ public class InventoryMaterialFragment extends Fragment {
                 }
             }).setCancelButton("取消");
         });
+    }
 
-        //呼出抽屉菜单
-        menuButton.setOnClickListener(v->{
-            DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
-            drawerLayout.openDrawer(GravityCompat.START);
+    public void initOutButton(){
+        outButton.setOnClickListener(v->{
+            final Inventory[] inventory = new Inventory[1];
+            BottomDialog.show("出库", new OnBindView<BottomDialog>(R.layout.dialog_inventory_material_check_out) {
+                @Override
+                public void onBind(BottomDialog dialog, View v) {
+                    spinner = v.findViewById(R.id.orderSpinner);
+                    etOutCount = v.findViewById(R.id.editTextOutCount);
+
+                    ArrayAdapter<Material> materialAdapter = new ArrayAdapter<>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, materials);
+                    spinner.setAdapter(materialAdapter);
+
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            Material material = materials.get(spinner.getSelectedItemPosition());
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    inventory[0] = viewModel.getInventoryByModel(material.getModel());
+                                }
+                            }).start();
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+                }
+            }).setOkButton("确定", new OnDialogButtonClickListener<BottomDialog>() {
+                @Override
+                public boolean onClick(BottomDialog baseDialog, View v) {
+                    int outCount = Integer.parseInt(etOutCount.getText().toString());
+
+                    if(inventory[0].getHostCount()>outCount){
+                        inventory[0].setHostCount(inventory[0].getHostCount()-outCount);
+                        viewModel.updateInventory(inventory[0]);
+                    }else{
+                        TipDialog.show("库存不足", WaitDialog.TYPE.ERROR);
+                    }
+                    return false;
+                }
+            }).setCancelButton("取消");
+        });
+    }
+
+    public void initSearch(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.getAllQueriedMaterialInventory(newText).observe(getActivity(), new Observer<List<Inventory>>() {
+                    @Override
+                    public void onChanged(List<Inventory> inventories) {
+                        adapter.setDiffNewData(inventories);
+                    }
+                });
+                return false;
+            }
         });
     }
 }

@@ -25,7 +25,6 @@ import com.cardy.design.util.diff.UserDiffCallback;
 import com.cardy.design.viewmodel.UserViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 
 import java.util.List;
@@ -37,6 +36,8 @@ public class UserFragment extends Fragment {
     SearchView searchView;
     IconFontTextView addButton, menuButton;
     UserViewModel userViewModel;
+
+    Boolean firstFlag = true;
 
     public UserFragment() {
         // Required empty public constructor
@@ -74,15 +75,19 @@ public class UserFragment extends Fragment {
         userViewModel.getAllUserLive().observe(getActivity(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
-                if (adapter.getData().size() == 0)
-                    adapter.setNewInstance(users);
-                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
-                adapter.setDiffNewData(users);
-                adapter.setList(users);
+                if(searchView.getQuery().equals("") || firstFlag){
+                    if (adapter.getData().size() == 0)
+                        adapter.setNewInstance(users);
+                    //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                    adapter.setDiffNewData(users);
+                    adapter.setList(users);
+                    firstFlag = false;
+                }
             }
         });
 
        initAddMethod();
+       initSearch();
 
         menuButton.setOnClickListener(v -> {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
@@ -116,6 +121,27 @@ public class UserFragment extends Fragment {
                 userViewModel.insertUser(user);
                 return false;
             }).setCancelButton("取消");
+        });
+    }
+
+    public void initSearch(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                userViewModel.getAllQueriedUserLive(newText).observe(getActivity(), new Observer<List<User>>() {
+                    @Override
+                    public void onChanged(List<User> users) {
+                        adapter.setDiffNewData(users);
+                        adapter.setList(users);
+                    }
+                });
+                return false;
+            }
         });
     }
 }

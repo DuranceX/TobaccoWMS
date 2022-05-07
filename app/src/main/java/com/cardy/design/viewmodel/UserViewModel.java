@@ -2,11 +2,9 @@ package com.cardy.design.viewmodel;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -72,6 +70,11 @@ public class UserViewModel extends AndroidViewModel {
 
     public LiveData<List<User>> getAllUserLive(){
         return listLive;
+    }
+
+    public LiveData<List<User>> getAllQueriedUserLive(String arg){
+        String newArg = "%"+arg+"%";
+        return userDao.getAllQueriedUserLive(newArg);
     }
 
     static class InsertAsyncTask extends AsyncTask<User, Void, Void> {

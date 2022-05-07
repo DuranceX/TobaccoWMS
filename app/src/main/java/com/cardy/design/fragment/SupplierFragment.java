@@ -1,15 +1,10 @@
 package com.cardy.design.fragment;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,16 +34,11 @@ import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.diff.SupplierDiffCallback;
 import com.cardy.design.viewmodel.SupplierViewModel;
 import com.cardy.design.widget.IconFontTextView;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
-import com.ruffian.library.widget.RImageView;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
 
 public class SupplierFragment extends Fragment {
@@ -113,23 +103,20 @@ public class SupplierFragment extends Fragment {
         viewModel.getAllSupplierLive().observe(getActivity(), new Observer<List<Supplier>>() {
             @Override
             public void onChanged(List<Supplier> suppliers) {
-                if (adapter.getData().size() == 0)
-                    adapter.setNewInstance(suppliers);
-                //通过setDiffNewData来通知adapter数据发生变化，并保留动画
-                adapter.setDiffNewData(suppliers);
-                //重写的setList方法更新adapter中的list数据
-                adapter.setMyList(suppliers);
-
-                //如果是第一次
-                //通过setList方法来重设数据，使得第一次更换头像后也能刷新显示，而不用从其他界面重新返回才刷新
-                if(firstFlag){
-                    adapter.setList(suppliers);
+                if(searchView.getQuery().equals("")||firstFlag){
+                    if (adapter.getData().size() == 0)
+                        adapter.setNewInstance(suppliers);
+                    //通过setDiffNewData来通知adapter数据发生变化，并保留动画
+                    adapter.setDiffNewData(suppliers);
+                    //重写的setList方法更新adapter中的list数据
+                    adapter.setMyList(suppliers);
                     firstFlag = false;
                 }
             }
         });
 
         initAddMethod();
+        initSearch();
 
         menuButton.setOnClickListener(v -> {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
@@ -198,6 +185,27 @@ public class SupplierFragment extends Fragment {
                     return false;
                 }
             }).setCancelButton("取消");
+        });
+    }
+
+    public void initSearch(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                viewModel.getAllQueriedSupplierLive(newText).observe(getActivity(), new Observer<List<Supplier>>() {
+                    @Override
+                    public void onChanged(List<Supplier> suppliers) {
+                        adapter.setDiffNewData(suppliers);
+                        adapter.setMyList(suppliers);
+                    }
+                });
+                return false;
+            }
         });
     }
 

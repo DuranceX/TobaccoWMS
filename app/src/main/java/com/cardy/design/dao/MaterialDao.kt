@@ -22,6 +22,9 @@ interface MaterialDao {
     @Query("SELECT * FROM material ORDER BY name,model")
     fun getAllMaterial(): LiveData<List<Material>>
 
+    @Query("SELECT * FROM material WHERE name LIKE :arg OR model LIKE :arg ORDER BY name,model")
+    fun getAllQueriedMaterial(arg:String): LiveData<List<Material>>
+
     @Query("SELECT * FROM material ORDER BY name,model")
     fun getAllMaterialNoLive(): List<Material>
 

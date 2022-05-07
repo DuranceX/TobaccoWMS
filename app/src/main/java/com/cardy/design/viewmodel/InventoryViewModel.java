@@ -44,6 +44,16 @@ public class InventoryViewModel extends AndroidViewModel {
         return dao.getAllSelectedInventory(Inventory.TYPE_MATERIAL);
     }
 
+    public LiveData<List<Inventory>> getAllQueriedProductInventory(String arg){
+        String newArg = "%"+arg+"%";
+        return dao.getAllSelectedQueriedInventory(Inventory.TYPE_PRODUCT,newArg);
+    }
+
+    public LiveData<List<Inventory>> getAllQueriedMaterialInventory(String arg){
+        String newArg = "%"+arg+"%";
+        return dao.getAllSelectedQueriedInventory(Inventory.TYPE_MATERIAL,newArg);
+    }
+
     public Inventory getInventoryByModel(String model){
         return dao.getInventoryByModel(model);
     }

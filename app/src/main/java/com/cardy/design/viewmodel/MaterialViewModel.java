@@ -55,6 +55,11 @@ public class MaterialViewModel extends AndroidViewModel{
         return listLive;
     }
 
+    public LiveData<List<Material>> getAllQueriedMaterialsLive(String arg){
+        String newArg = "%"+arg+"%";
+        return dao.getAllQueriedMaterial(newArg);
+    }
+
     public List<Material> getAllMaterialsNoLive(){
         return dao.getAllMaterialNoLive();
     }

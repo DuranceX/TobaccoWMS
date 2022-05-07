@@ -43,6 +43,11 @@ public class SaleOrderViewModel extends AndroidViewModel {
         return listLive;
     }
 
+    public LiveData<List<SaleOrder>> getAllQueriedSaleOrderLive(String arg){
+        String newArg = "%"+arg+"%";
+        return dao.getAllQueriedSaleOrder(newArg);
+    }
+
     public List<SaleOrder> getSelectedStateOrder(String state){
         return dao.getSelectedStateOrder(state);
     }
