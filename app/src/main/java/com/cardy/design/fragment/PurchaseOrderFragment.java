@@ -129,7 +129,6 @@ public class PurchaseOrderFragment extends Fragment {
             }
         }).start();
 
-
         initAddMethod();
         initSearch();
 

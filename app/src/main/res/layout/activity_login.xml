@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <!--TODO:删除预填充的账号数据-->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline82"
         android:layout_width="wrap_content"
@@ -77,6 +78,7 @@
         android:minHeight="48dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
+        android:text="3180608067"
         android:textSize="20sp"
         app:background_normal="@color/background_gray"
         app:corner_radius="@dimen/dialog_edittext_radius"
@@ -97,6 +99,7 @@
         android:minHeight="48dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
+        android:text="xiaoxie"
         android:textSize="20sp"
         app:background_normal="@color/background_gray"
         app:corner_radius="@dimen/dialog_edittext_radius"
