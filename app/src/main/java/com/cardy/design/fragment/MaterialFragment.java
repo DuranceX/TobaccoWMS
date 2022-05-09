@@ -1,22 +1,18 @@
 package com.cardy.design.fragment;
 
-import android.graphics.Canvas;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +20,14 @@ import android.widget.EditText;
 
 import com.cardy.design.R;
 import com.cardy.design.adapter.MaterialListAdapter;
-import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.entity.Material;
 import com.cardy.design.util.diff.MaterialDiffCallback;
 import com.cardy.design.viewmodel.MaterialViewModel;
 import com.cardy.design.widget.IconFontTextView;
-import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MaterialFragment extends Fragment {
@@ -47,7 +39,7 @@ public class MaterialFragment extends Fragment {
 
     EditText editTextName,editTextModel,editTextPrice;
 
-    Boolean firstFlag = true;
+    Boolean flag = true;
 
     public MaterialFragment() {
         // Required empty public constructor
@@ -85,13 +77,12 @@ public class MaterialFragment extends Fragment {
         viewModel.getAllMaterialsLive().observe(getActivity(), new Observer<List<Material>>() {
             @Override
             public void onChanged(List<Material> materials) {
-                if(searchView.getQuery().equals("") || firstFlag){
+                if(searchView.getQuery().equals("") || flag){
                     if (adapter.getData().size() == 0)
                         adapter.setNewInstance(materials);
                     //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                     adapter.setDiffNewData(materials);
                     adapter.setMyList(materials);
-                    firstFlag = false;
                 }
             }
         });
@@ -142,6 +133,7 @@ public class MaterialFragment extends Fragment {
                 viewModel.getAllQueriedMaterialsLive(newText).observe(getActivity(), new Observer<List<Material>>() {
                     @Override
                     public void onChanged(List<Material> materials) {
+                        flag = false;
                         adapter.setDiffNewData(materials);
                         adapter.setMyList(materials);
                     }

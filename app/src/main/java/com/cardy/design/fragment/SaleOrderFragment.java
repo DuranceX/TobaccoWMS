@@ -64,7 +64,7 @@ public class SaleOrderFragment extends Fragment {
     Spinner spinnerName, spinnerModel, spinnerCustomer;
     EditText etPrice, etCount;
 
-    Boolean firstFlag = true;
+    Boolean flag = true;
 
     public SaleOrderFragment() {
         // Required empty public constructor
@@ -106,12 +106,11 @@ public class SaleOrderFragment extends Fragment {
         viewModel.getAllSaleOrderLive().observe(getActivity(), new Observer<List<SaleOrder>>() {
             @Override
             public void onChanged(List<SaleOrder> saleOrders) {
-                if(searchView.getQuery().equals("") || firstFlag){
+                if(searchView.getQuery().equals("") || flag){
                     if (adapter.getData().size() == 0)
                         adapter.setNewInstance(saleOrders);
                     adapter.setDiffNewData(saleOrders);
                     adapter.setMyList(saleOrders);
-                    firstFlag = false;
                 }
             }
         });
@@ -223,6 +222,7 @@ public class SaleOrderFragment extends Fragment {
                 viewModel.getAllQueriedSaleOrderLive(newText).observe(getActivity(), new Observer<List<SaleOrder>>() {
                     @Override
                     public void onChanged(List<SaleOrder> saleOrders) {
+                        flag = false;
                         adapter.setDiffNewData(saleOrders);
                         adapter.setMyList(saleOrders);
                     }

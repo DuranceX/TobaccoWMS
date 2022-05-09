@@ -9,7 +9,7 @@ import com.cardy.design.entity.*
 
 @Database(
     entities = [User::class, Customer::class, Supplier::class, Product::class, Material::class, Inventory::class, PurchaseOrder::class, SaleOrder::class],
-    views = [PurchaseAmount::class, PurchaseCount::class],
+    views = [CustomerAmount::class, SupplierAmount::class, ProductSaleAmount::class, MaterialPurchaseAmount::class],
     version = 1,
     exportSchema = false
 )

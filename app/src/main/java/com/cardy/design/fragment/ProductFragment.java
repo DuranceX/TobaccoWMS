@@ -1,11 +1,7 @@
 package com.cardy.design.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,20 +12,15 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,21 +29,15 @@ import android.widget.ImageView;
 
 import com.cardy.design.R;
 import com.cardy.design.adapter.ProductListAdapter;
-import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.entity.Product;
-import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.diff.ProductDiffCallback;
-import com.cardy.design.util.diff.UserDiffCallback;
 import com.cardy.design.viewmodel.ProductViewModel;
 import com.cardy.design.widget.IconFontTextView;
-import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductFragment extends Fragment {
@@ -67,7 +52,7 @@ public class ProductFragment extends Fragment {
     EditText editTextName,editTextModel,editTextUsedMaterial,editTextPrice,editTextImagePath;
     ImageView imageProduct;
 
-    Boolean firstFlag = true;
+    Boolean flag = true;
 
     public ProductFragment() {
         // Required empty public constructor
@@ -118,13 +103,12 @@ public class ProductFragment extends Fragment {
         viewModel.getAllProductLive().observe(getActivity(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
-                if(searchView.getQuery().equals("") || firstFlag){
+                if(searchView.getQuery().equals("") || flag){
                     if (adapter.getData().size() == 0)
                         adapter.setNewInstance(products);
                     //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                     adapter.setDiffNewData(products);
                     adapter.setMyList(products);
-                    firstFlag = false;
                 }
             }
         });
@@ -187,6 +171,7 @@ public class ProductFragment extends Fragment {
                 viewModel.getAllQueriedProductLive(newText).observe(getActivity(), new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
+                        flag = false;
                         adapter.setDiffNewData(products);
                         adapter.setMyList(products);
                     }

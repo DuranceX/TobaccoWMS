@@ -52,7 +52,7 @@ public class SupplierFragment extends Fragment {
     ImageView imageViewLogo;
     EditText editTextLogo;
 
-    Boolean firstFlag = true;
+    Boolean flag = true;
 
     public SupplierFragment() {
         // Required empty public constructor
@@ -103,14 +103,13 @@ public class SupplierFragment extends Fragment {
         viewModel.getAllSupplierLive().observe(getActivity(), new Observer<List<Supplier>>() {
             @Override
             public void onChanged(List<Supplier> suppliers) {
-                if(searchView.getQuery().equals("")||firstFlag){
+                if(searchView.getQuery().equals("")|| flag){
                     if (adapter.getData().size() == 0)
                         adapter.setNewInstance(suppliers);
                     //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                     adapter.setDiffNewData(suppliers);
                     //重写的setList方法更新adapter中的list数据
                     adapter.setMyList(suppliers);
-                    firstFlag = false;
                 }
             }
         });
@@ -200,6 +199,7 @@ public class SupplierFragment extends Fragment {
                 viewModel.getAllQueriedSupplierLive(newText).observe(getActivity(), new Observer<List<Supplier>>() {
                     @Override
                     public void onChanged(List<Supplier> suppliers) {
+                        flag = false;
                         adapter.setDiffNewData(suppliers);
                         adapter.setMyList(suppliers);
                     }

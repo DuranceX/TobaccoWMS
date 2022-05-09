@@ -53,7 +53,7 @@ public class CustomerFragment extends Fragment {
     ImageView imageViewLogo;
     EditText editTextLogo;
 
-    Boolean firstFlag = true;
+    Boolean flag = true;
 
     public CustomerFragment() {
         // Required empty public constructor
@@ -103,14 +103,13 @@ public class CustomerFragment extends Fragment {
         viewModel.getAllCustomerLive().observe(getActivity(), new Observer<List<Customer>>() {
             @Override
             public void onChanged(List<Customer> customers) {
-                if(searchView.getQuery().equals("") || firstFlag){
+                if(searchView.getQuery().equals("") || flag){
                     if (adapter.getData().size() == 0)
                         adapter.setNewInstance(customers);
                     //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                     adapter.setDiffNewData(customers);
                     //重写的setList方法更新adapter中的list数据
                     adapter.setMyList(customers);
-                    firstFlag = false;
                 }
             }
         });
@@ -194,6 +193,7 @@ public class CustomerFragment extends Fragment {
                 viewModel.getAllQueriedCustomerLive(newText).observe(getActivity(), new Observer<List<Customer>>() {
                     @Override
                     public void onChanged(List<Customer> customers) {
+                        flag = false;
                         adapter.setDiffNewData(customers);
                         adapter.setMyList(customers);
                     }

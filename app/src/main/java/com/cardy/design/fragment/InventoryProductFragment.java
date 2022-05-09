@@ -38,7 +38,6 @@ import com.cardy.design.viewmodel.ProductViewModel;
 import com.cardy.design.viewmodel.SaleOrderViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.dialogs.TipDialog;
 import com.kongzue.dialogx.dialogs.WaitDialog;
 import com.kongzue.dialogx.interfaces.OnBindView;
@@ -62,7 +61,7 @@ public class InventoryProductFragment extends Fragment {
     List<SaleOrder> orders;
     List<Product> products;
     LocalDate date = LocalDate.now();
-    Boolean firstFlag = true;
+    Boolean flag = true;
 
     Spinner spinner;
     TextView tvName, tvModel, tvCustomer, tvCount, tvPrice, tvSaleDate,calendar;
@@ -107,12 +106,11 @@ public class InventoryProductFragment extends Fragment {
         viewModel.getAllProductInventory().observe(getActivity(), new Observer<List<Inventory>>() {
             @Override
             public void onChanged(List<Inventory> inventories) {
-                if(searchView.getQuery().equals("") || firstFlag){
+                if(searchView.getQuery().equals("") || flag){
                     if (adapter.getData().size() == 0)
                         adapter.setNewInstance(inventories);
                     //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                     adapter.setDiffNewData(inventories);
-                    firstFlag = false;
                 }
             }
         });
@@ -303,6 +301,7 @@ public class InventoryProductFragment extends Fragment {
                 viewModel.getAllQueriedProductInventory(newText).observe(getActivity(), new Observer<List<Inventory>>() {
                     @Override
                     public void onChanged(List<Inventory> inventories) {
+                        flag = false;
                         adapter.setDiffNewData(inventories);
                     }
                 });

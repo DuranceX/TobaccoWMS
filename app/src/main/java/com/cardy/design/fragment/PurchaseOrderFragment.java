@@ -1,6 +1,5 @@
 package com.cardy.design.fragment;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -68,7 +66,7 @@ public class PurchaseOrderFragment extends Fragment {
     Spinner spinnerName, spinnerModel, spinnerSupplier;
     EditText etPrice, etCount;
 
-    Boolean firstFlag = true;
+    Boolean flag = true;
     int SET_SECOND_SPINNER = 1;
 
     public PurchaseOrderFragment() {
@@ -111,12 +109,11 @@ public class PurchaseOrderFragment extends Fragment {
         viewModel.getAllPurchaseOrderLive().observe(getActivity(), new Observer<List<PurchaseOrder>>() {
             @Override
             public void onChanged(List<PurchaseOrder> purchaseOrders) {
-                if(searchView.getQuery().equals("") || firstFlag){
+                if(searchView.getQuery().equals("") || flag){
                     if (adapter.getData().size() == 0)
                         adapter.setNewInstance(purchaseOrders);
                     adapter.setDiffNewData(purchaseOrders);
                     adapter.setMyList(purchaseOrders);
-                    firstFlag = false;
                 }
             }
         });
@@ -242,7 +239,6 @@ public class PurchaseOrderFragment extends Fragment {
     }
 
     public void initSearch(){
-        Log.d("Test: Query", "initSearch: ");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -251,11 +247,10 @@ public class PurchaseOrderFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d("Test: Query", "onQueryTextChange: ");
                 viewModel.getAllQueriedPurchaseOrderLive(newText).observe(getActivity(), new Observer<List<PurchaseOrder>>() {
                     @Override
                     public void onChanged(List<PurchaseOrder> purchaseOrders) {
-                        Log.d("Test: Query", "onChanged: ");
+                        flag = false;
                         adapter.setDiffNewData(purchaseOrders);
                         adapter.setMyList(purchaseOrders);
                     }

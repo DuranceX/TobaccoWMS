@@ -37,7 +37,7 @@ public class UserFragment extends Fragment {
     IconFontTextView addButton, menuButton;
     UserViewModel userViewModel;
 
-    Boolean firstFlag = true;
+    Boolean flag = true;
 
     public UserFragment() {
         // Required empty public constructor
@@ -75,13 +75,12 @@ public class UserFragment extends Fragment {
         userViewModel.getAllUserLive().observe(getActivity(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
-                if(searchView.getQuery().equals("") || firstFlag){
+                if(searchView.getQuery().equals("") || flag){
                     if (adapter.getData().size() == 0)
                         adapter.setNewInstance(users);
                     //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                     adapter.setDiffNewData(users);
                     adapter.setList(users);
-                    firstFlag = false;
                 }
             }
         });
@@ -136,6 +135,7 @@ public class UserFragment extends Fragment {
                 userViewModel.getAllQueriedUserLive(newText).observe(getActivity(), new Observer<List<User>>() {
                     @Override
                     public void onChanged(List<User> users) {
+                        flag = false;
                         adapter.setDiffNewData(users);
                         adapter.setList(users);
                     }

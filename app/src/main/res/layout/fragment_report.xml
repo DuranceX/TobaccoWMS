@@ -90,172 +90,240 @@
         app:layout_constraintTop_toTopOf="@+id/guideline5">
 
         <LinearLayout
-            android:id="@+id/scrollConstrainLayout"
+            android:id="@+id/ScrollViewLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button"
+            <LinearLayout
+                android:id="@+id/overviewLinearContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="30dp"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                <com.lihang.ShadowLayout
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    app:hl_cornerRadius="20dp"
+                    app:hl_layoutBackground="@color/blue">
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <TextView
+                            android:id="@+id/textViewTotalSalePrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/font_family_pingfang"
+                            android:textColor="@color/background_gray"
+                            android:textSize="26sp"
+                            app:layout_constraintBottom_toTopOf="@+id/guideline90"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/guideline90"
+                            tools:text="152350.00" />
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline89"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.3" />
 
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline90"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
 
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <TextView
+                            android:id="@+id/textViewTotalSaleLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="上月总收入"
+                            android:textAppearance="@style/font_family_pingfang_black"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toTopOf="@+id/guideline89"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2"
+                            app:layout_constraintTop_toTopOf="@+id/guideline89" />
 
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_pie_chart_24"
+                            app:layout_constraintBottom_toTopOf="@+id/guideline89"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.15"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/guideline89" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.lihang.ShadowLayout>
 
-            <Button
-                android:id="@+id/button8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/button9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                <com.lihang.ShadowLayout
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    app:hl_cornerRadius="20dp"
+                    app:hl_layoutBackground="@color/blue_light">
 
-            <TextView
-                android:id="@+id/textView32"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/button10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <TextView
+                            android:id="@+id/textViewTotalPurchasePrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/font_family_pingfang"
+                            android:textColor="@color/background_gray"
+                            android:textSize="26sp"
+                            app:layout_constraintBottom_toTopOf="@+id/guideline92"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/guideline92"
+                            tools:text="152350.00" />
 
-            <Button
-                android:id="@+id/button11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline91"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.3" />
 
-            <Button
-                android:id="@+id/button12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline92"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintGuide_percent="0.6" />
 
-            <Button
-                android:id="@+id/button13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <TextView
+                            android:id="@+id/textViewTotalPurchaseLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="上月总支出"
+                            android:textAppearance="@style/font_family_pingfang_black"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toTopOf="@+id/guideline91"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="@+id/guideline91" />
 
-            <Button
-                android:id="@+id/button14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_pie_chart_24"
+                            app:layout_constraintBottom_toTopOf="@+id/guideline91"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.15"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/guideline91" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.lihang.ShadowLayout>
 
-            <Button
-                android:id="@+id/button15"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/button16"
+            <LinearLayout
+                android:id="@+id/ProductSalePriceViewLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp">
 
-            <Button
-                android:id="@+id/button17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="各产品销售额"
+                    android:textAppearance="@style/font_family_pingfang_black"
+                    android:textSize="26sp" />
 
-            <Button
-                android:id="@+id/button18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/ProductSalePriceBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp" />
 
-            <Button
-                android:id="@+id/button19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
 
-            <Button
-                android:id="@+id/button20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/button21"
+            <LinearLayout
+                android:id="@+id/MaterialPurchasePriceViewLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp">
 
-            <Button
-                android:id="@+id/button22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="各原料购买量"
+                    android:textAppearance="@style/font_family_pingfang_black"
+                    android:textSize="26sp" />
 
-            <Button
-                android:id="@+id/button23"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/MaterialPurchasePriceBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp" />
 
-            <Button
-                android:id="@+id/button24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Button" />
 
-            <TextView
-                android:id="@+id/textView33"
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/CustomerSalePriceViewLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="各客户购买量"
+                    android:textAppearance="@style/font_family_pingfang_black"
+                    android:textSize="26sp" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/CustomerSaleBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/SupplierPurchasePriceViewLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="各供货商供应量"
+                    android:textAppearance="@style/font_family_pingfang_black"
+                    android:textSize="26sp" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/SupplierPurchaseBarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

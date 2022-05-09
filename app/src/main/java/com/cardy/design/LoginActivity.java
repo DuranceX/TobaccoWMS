@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.cardy.design.entity.User;
 import com.cardy.design.viewmodel.UserViewModel;
 import com.kongzue.dialogx.dialogs.TipDialog;
 import com.kongzue.dialogx.dialogs.WaitDialog;
