@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.cardy.design.dao.InventoryDao;
 import com.cardy.design.entity.Inventory;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class InventoryViewModel extends AndroidViewModel {
     
     public InventoryViewModel(@NonNull Application application) {
         super(application);
-        dao = TestDatabase.Companion.getINSTANCE(application).inventoryDao();
+        dao = WMSDatabase.Companion.getINSTANCE(application).inventoryDao();
         listLive = dao.getAllInventory();
     }
 

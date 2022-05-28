@@ -21,7 +21,7 @@ data class Supplier(
     //供货商头像地址
     @ColumnInfo(name = "logo")
     var logo:String="",
-    //客户主要购买产品
+    //供货商主要供应原料
     @ColumnInfo(name = "mainSupply")
     var mainSupply:String="",
 ){

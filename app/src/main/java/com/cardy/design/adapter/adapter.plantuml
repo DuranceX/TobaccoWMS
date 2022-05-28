@@ -1,0 +1,414 @@
+@startuml
+
+title __ADAPTER's Class Diagram__\n
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.CustomerListAdapter {
+          ~ editTextLogo : EditText
+          ~ imageViewLogo : ImageView
+          ~ launcher : ActivityResultLauncher<Intent>
+          ~ list : List<Customer>
+          + CustomerListAdapter()
+          + addDraggableModule()
+          + initClickListener()
+          + initSwipeListener()
+          + setImage()
+          + setMyList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryDetailedListAdapter {
+          ~ sum : int
+          + InventoryDetailedListAdapter()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryDetailedPurchaseOrderListAdapter {
+          + InventoryDetailedPurchaseOrderListAdapter()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryDetailedSaleOrderListAdapter {
+          + InventoryDetailedSaleOrderListAdapter()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryMaterialListAdapter {
+          ~ list : List<Inventory>
+          + InventoryMaterialListAdapter()
+          + setMyList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryProductListAdapter {
+          ~ SET_IMAGE : int
+          ~ list : List<Inventory>
+          + InventoryProductListAdapter()
+          + setMyList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MaterialListAdapter {
+          ~ editTextModel : EditText
+          ~ editTextName : EditText
+          ~ editTextPrice : EditText
+          ~ list : List<Material>
+          + MaterialListAdapter()
+          + addDraggableModule()
+          + initClickListener()
+          + initSwipeListener()
+          + setMyList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyCustomerViewHolder {
+          ~ address : TextView
+          ~ logo : ImageView
+          ~ name : TextView
+          ~ purchase : TextView
+          + MyCustomerViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyInventoryDetailViewHolder {
+          ~ areaName : TextView
+          ~ areaNumber : TextView
+          ~ progressBar : ProgressBar
+          + MyInventoryDetailViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyInventoryViewHolder {
+          ~ deliveryCount : TextView
+          ~ hostCount : TextView
+          ~ image : ImageView
+          ~ model : TextView
+          ~ name : TextView
+          + MyInventoryViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyMaterialViewHolder {
+          ~ model : TextView
+          ~ name : TextView
+          ~ price : TextView
+          + MyMaterialViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyProductViewHolder {
+          ~ imageView : ImageView
+          ~ material : TextView
+          ~ model : TextView
+          ~ name : TextView
+          ~ price : TextView
+          + MyProductViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyPurchaseOrderViewHolder {
+          ~ comment : TextView
+          ~ count : TextView
+          ~ deliveryDate : TextView
+          ~ materialModel : TextView
+          ~ materialName : TextView
+          ~ orderId : TextView
+          ~ price : TextView
+          ~ purchaseDate : TextView
+          ~ state : TextView
+          ~ supplier : TextView
+          ~ userId : TextView
+          ~ userName : TextView
+          + MyPurchaseOrderViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MySaleOrderViewHolder {
+          ~ comment : TextView
+          ~ count : TextView
+          ~ customer : TextView
+          ~ deliveryDate : TextView
+          ~ orderId : TextView
+          ~ price : TextView
+          ~ productModel : TextView
+          ~ productName : TextView
+          ~ saleDate : TextView
+          ~ state : TextView
+          ~ userId : TextView
+          ~ userName : TextView
+          + MySaleOrderViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MySupplierViewHolder {
+          ~ address : TextView
+          ~ logo : ImageView
+          ~ name : TextView
+          ~ supply : TextView
+          + MySupplierViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyUserViewHolder {
+          ~ avatar : ImageView
+          ~ id : TextView
+          ~ name : TextView
+          ~ password : TextView
+          + MyUserViewHolder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.ProductListAdapter {
+          ~ editTextImagePath : EditText
+          ~ editTextModel : EditText
+          ~ editTextName : EditText
+          ~ editTextPrice : EditText
+          ~ editTextUsedMaterial : EditText
+          ~ imageProduct : ImageView
+          ~ launcher : ActivityResultLauncher<Intent>
+          ~ list : List<Product>
+          + ProductListAdapter()
+          + addDraggableModule()
+          + initClickListener()
+          + initSwipeListener()
+          + setImage()
+          + setMyList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.PurchaseOrderListAdapter {
+          ~ date : LocalDate
+          ~ etComment : EditText
+          ~ etCount : EditText
+          ~ etPrice : EditText
+          ~ list : List<PurchaseOrder>
+          ~ materialModelList : List<String>
+          ~ materialNameList : List<String>
+          ~ permission : Boolean
+          ~ spinnerModel : Spinner
+          ~ spinnerName : Spinner
+          ~ spinnerSupplier : Spinner
+          ~ supplierList : List<String>
+          ~ tvDeliveryDate : TextView
+          ~ tvPurchaseDate : TextView
+          ~ tvUserId : TextView
+          ~ tvUserName : TextView
+          + PurchaseOrderListAdapter()
+          + addDraggableModule()
+          + initClickListener()
+          + initSwipeListener()
+          + onAttachedToRecyclerView()
+          + setMyList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.SaleOrderListAdapter {
+          ~ customerList : List<String>
+          ~ date : LocalDate
+          ~ etComment : EditText
+          ~ etCount : EditText
+          ~ etPrice : EditText
+          ~ list : List<SaleOrder>
+          ~ permission : Boolean
+          ~ productModelList : List<String>
+          ~ productNameList : List<String>
+          ~ spinnerCustomer : Spinner
+          ~ spinnerModel : Spinner
+          ~ spinnerName : Spinner
+          ~ tvDeliveryDate : TextView
+          ~ tvSaleDate : TextView
+          ~ tvUserId : TextView
+          ~ tvUserName : TextView
+          + SaleOrderListAdapter()
+          + addDraggableModule()
+          + initClickListener()
+          + initSwipeListener()
+          + onAttachedToRecyclerView()
+          + setMyList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.SupplierListAdapter {
+          ~ editTextLogo : EditText
+          ~ imageViewLogo : ImageView
+          ~ launcher : ActivityResultLauncher<Intent>
+          ~ list : List<Supplier>
+          + SupplierListAdapter()
+          + addDraggableModule()
+          + initClickListener()
+          + initSwipeListener()
+          + setImage()
+          + setMyList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.UserListAdapter {
+          ~ list : List<User>
+          + UserListAdapter()
+          + addDraggableModule()
+          + initClickListener()
+          + initSwipeListener()
+          + setList()
+          + setNewInstance()
+          # convert()
+      }
+    }
+  }
+  
+
+  com.cardy.design.adapter.CustomerListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.CustomerListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.CustomerListAdapter o-- com.cardy.design.viewmodel.CustomerViewModel : viewModel
+  com.cardy.design.adapter.InventoryDetailedListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryDetailedPurchaseOrderListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryDetailedSaleOrderListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryMaterialListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryMaterialListAdapter o-- com.cardy.design.viewmodel.PurchaseOrderViewModel : purchaseOrderViewModel
+  com.cardy.design.adapter.InventoryMaterialListAdapter o-- com.cardy.design.viewmodel.InventoryViewModel : viewModel
+  com.cardy.design.adapter.InventoryProductListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryProductListAdapter o-- com.cardy.design.viewmodel.ProductViewModel : productViewModel
+  com.cardy.design.adapter.InventoryProductListAdapter o-- com.cardy.design.viewmodel.SaleOrderViewModel : saleOrderViewModel
+  com.cardy.design.adapter.InventoryProductListAdapter o-- com.cardy.design.viewmodel.InventoryViewModel : viewModel
+  com.cardy.design.adapter.MaterialListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.MaterialListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.MaterialListAdapter o-- com.cardy.design.viewmodel.MaterialViewModel : viewModel
+  com.cardy.design.adapter.MyCustomerViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyInventoryDetailViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyInventoryViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyMaterialViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyProductViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyPurchaseOrderViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MySaleOrderViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MySupplierViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyUserViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.ProductListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.ProductListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.ProductListAdapter o-- com.cardy.design.viewmodel.ProductViewModel : viewModel
+  com.cardy.design.adapter.PurchaseOrderListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.PurchaseOrderListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.PurchaseOrderListAdapter o-- com.cardy.design.viewmodel.InventoryViewModel : inventoryViewModel
+  com.cardy.design.adapter.PurchaseOrderListAdapter o-- com.cardy.design.viewmodel.MaterialViewModel : materialViewModel
+  com.cardy.design.adapter.PurchaseOrderListAdapter o-- com.cardy.design.viewmodel.SupplierViewModel : supplierViewModel
+  com.cardy.design.adapter.PurchaseOrderListAdapter o-- com.cardy.design.viewmodel.PurchaseOrderViewModel : viewModel
+  com.cardy.design.adapter.SaleOrderListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.SaleOrderListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.SaleOrderListAdapter o-- com.cardy.design.viewmodel.CustomerViewModel : customerViewModel
+  com.cardy.design.adapter.SaleOrderListAdapter o-- com.cardy.design.viewmodel.InventoryViewModel : inventoryViewModel
+  com.cardy.design.adapter.SaleOrderListAdapter o-- com.cardy.design.viewmodel.ProductViewModel : productViewModel
+  com.cardy.design.adapter.SaleOrderListAdapter o-- com.cardy.design.viewmodel.SaleOrderViewModel : viewModel
+  com.cardy.design.adapter.SupplierListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.SupplierListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.SupplierListAdapter o-- com.cardy.design.viewmodel.SupplierViewModel : viewModel
+  com.cardy.design.adapter.UserListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.UserListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.UserListAdapter o-- com.cardy.design.viewmodel.UserViewModel : viewModel
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

@@ -12,6 +12,7 @@ import com.cardy.design.dao.SaleOrderDao;
 import com.cardy.design.entity.PurchaseOrder;
 import com.cardy.design.entity.SaleOrder;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class SaleOrderViewModel extends AndroidViewModel {
 
     public SaleOrderViewModel(@NonNull Application application) {
         super(application);
-        TestDatabase database = TestDatabase.Companion.getINSTANCE(application);
+        WMSDatabase database = WMSDatabase.Companion.getINSTANCE(application);
         dao = database.saleOrderDao();
         listLive = dao.getAllSaleOrder();
     }

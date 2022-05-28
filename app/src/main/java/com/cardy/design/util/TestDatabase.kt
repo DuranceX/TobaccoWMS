@@ -12,7 +12,7 @@ import com.cardy.design.entity.*
 @Database(
     entities = [User::class, Customer::class, Supplier::class, Product::class, Material::class, Inventory::class, PurchaseOrder::class, SaleOrder::class],
     views = [CustomerAmount::class, SupplierAmount::class, ProductSaleAmount::class, MaterialPurchaseAmount::class],
-    version = 5,
+    version = 6,
     exportSchema = false,
 )
 abstract class TestDatabase:RoomDatabase(){
@@ -23,7 +23,7 @@ abstract class TestDatabase:RoomDatabase(){
         fun getINSTANCE(context: Context):TestDatabase ? {
             if(INSTANCE == null){
                 INSTANCE = Room.databaseBuilder(context,TestDatabase::class.java,"test.db")
-                    .addMigrations(MIGRATION_4_5)
+                    .addMigrations(MIGRATION_5_6)
                     .build()
             }
             return INSTANCE
@@ -66,6 +66,12 @@ abstract class TestDatabase:RoomDatabase(){
             database.execSQL("DROP VIEW MaterialPurchaseAmount")
             database.execSQL("CREATE VIEW `ProductSaleAmount` AS SELECT productName,productModel,sum(price) AS price FROM sale_order GROUP BY productModel")
             database.execSQL("CREATE VIEW `MaterialPurchaseAmount` AS SELECT materialName,materialModel,sum(price) AS price FROM purchase_order GROUP BY materialModel")
+        }
+    }
+
+    object MIGRATION_5_6 : Migration(5,6){
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE inventory ADD COLUMN areaNumber text NOT NULL DEFAULT '100'");
         }
     }
 }

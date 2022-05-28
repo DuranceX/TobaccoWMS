@@ -16,6 +16,7 @@ import com.cardy.design.entity.Product;
 import com.cardy.design.entity.PurchaseOrder;
 import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class PurchaseOrderViewModel extends AndroidViewModel {
 
     public PurchaseOrderViewModel(@NonNull Application application) {
         super(application);
-        TestDatabase database = TestDatabase.Companion.getINSTANCE(application);
+        WMSDatabase database = WMSDatabase.Companion.getINSTANCE(application);
         dao = database.purchaseOrderDao();
         listLive = dao.getAllPurchaseOrder();
     }

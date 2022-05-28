@@ -1,0 +1,815 @@
+@startuml
+
+title __WMS.APP's Class Diagram__\n
+
+  namespace com.cardy.design {
+    class com.cardy.design.BuildConfig {
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    class com.cardy.design.LoginActivity {
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    class com.cardy.design.MainActivity {
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.CustomerListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryDetailedListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryDetailedPurchaseOrderListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryDetailedSaleOrderListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryMaterialListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.InventoryProductListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MaterialListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyCustomerViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyInventoryDetailViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyInventoryViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyMaterialViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyProductViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyPurchaseOrderViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MySaleOrderViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MySupplierViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.MyUserViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.ProductListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.PurchaseOrderListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.SaleOrderListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.SupplierListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace adapter {
+      class com.cardy.design.adapter.UserListAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.CustomerDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.CustomerDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.InventoryDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.InventoryDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.MaterialDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.MaterialDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.ProductDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.ProductDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.PurchaseOrderDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.PurchaseOrderDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.ReportDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.ReportDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.SaleOrderDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.SaleOrderDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.SupplierDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.SupplierDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.UserDao_TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace dao {
+      class com.cardy.design.dao.UserDao_WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.CustomerFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.InventoryFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.InventoryMaterialFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.InventoryProductFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.MaterialFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.ProductFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.ProfileFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.PurchaseOrderFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.ReportFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.SaleOrderFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.SupplierFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.UserFragment {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      class com.cardy.design.util.MyMarkerView {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      class com.cardy.design.util.MyMarkerViewMultiple {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      class com.cardy.design.util.TestDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      class com.cardy.design.util.Util {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      class com.cardy.design.util.WMSDatabase_Impl {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      namespace diff {
+        class com.cardy.design.util.diff.CustomerDIffCallback {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      namespace diff {
+        class com.cardy.design.util.diff.InventoryDiffCallback {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      namespace diff {
+        class com.cardy.design.util.diff.MaterialDiffCallback {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      namespace diff {
+        class com.cardy.design.util.diff.ProductDiffCallback {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      namespace diff {
+        class com.cardy.design.util.diff.PurchaseOrderDiffCallback {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      namespace diff {
+        class com.cardy.design.util.diff.SaleOrderDiffCallback {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      namespace diff {
+        class com.cardy.design.util.diff.SupplierDiffCallback {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace util {
+      namespace diff {
+        class com.cardy.design.util.diff.UserDiffCallback {
+        }
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.CustomerViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.InventoryViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.MaterialViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.ProductViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.PurchaseOrderViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.ReportViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SaleOrderViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SupplierViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.UserViewModel {
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace widget {
+      class com.cardy.design.widget.IconFontTextView {
+      }
+    }
+  }
+  
+
+  com.cardy.design.LoginActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.cardy.design.LoginActivity o-- com.cardy.design.viewmodel.UserViewModel : viewModel
+  com.cardy.design.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.cardy.design.adapter.CustomerListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.CustomerListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.CustomerListAdapter o-- com.cardy.design.viewmodel.CustomerViewModel : viewModel
+  com.cardy.design.adapter.InventoryDetailedListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryDetailedPurchaseOrderListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryDetailedSaleOrderListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryMaterialListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryMaterialListAdapter o-- com.cardy.design.viewmodel.PurchaseOrderViewModel : purchaseOrderViewModel
+  com.cardy.design.adapter.InventoryMaterialListAdapter o-- com.cardy.design.viewmodel.InventoryViewModel : viewModel
+  com.cardy.design.adapter.InventoryProductListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.InventoryProductListAdapter o-- com.cardy.design.viewmodel.ProductViewModel : productViewModel
+  com.cardy.design.adapter.InventoryProductListAdapter o-- com.cardy.design.viewmodel.SaleOrderViewModel : saleOrderViewModel
+  com.cardy.design.adapter.InventoryProductListAdapter o-- com.cardy.design.viewmodel.InventoryViewModel : viewModel
+  com.cardy.design.adapter.MaterialListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.MaterialListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.MaterialListAdapter o-- com.cardy.design.viewmodel.MaterialViewModel : viewModel
+  com.cardy.design.adapter.MyCustomerViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyInventoryDetailViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyInventoryViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyMaterialViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyProductViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyPurchaseOrderViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MySaleOrderViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MySupplierViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.MyUserViewHolder -up-|> com.chad.library.adapter.base.viewholder.BaseViewHolder
+  com.cardy.design.adapter.ProductListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.ProductListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.ProductListAdapter o-- com.cardy.design.viewmodel.ProductViewModel : viewModel
+  com.cardy.design.adapter.PurchaseOrderListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.PurchaseOrderListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.PurchaseOrderListAdapter o-- com.cardy.design.viewmodel.InventoryViewModel : inventoryViewModel
+  com.cardy.design.adapter.PurchaseOrderListAdapter o-- com.cardy.design.viewmodel.MaterialViewModel : materialViewModel
+  com.cardy.design.adapter.PurchaseOrderListAdapter o-- com.cardy.design.viewmodel.SupplierViewModel : supplierViewModel
+  com.cardy.design.adapter.PurchaseOrderListAdapter o-- com.cardy.design.viewmodel.PurchaseOrderViewModel : viewModel
+  com.cardy.design.adapter.SaleOrderListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.SaleOrderListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.SaleOrderListAdapter o-- com.cardy.design.viewmodel.CustomerViewModel : customerViewModel
+  com.cardy.design.adapter.SaleOrderListAdapter o-- com.cardy.design.viewmodel.InventoryViewModel : inventoryViewModel
+  com.cardy.design.adapter.SaleOrderListAdapter o-- com.cardy.design.viewmodel.ProductViewModel : productViewModel
+  com.cardy.design.adapter.SaleOrderListAdapter o-- com.cardy.design.viewmodel.SaleOrderViewModel : viewModel
+  com.cardy.design.adapter.SupplierListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.SupplierListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.SupplierListAdapter o-- com.cardy.design.viewmodel.SupplierViewModel : viewModel
+  com.cardy.design.adapter.UserListAdapter .up.|> com.chad.library.adapter.base.module.DraggableModule
+  com.cardy.design.adapter.UserListAdapter -up-|> com.chad.library.adapter.base.BaseQuickAdapter
+  com.cardy.design.adapter.UserListAdapter o-- com.cardy.design.viewmodel.UserViewModel : viewModel
+  com.cardy.design.dao.CustomerDao_TestDatabase_Impl .up.|> com.cardy.design.dao.CustomerDao
+  com.cardy.design.dao.CustomerDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.CustomerDao
+  com.cardy.design.dao.InventoryDao_TestDatabase_Impl .up.|> com.cardy.design.dao.InventoryDao
+  com.cardy.design.dao.InventoryDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.InventoryDao
+  com.cardy.design.dao.MaterialDao_TestDatabase_Impl .up.|> com.cardy.design.dao.MaterialDao
+  com.cardy.design.dao.MaterialDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.MaterialDao
+  com.cardy.design.dao.ProductDao_TestDatabase_Impl .up.|> com.cardy.design.dao.ProductDao
+  com.cardy.design.dao.ProductDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.ProductDao
+  com.cardy.design.dao.PurchaseOrderDao_TestDatabase_Impl .up.|> com.cardy.design.dao.PurchaseOrderDao
+  com.cardy.design.dao.PurchaseOrderDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.PurchaseOrderDao
+  com.cardy.design.dao.ReportDao_TestDatabase_Impl .up.|> com.cardy.design.dao.ReportDao
+  com.cardy.design.dao.ReportDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.ReportDao
+  com.cardy.design.dao.SaleOrderDao_TestDatabase_Impl .up.|> com.cardy.design.dao.SaleOrderDao
+  com.cardy.design.dao.SaleOrderDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.SaleOrderDao
+  com.cardy.design.dao.SupplierDao_TestDatabase_Impl .up.|> com.cardy.design.dao.SupplierDao
+  com.cardy.design.dao.SupplierDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.SupplierDao
+  com.cardy.design.dao.UserDao_TestDatabase_Impl .up.|> com.cardy.design.dao.UserDao
+  com.cardy.design.dao.UserDao_WMSDatabase_Impl .up.|> com.cardy.design.dao.UserDao
+  com.cardy.design.fragment.CustomerFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.CustomerFragment o-- com.cardy.design.adapter.CustomerListAdapter : adapter
+  com.cardy.design.fragment.CustomerFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.CustomerFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.CustomerFragment o-- com.cardy.design.viewmodel.CustomerViewModel : viewModel
+  com.cardy.design.fragment.InventoryFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.InventoryMaterialFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.adapter.InventoryMaterialListAdapter : adapter
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.viewmodel.MaterialViewModel : materialViewModel
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.viewmodel.PurchaseOrderViewModel : purchaseOrderViewModel
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.viewmodel.InventoryViewModel : viewModel
+  com.cardy.design.fragment.InventoryProductFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.adapter.InventoryProductListAdapter : adapter
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.viewmodel.ProductViewModel : productViewModel
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.viewmodel.SaleOrderViewModel : saleOrderViewModel
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.viewmodel.InventoryViewModel : viewModel
+  com.cardy.design.fragment.MaterialFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.MaterialFragment o-- com.cardy.design.adapter.MaterialListAdapter : adapter
+  com.cardy.design.fragment.MaterialFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.MaterialFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.MaterialFragment o-- com.cardy.design.viewmodel.MaterialViewModel : viewModel
+  com.cardy.design.fragment.ProductFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.ProductFragment o-- com.cardy.design.adapter.ProductListAdapter : adapter
+  com.cardy.design.fragment.ProductFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.ProductFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.ProductFragment o-- com.cardy.design.viewmodel.ProductViewModel : viewModel
+  com.cardy.design.fragment.ProfileFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.PurchaseOrderFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.adapter.PurchaseOrderListAdapter : adapter
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.viewmodel.InventoryViewModel : inventoryViewModel
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.viewmodel.MaterialViewModel : materialViewModel
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.viewmodel.SupplierViewModel : supplierViewModel
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.viewmodel.PurchaseOrderViewModel : viewModel
+  com.cardy.design.fragment.ReportFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.ReportFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.ReportFragment o-- com.cardy.design.viewmodel.ReportViewModel : viewModel
+  com.cardy.design.fragment.SaleOrderFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.adapter.SaleOrderListAdapter : adapter
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.viewmodel.CustomerViewModel : customerViewModel
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.viewmodel.InventoryViewModel : inventoryViewModel
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.viewmodel.ProductViewModel : productViewModel
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.viewmodel.SaleOrderViewModel : viewModel
+  com.cardy.design.fragment.SupplierFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.SupplierFragment o-- com.cardy.design.adapter.SupplierListAdapter : adapter
+  com.cardy.design.fragment.SupplierFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.SupplierFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.SupplierFragment o-- com.cardy.design.viewmodel.SupplierViewModel : viewModel
+  com.cardy.design.fragment.UserFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.UserFragment o-- com.cardy.design.adapter.UserListAdapter : adapter
+  com.cardy.design.fragment.UserFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.UserFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.UserFragment o-- com.cardy.design.viewmodel.UserViewModel : userViewModel
+  com.cardy.design.util.MyMarkerView -up-|> com.github.mikephil.charting.components.MarkerView
+  com.cardy.design.util.MyMarkerViewMultiple -up-|> com.github.mikephil.charting.components.MarkerView
+  com.cardy.design.util.TestDatabase_Impl -up-|> com.cardy.design.util.TestDatabase
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.CustomerDao : _customerDao
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.InventoryDao : _inventoryDao
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.MaterialDao : _materialDao
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.ProductDao : _productDao
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.PurchaseOrderDao : _purchaseOrderDao
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.ReportDao : _reportDao
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.SaleOrderDao : _saleOrderDao
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.SupplierDao : _supplierDao
+  com.cardy.design.util.TestDatabase_Impl o-- com.cardy.design.dao.UserDao : _userDao
+  com.cardy.design.util.WMSDatabase_Impl -up-|> com.cardy.design.util.WMSDatabase
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.CustomerDao : _customerDao
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.InventoryDao : _inventoryDao
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.MaterialDao : _materialDao
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.ProductDao : _productDao
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.PurchaseOrderDao : _purchaseOrderDao
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.ReportDao : _reportDao
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.SaleOrderDao : _saleOrderDao
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.SupplierDao : _supplierDao
+  com.cardy.design.util.WMSDatabase_Impl o-- com.cardy.design.dao.UserDao : _userDao
+  com.cardy.design.util.diff.CustomerDIffCallback -up-|> androidx.recyclerview.widget.DiffUtil.ItemCallback
+  com.cardy.design.util.diff.InventoryDiffCallback -up-|> androidx.recyclerview.widget.DiffUtil.ItemCallback
+  com.cardy.design.util.diff.MaterialDiffCallback -up-|> androidx.recyclerview.widget.DiffUtil.ItemCallback
+  com.cardy.design.util.diff.ProductDiffCallback -up-|> androidx.recyclerview.widget.DiffUtil.ItemCallback
+  com.cardy.design.util.diff.PurchaseOrderDiffCallback -up-|> androidx.recyclerview.widget.DiffUtil.ItemCallback
+  com.cardy.design.util.diff.SaleOrderDiffCallback -up-|> androidx.recyclerview.widget.DiffUtil.ItemCallback
+  com.cardy.design.util.diff.SupplierDiffCallback -up-|> androidx.recyclerview.widget.DiffUtil.ItemCallback
+  com.cardy.design.util.diff.UserDiffCallback -up-|> androidx.recyclerview.widget.DiffUtil.ItemCallback
+  com.cardy.design.viewmodel.CustomerViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.CustomerViewModel o-- com.cardy.design.dao.CustomerDao : dao
+  com.cardy.design.viewmodel.InventoryViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.InventoryViewModel o-- com.cardy.design.dao.InventoryDao : dao
+  com.cardy.design.viewmodel.MaterialViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.MaterialViewModel o-- com.cardy.design.dao.MaterialDao : dao
+  com.cardy.design.viewmodel.ProductViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.ProductViewModel o-- com.cardy.design.dao.ProductDao : dao
+  com.cardy.design.viewmodel.PurchaseOrderViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.PurchaseOrderViewModel o-- com.cardy.design.dao.PurchaseOrderDao : dao
+  com.cardy.design.viewmodel.ReportViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.ReportViewModel o-- com.cardy.design.dao.ReportDao : dao
+  com.cardy.design.viewmodel.SaleOrderViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.SaleOrderViewModel o-- com.cardy.design.dao.SaleOrderDao : dao
+  com.cardy.design.viewmodel.SupplierViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.SupplierViewModel o-- com.cardy.design.dao.SupplierDao : supplierDao
+  com.cardy.design.viewmodel.UserViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.UserViewModel o-- com.cardy.design.entity.User : user
+  com.cardy.design.viewmodel.UserViewModel o-- com.cardy.design.dao.UserDao : userDao
+  com.cardy.design.widget.IconFontTextView -up-|> androidx.appcompat.widget.AppCompatTextView
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

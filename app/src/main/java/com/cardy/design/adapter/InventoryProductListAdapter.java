@@ -1,12 +1,10 @@
 package com.cardy.design.adapter;
 
-import android.content.ContentUris;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,45 +12,101 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
 import com.cardy.design.entity.Inventory;
-import com.cardy.design.entity.InventoryTest;
+import com.cardy.design.entity.InventoryDetail;
 import com.cardy.design.entity.Product;
+import com.cardy.design.entity.PurchaseOrder;
+import com.cardy.design.entity.SaleOrder;
 import com.cardy.design.util.Util;
 import com.cardy.design.viewmodel.InventoryViewModel;
 import com.cardy.design.viewmodel.ProductViewModel;
+import com.cardy.design.viewmodel.SaleOrderViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.kongzue.dialogx.dialogs.BottomDialog;
-import com.kongzue.dialogx.dialogs.PopTip;
-import com.kongzue.dialogx.dialogs.TipDialog;
+import com.kongzue.dialogx.dialogs.FullScreenDialog;
+import com.kongzue.dialogx.interfaces.OnBindView;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.LogRecord;
 
 public class InventoryProductListAdapter extends BaseQuickAdapter<Inventory, MyInventoryViewHolder> {
     InventoryViewModel viewModel;
     ProductViewModel productViewModel;
+    SaleOrderViewModel saleOrderViewModel;
+    List<Inventory> list;
     int SET_IMAGE = 1;
 
-    public InventoryProductListAdapter(int layoutResId, InventoryViewModel viewModel, ProductViewModel productViewModel) {
+    public InventoryProductListAdapter(int layoutResId, InventoryViewModel viewModel, ProductViewModel productViewModel,SaleOrderViewModel saleOrderViewModel) {
         super(layoutResId);
         this.viewModel = viewModel;
         this.productViewModel = productViewModel;
+        this.saleOrderViewModel = saleOrderViewModel;
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                BottomDialog.show("实现跳转页面", "跳转到该库存的具体内容页面");
+                FullScreenDialog.show(new OnBindView<FullScreenDialog>(R.layout.dialog_inventory_detail) {
+                    @Override
+                    public void onBind(FullScreenDialog dialog, View v) {
+                        TextView objectName = v.findViewById(R.id.textViewObjectName);
+                        TextView objectModel = v.findViewById(R.id.textViewObjectModel);
+                        RecyclerView rvInventory = v.findViewById(R.id.recycleViewInventory);
+                        RecyclerView rvOrder = v.findViewById(R.id.recyclerViewDeliveryOrder);
+                        List<InventoryDetail> detailList = new ArrayList<>();
+                        final List<SaleOrder>[] orderList = new List[]{new ArrayList<>()};
+                        String[] areaList;
+                        String[] areaNumberList;
+
+                        objectName.setText(list.get(position).getName());
+                        objectModel.setText(list.get(position).getModel());
+
+                        areaList = list.get(position).getArea().split(",");
+                        areaNumberList = list.get(position).getAreaNumber().split(",");
+                        for(int i=0;i<Math.min(areaList.length,areaNumberList.length);i++){
+                            if(!areaNumberList[i].equals("")) {
+                                InventoryDetail temp = new InventoryDetail(areaList[i], areaNumberList[i]);
+                                detailList.add(temp);
+                            }
+                        }
+
+                        InventoryDetailedListAdapter inventoryDetailedListAdapter = new InventoryDetailedListAdapter(R.layout.item_inventory_detailed,list.get(position).getHostCount());
+                        rvInventory.setLayoutManager(new LinearLayoutManager(getContext()));
+                        rvInventory.setAdapter(inventoryDetailedListAdapter);
+                        inventoryDetailedListAdapter.setList(detailList);
+
+                        InventoryDetailedSaleOrderListAdapter inventoryDetailedSaleOrderListAdapter = new InventoryDetailedSaleOrderListAdapter(R.layout.item_sale_order);
+                        rvOrder.setLayoutManager(new LinearLayoutManager(getContext()));
+                        rvOrder.setAdapter(inventoryDetailedSaleOrderListAdapter);
+
+                        Handler mHandler = new Handler(Looper.myLooper()){
+                            @Override
+                            public void handleMessage(@NonNull Message msg) {
+                                super.handleMessage(msg);
+                                if(msg.what == 999){
+                                    inventoryDetailedSaleOrderListAdapter.setList(orderList[0]);
+                                }
+                            }
+                        };
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                orderList[0] = saleOrderViewModel.getSelectedStateOrder("运输中");
+                                Message message = Message.obtain();
+                                message.what = 999;
+                                mHandler.sendMessage(message);
+                            }
+                        }).start();
+                    }
+                });
             }
         });
     }
@@ -103,6 +157,21 @@ public class InventoryProductListAdapter extends BaseQuickAdapter<Inventory, MyI
                 }
             }).start();
         }
+    }
+
+    /**
+     * 重写setList方法，更新列表数据
+     *
+     * @param list
+     */
+    public void setMyList(List<Inventory> list) {
+        this.list = list;
+    }
+
+    @Override
+    public void setNewInstance(@Nullable List<Inventory> list) {
+        super.setNewInstance(list);
+        this.list = list;
     }
 }
 

@@ -1,11 +1,17 @@
 package com.cardy.design.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,15 +24,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aditya.filebrowser.Constants;
+import com.aditya.filebrowser.FileChooser;
 import com.cardy.design.R;
 import com.cardy.design.adapter.UserListAdapter;
 import com.cardy.design.entity.User;
+import com.cardy.design.util.ExcelUtil;
 import com.cardy.design.util.diff.UserDiffCallback;
 import com.cardy.design.viewmodel.UserViewModel;
 import com.cardy.design.widget.IconFontTextView;
 import com.kongzue.dialogx.dialogs.BottomDialog;
+import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserFragment extends Fragment {
@@ -34,6 +45,7 @@ public class UserFragment extends Fragment {
     UserListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
+    Button addMultiButton;
     IconFontTextView addButton, menuButton;
     UserViewModel userViewModel;
 
@@ -65,6 +77,7 @@ public class UserFragment extends Fragment {
         searchView = getView().findViewById(R.id.userSearchView);
         addButton = getView().findViewById(R.id.userAddButton);
         menuButton = getView().findViewById(R.id.menuButton);
+        addMultiButton = getView().findViewById(R.id.addMultiUserButton);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         adapter.setEmptyView(R.layout.empty_layout);
@@ -92,6 +105,37 @@ public class UserFragment extends Fragment {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
+
+        addMultiButton.setOnClickListener(v->{
+            Intent i2 = new Intent(getActivity().getApplicationContext(), FileChooser.class);
+            i2.putExtra(Constants.SELECTION_MODE, Constants.SELECTION_MODES.SINGLE_SELECTION.ordinal());
+            startActivityForResult(i2, 988);
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 988 && resultCode == Activity.RESULT_OK) {
+            List<User> users = new ArrayList<>();
+            Uri file = data.getData();
+            String filePath = file.toString().replaceFirst("file:/","");
+            if (!filePath.contains(".xls")){
+                Toast.makeText(getActivity(),"不支持的文件类型！",Toast.LENGTH_LONG).show();
+            }else{
+                List<List<Object>> list = ExcelUtil.read2003XLS(filePath);
+                for (int i = 1; i < list.size(); i++) {
+                    String ID = list.get(i).get(0).toString();
+                    String username = list.get(i).get(1).toString();
+                    String password = list.get(i).get(2).toString();
+                    boolean permission = list.get(i).get(3).toString().equals("1");
+                    User user = new User(ID,username,password,permission);
+                    Log.d("ExcelTest", user.toString());
+                    users.add(user);
+                }
+                userViewModel.insertUser(users.toArray(new User[users.size()]));
+            }
+        }
     }
 
     public void initAddMethod(){

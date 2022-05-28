@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.cardy.design.dao.CustomerDao;
 import com.cardy.design.entity.Customer;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class CustomerViewModel extends AndroidViewModel {
 
     public CustomerViewModel(@NonNull Application application) {
         super(application);
-        TestDatabase database = TestDatabase.Companion.getINSTANCE(application);
+        WMSDatabase database = WMSDatabase.Companion.getINSTANCE(application);
         dao = database.customerDao();
         listLive = dao.getAllCustomer();
     }

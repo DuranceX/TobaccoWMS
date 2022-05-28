@@ -1,12 +1,8 @@
 package com.cardy.design.adapter;
 
-import android.annotation.SuppressLint;
-import android.content.ContentUris;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Canvas;
 import android.net.Uri;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -18,12 +14,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
-import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.entity.Product;
 import com.cardy.design.util.Util;
 import com.cardy.design.viewmodel.ProductViewModel;
@@ -40,7 +34,6 @@ import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 import com.squareup.picasso.Picasso;
 
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ProductListAdapter extends BaseQuickAdapter<Product, MyProductViewHolder> implements DraggableModule {
@@ -64,16 +57,16 @@ public class ProductListAdapter extends BaseQuickAdapter<Product, MyProductViewH
         //填充数值
         try{
             if(!product.getImage().equals("")){
-                if(!product.getImage().startsWith("http")){
+                if(product.getImage().startsWith("content")){
                     Uri pathUri = Util.getImagePath(getContext(),product.getImage());
-                    holder.imageView.setImageURI(pathUri);
+                    imageProduct.setImageURI(pathUri);
                 }
-                else {
+                else if(product.getImage().startsWith("http")){
                     Picasso.with(getContext()).load(product.getImage()).into(holder.imageView);
                 }
+                else
+                    throw new Exception();
             }
-            else
-                throw new Exception();
         }catch (Exception exception){
             holder.imageView.setImageDrawable(getContext().getDrawable(R.drawable.product_placeholder));
         }
@@ -101,8 +94,16 @@ public class ProductListAdapter extends BaseQuickAdapter<Product, MyProductViewH
                         editTextModel.setFocusable(false);
 
                         //填充数值
-                        if (!list.get(position).getImage().equals("")) {
-                            Picasso.with(getContext()).load(list.get(position).getImage()).into(imageProduct);
+                        if(!list.get(position).getImage().equals("")){
+                            if(list.get(position).getImage().startsWith("content")){
+                                Uri pathUri = Util.getImagePath(getContext(),list.get(position).getImage());
+                                imageProduct.setImageURI(pathUri);
+                            }
+                            else if(list.get(position).getImage().startsWith("http")){
+                                Picasso.with(getContext()).load(list.get(position).getImage()).into(imageProduct);
+                            }
+                            else
+                                imageProduct.setImageDrawable(getContext().getDrawable(R.drawable.product_placeholder));
                         }
                         editTextImagePath.setText(list.get(position).getImage());
                         editTextName.setText(list.get(position).getName());

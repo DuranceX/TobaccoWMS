@@ -120,6 +120,11 @@ public class ProductFragment extends Fragment {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
+
+//        Product product = new Product("中华香烟","SC00120211715","https://www.opposingviews.com/.image/t_share/MTUzODg1MTA0MDE4Njk1OTM0/image-placeholder-title.jpg",100.0,"鸦片,卷纸");
+//        Product product1 = new Product("白沙香烟","SC00220211523","http://img1.cnxiangyan.com/2021/1124/619e011add22e.png",10.0,"鸦片,卷纸");
+//        Product product2 = new Product("云烟","SC00320213524","http://img1.cnxiangyan.com/2021/1208/61b06137495d8.jpg",22.0,"鸦片,卷纸");
+//        viewModel.insertProduct(product,product1,product2);
     }
 
     public void initClickListener(){

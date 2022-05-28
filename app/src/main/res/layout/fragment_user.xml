@@ -116,6 +116,17 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="@+id/guideline13">
 
+        <Button
+            android:id="@+id/addMultiUserButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="从文件导入"
+            android:textColor="@color/black_light"
+            tools:ignore="TouchTargetSizeCheck"
+            tools:layout_editor_absoluteX="307dp" />
+
         <com.cardy.design.widget.IconFontTextView
             android:id="@+id/userAddButton"
             android:layout_width="wrap_content"

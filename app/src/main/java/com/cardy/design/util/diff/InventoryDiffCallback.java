@@ -8,7 +8,7 @@ import com.cardy.design.entity.Inventory;
 public class InventoryDiffCallback extends DiffUtil.ItemCallback<Inventory> {
     @Override
     public boolean areItemsTheSame(@NonNull Inventory oldItem, @NonNull Inventory newItem) {
-        return oldItem.getModel().equals(newItem.getModel());
+        return oldItem.getModel().equals(newItem.getModel()) && oldItem.getType() == newItem.getType();
     }
 
     @Override

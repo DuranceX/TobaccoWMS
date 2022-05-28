@@ -1,0 +1,357 @@
+@startuml
+
+title __FRAGMENT's Class Diagram__\n
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.CustomerFragment {
+          ~ editTextLogo : EditText
+          ~ flag : Boolean
+          ~ imageViewLogo : ImageView
+          ~ intentActivityResultLauncher : ActivityResultLauncher<Intent>
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          + CustomerFragment()
+          + initClickListener()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.InventoryFragment {
+          + InventoryFragment()
+          + onCreate()
+          + onCreateView()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.InventoryMaterialFragment {
+          ~ calendar : TextView
+          ~ date : LocalDate
+          ~ etArea : EditText
+          ~ etDeliveryDate : EditText
+          ~ etOutCount : EditText
+          ~ flag : Boolean
+          ~ inButton : Button
+          ~ materials : List<Material>
+          ~ orders : List<PurchaseOrder>
+          ~ outButton : Button
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          ~ spinner : Spinner
+          ~ tvCount : TextView
+          ~ tvModel : TextView
+          ~ tvName : TextView
+          ~ tvPrice : TextView
+          ~ tvPurchaseDate : TextView
+          ~ tvSupplier : TextView
+          + InventoryMaterialFragment()
+          + initInButton()
+          + initOutButton()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.InventoryProductFragment {
+          ~ calendar : TextView
+          ~ date : LocalDate
+          ~ etArea : EditText
+          ~ etDeliveryDate : EditText
+          ~ etInCount : EditText
+          ~ flag : Boolean
+          ~ inButton : Button
+          ~ orders : List<SaleOrder>
+          ~ outButton : Button
+          ~ products : List<Product>
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          ~ spinner : Spinner
+          ~ tvCount : TextView
+          ~ tvCustomer : TextView
+          ~ tvModel : TextView
+          ~ tvName : TextView
+          ~ tvPrice : TextView
+          ~ tvSaleDate : TextView
+          + InventoryProductFragment()
+          + initInButton()
+          + initOutButton()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.MaterialFragment {
+          ~ editTextModel : EditText
+          ~ editTextName : EditText
+          ~ editTextPrice : EditText
+          ~ flag : Boolean
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          + MaterialFragment()
+          + initClickListener()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.ProductFragment {
+          ~ editTextImagePath : EditText
+          ~ editTextModel : EditText
+          ~ editTextName : EditText
+          ~ editTextPrice : EditText
+          ~ editTextUsedMaterial : EditText
+          ~ flag : Boolean
+          ~ imageProduct : ImageView
+          ~ intentActivityResultLauncher : ActivityResultLauncher<Intent>
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          + ProductFragment()
+          + initClickListener()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.ProfileFragment {
+          + ProfileFragment()
+          + onCreate()
+          + onCreateView()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.PurchaseOrderFragment {
+          ~ SET_SECOND_SPINNER : int
+          ~ etCount : EditText
+          ~ etPrice : EditText
+          ~ flag : Boolean
+          ~ materialModelList : List<String>
+          ~ materialNameList : List<String>
+          ~ permission : Boolean
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          ~ spinnerModel : Spinner
+          ~ spinnerName : Spinner
+          ~ spinnerSupplier : Spinner
+          ~ supplierList : List<String>
+          ~ tvPurchaseDate : TextView
+          ~ tvUserId : TextView
+          ~ tvUserName : TextView
+          ~ userId : String
+          ~ username : String
+          + PurchaseOrderFragment()
+          + initAddMethod()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.ReportFragment {
+          ~ customerAmountList : List<CustomerAmount>
+          ~ customerBC : BarChart
+          ~ materialBC : BarChart
+          ~ materialPurchaseAmountList : List<MaterialPurchaseAmount>
+          ~ productBC : BarChart
+          ~ productSaleAmountList : List<ProductSaleAmount>
+          ~ supplierAmountList : List<SupplierAmount>
+          ~ supplierBC : BarChart
+          ~ totalPurchase : TextView
+          ~ totalPurchasePrice : Double
+          ~ totalSale : TextView
+          ~ totalSalePrice : Double
+          + ReportFragment()
+          + initData()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+          + setCustomerBarChart()
+          + setMaterialBarChart()
+          + setProductBarChart()
+          + setSupplierBarChart()
+          + styleBarChart()
+          + styleBarChartMultiple()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.SaleOrderFragment {
+          ~ customerList : List<String>
+          ~ etCount : EditText
+          ~ etPrice : EditText
+          ~ flag : Boolean
+          ~ permission : Boolean
+          ~ productModelList : List<String>
+          ~ productNameList : List<String>
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          ~ spinnerCustomer : Spinner
+          ~ spinnerModel : Spinner
+          ~ spinnerName : Spinner
+          ~ tvSaleDate : TextView
+          ~ tvUserId : TextView
+          ~ tvUserName : TextView
+          ~ userId : String
+          ~ username : String
+          + SaleOrderFragment()
+          + initAddMethod()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.SupplierFragment {
+          ~ editTextLogo : EditText
+          ~ flag : Boolean
+          ~ imageViewLogo : ImageView
+          ~ intentActivityResultLauncher : ActivityResultLauncher<Intent>
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          + SupplierFragment()
+          + initAddMethod()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace fragment {
+      class com.cardy.design.fragment.UserFragment {
+          ~ flag : Boolean
+          ~ recyclerView : RecyclerView
+          ~ searchView : SearchView
+          + UserFragment()
+          + initAddMethod()
+          + initSearch()
+          + onCreate()
+          + onCreateView()
+          + onViewCreated()
+      }
+    }
+  }
+  
+
+  com.cardy.design.fragment.CustomerFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.CustomerFragment o-- com.cardy.design.adapter.CustomerListAdapter : adapter
+  com.cardy.design.fragment.CustomerFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.CustomerFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.CustomerFragment o-- com.cardy.design.viewmodel.CustomerViewModel : viewModel
+  com.cardy.design.fragment.InventoryFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.InventoryMaterialFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.adapter.InventoryMaterialListAdapter : adapter
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.viewmodel.MaterialViewModel : materialViewModel
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.viewmodel.PurchaseOrderViewModel : purchaseOrderViewModel
+  com.cardy.design.fragment.InventoryMaterialFragment o-- com.cardy.design.viewmodel.InventoryViewModel : viewModel
+  com.cardy.design.fragment.InventoryProductFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.adapter.InventoryProductListAdapter : adapter
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.viewmodel.ProductViewModel : productViewModel
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.viewmodel.SaleOrderViewModel : saleOrderViewModel
+  com.cardy.design.fragment.InventoryProductFragment o-- com.cardy.design.viewmodel.InventoryViewModel : viewModel
+  com.cardy.design.fragment.MaterialFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.MaterialFragment o-- com.cardy.design.adapter.MaterialListAdapter : adapter
+  com.cardy.design.fragment.MaterialFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.MaterialFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.MaterialFragment o-- com.cardy.design.viewmodel.MaterialViewModel : viewModel
+  com.cardy.design.fragment.ProductFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.ProductFragment o-- com.cardy.design.adapter.ProductListAdapter : adapter
+  com.cardy.design.fragment.ProductFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.ProductFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.ProductFragment o-- com.cardy.design.viewmodel.ProductViewModel : viewModel
+  com.cardy.design.fragment.ProfileFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.PurchaseOrderFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.adapter.PurchaseOrderListAdapter : adapter
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.viewmodel.InventoryViewModel : inventoryViewModel
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.viewmodel.MaterialViewModel : materialViewModel
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.viewmodel.SupplierViewModel : supplierViewModel
+  com.cardy.design.fragment.PurchaseOrderFragment o-- com.cardy.design.viewmodel.PurchaseOrderViewModel : viewModel
+  com.cardy.design.fragment.ReportFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.ReportFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.ReportFragment o-- com.cardy.design.viewmodel.ReportViewModel : viewModel
+  com.cardy.design.fragment.SaleOrderFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.adapter.SaleOrderListAdapter : adapter
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.viewmodel.CustomerViewModel : customerViewModel
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.viewmodel.InventoryViewModel : inventoryViewModel
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.viewmodel.ProductViewModel : productViewModel
+  com.cardy.design.fragment.SaleOrderFragment o-- com.cardy.design.viewmodel.SaleOrderViewModel : viewModel
+  com.cardy.design.fragment.SupplierFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.SupplierFragment o-- com.cardy.design.adapter.SupplierListAdapter : adapter
+  com.cardy.design.fragment.SupplierFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.SupplierFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.SupplierFragment o-- com.cardy.design.viewmodel.SupplierViewModel : viewModel
+  com.cardy.design.fragment.UserFragment -up-|> androidx.fragment.app.Fragment
+  com.cardy.design.fragment.UserFragment o-- com.cardy.design.adapter.UserListAdapter : adapter
+  com.cardy.design.fragment.UserFragment o-- com.cardy.design.widget.IconFontTextView : addButton
+  com.cardy.design.fragment.UserFragment o-- com.cardy.design.widget.IconFontTextView : menuButton
+  com.cardy.design.fragment.UserFragment o-- com.cardy.design.viewmodel.UserViewModel : userViewModel
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

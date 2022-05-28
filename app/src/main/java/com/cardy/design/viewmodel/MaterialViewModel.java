@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData;
 import com.cardy.design.dao.MaterialDao;
 import com.cardy.design.entity.Material;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class MaterialViewModel extends AndroidViewModel{
 
     public MaterialViewModel(@NonNull Application application) {
         super(application);
-        TestDatabase database = TestDatabase.Companion.getINSTANCE(application);
+        WMSDatabase database = WMSDatabase.Companion.getINSTANCE(application);
         dao = database.materialDao();
         listLive = dao.getAllMaterial();
     }

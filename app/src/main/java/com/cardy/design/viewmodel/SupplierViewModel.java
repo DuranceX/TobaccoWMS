@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.cardy.design.dao.SupplierDao;
 import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class SupplierViewModel extends AndroidViewModel {
 
     public SupplierViewModel(@NonNull Application application) {
         super(application);
-        TestDatabase database = TestDatabase.Companion.getINSTANCE(application);
+        WMSDatabase database = WMSDatabase.Companion.getINSTANCE(application);
         supplierDao = database.supplierDao();
         listLive = supplierDao.getAllSupplier();
     }

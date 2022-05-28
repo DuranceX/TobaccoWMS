@@ -170,9 +170,8 @@ public class ReportFragment extends Fragment {
             timesEntries.add(new BarEntry(i,customerAmountList.get(i).getTimes()*10000));
             xLabel.add(customerAmountList.get(i).getCustomer());
         }
-        Log.d("Test: data", xLabel.toString());
-        BarDataSet priceSet = new BarDataSet(priceEntries,"用户购买金额");
-        BarDataSet timesSet = new BarDataSet(timesEntries,"用户购买次数");
+        BarDataSet priceSet = new BarDataSet(priceEntries,"客户购买金额");
+        BarDataSet timesSet = new BarDataSet(timesEntries,"客户购买次数");
         styleBarChartMultiple(xLabel,customerBC,priceSet,timesSet);
         customerBC.invalidate();
     }
@@ -186,9 +185,8 @@ public class ReportFragment extends Fragment {
             timesEntries.add(new BarEntry(i,supplierAmountList.get(i).getTimes()*10000));
             xLabel.add(supplierAmountList.get(i).getSupplier());
         }
-        Log.d("Test: data", xLabel.toString());
-        BarDataSet priceSet = new BarDataSet(priceEntries,"用户购买金额");
-        BarDataSet timesSet = new BarDataSet(timesEntries,"用户购买次数");
+        BarDataSet priceSet = new BarDataSet(priceEntries,"供货商供应金额");
+        BarDataSet timesSet = new BarDataSet(timesEntries,"供货商供应次数");
         styleBarChartMultiple(xLabel,supplierBC,priceSet,timesSet);
         supplierBC.invalidate();
     }

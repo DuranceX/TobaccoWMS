@@ -121,6 +121,11 @@ public class SupplierFragment extends Fragment {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
+
+//        Supplier supplier = new Supplier("汤記贸易有限责任公司","成华区玉双路6号859号",Supplier.PRIORITY_HIGH,"content://com.android.providers.downloads.documents/document/raw%3A%2Fstorage%2Femulated%2F0%2FDownload%2Fwallhaven-eymzjk.jpg","卷纸");
+//        Supplier supplier1 = new Supplier("蓝天种植园","蓝天市蓝天区蓝天街道20号",Supplier.PRIORITY_HIGH,"","鸦片");
+//        Supplier supplier2 = new Supplier("绿地种植园","绿地市绿地区绿地街道20号",Supplier.PRIORITY_HIGH,"content://com.android.providers.downloads.documents/document/raw%3A%2Fstorage%2Femulated%2F0%2FDownload%2Fwallhaven-wyzd56.png","鸦片");
+//        viewModel.insertSupplier(supplier,supplier1,supplier2);
     }
 
     public void initAddMethod() {
@@ -129,7 +134,7 @@ public class SupplierFragment extends Fragment {
             final TextView[] textViewAddressLabel = new TextView[1];
             final TextView[] textViewMainLabel = new TextView[1];
             final TextView[] textViewPriorityLabel = new TextView[1];
-            final TextView[] textViewMain = new TextView[1];
+            final TextView[] editTextMain = new TextView[1];
             final EditText[] editTextName = new EditText[1];
             final EditText[] editTextAddress = new EditText[1];
             final RadioButton[] radioButtonLow = new RadioButton[1];
@@ -146,7 +151,7 @@ public class SupplierFragment extends Fragment {
                     editTextLogo = v.findViewById(R.id.editTextLogo);
                     editTextName[0] = v.findViewById(R.id.editTextName);
                     editTextAddress[0] = v.findViewById(R.id.editTextModel);
-                    textViewMain[0] = v.findViewById(R.id.textViewMain);
+                    editTextMain[0] = v.findViewById(R.id.editTextMain);
                     radioButtonLow[0] = v.findViewById(R.id.radioButtonLow);
                     radioButtonMid[0] = v.findViewById(R.id.radioButtonMid);
                     radioButtonHigh[0] = v.findViewById(R.id.radioButtonHigh);
@@ -170,7 +175,7 @@ public class SupplierFragment extends Fragment {
                     String name = editTextName[0].getText().toString();
                     String logo = editTextLogo.getText().toString();
                     String address = editTextAddress[0].getText().toString();
-                    String main = textViewMain[0].getText().toString();
+                    String main = editTextMain[0].getText().toString();
                     int priority = 0;
                     if (radioButtonLow[0].isChecked())
                         priority = Supplier.PRIORITY_LOW;

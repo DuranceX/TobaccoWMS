@@ -12,6 +12,7 @@ import com.cardy.design.dao.SupplierDao;
 import com.cardy.design.entity.Product;
 import com.cardy.design.entity.Supplier;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class ProductViewModel extends AndroidViewModel {
 
     public ProductViewModel(@NonNull Application application) {
         super(application);
-        dao = TestDatabase.Companion.getINSTANCE(application).productDao();
+        dao = WMSDatabase.Companion.getINSTANCE(application).productDao();
         listLive = dao.getAllProduct();
     }
 

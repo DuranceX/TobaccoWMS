@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ public class InventoryMaterialFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
         purchaseOrderViewModel = new ViewModelProvider(this).get(PurchaseOrderViewModel.class);
         materialViewModel = new ViewModelProvider(this).get(MaterialViewModel.class);
-        adapter = new InventoryMaterialListAdapter(R.layout.item_inventory_material,viewModel);
+        adapter = new InventoryMaterialListAdapter(R.layout.item_inventory_material,viewModel,purchaseOrderViewModel);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.inventoryMaterialRecycleview);
         searchView = getView().findViewById(R.id.inventoryMaterialSearchView);
@@ -111,6 +112,7 @@ public class InventoryMaterialFragment extends Fragment {
                         adapter.setNewInstance(inventories);
                     //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                     adapter.setDiffNewData(inventories);
+                    adapter.setMyList(inventories);
                 }
             }
         });
@@ -209,7 +211,10 @@ public class InventoryMaterialFragment extends Fragment {
 
                     inventory[0].setHostCount(inventory[0].getHostCount()+count);
                     inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()-count);
-                    inventory[0].setArea(inventory[0].getArea() + "," + area);
+                    if(inventory[0].getArea().equals(""))
+                        inventory[0].setArea(area);
+                    else
+                        inventory[0].setArea(inventory[0].getArea() + "," + area);
                     viewModel.updateInventory(inventory[0]);
                     return false;
                 }
@@ -278,6 +283,7 @@ public class InventoryMaterialFragment extends Fragment {
                     public void onChanged(List<Inventory> inventories) {
                         flag = false;
                         adapter.setDiffNewData(inventories);
+                        adapter.setMyList(inventories);
                     }
                 });
                 return false;

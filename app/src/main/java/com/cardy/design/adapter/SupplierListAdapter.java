@@ -70,13 +70,15 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
     protected void convert(@NonNull MySupplierViewHolder holder, Supplier supplier) {
         try{
             if(!supplier.getLogo().equals("")){
-                if(!supplier.getLogo().startsWith("http")){
+                if(supplier.getLogo().startsWith("content")){
                     Uri pathUri = Util.getImagePath(getContext(),supplier.getLogo());
                     holder.logo.setImageURI(pathUri);
                 }
-                else {
+                else if(supplier.getLogo().startsWith("http")){
                     Picasso.with(getContext()).load(supplier.getLogo()).into(holder.logo);
                 }
+                else
+                    throw new Exception();
             }
             else
                 throw new Exception();
@@ -125,7 +127,7 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
                 final TextView[] textViewAddressLabel = new TextView[1];
                 final TextView[] textViewMainLabel = new TextView[1];
                 final TextView[] textViewPriorityLabel = new TextView[1];
-                final TextView[] textViewMain = new TextView[1];
+                final TextView[] editTextMain = new EditText[1];
                 final EditText[] editTextName = new EditText[1];
                 final EditText[] editTextAddress = new EditText[1];
                 final RadioButton[] radioButtonLow = new RadioButton[1];
@@ -142,7 +144,7 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
                         textViewPriorityLabel[0] = v.findViewById(R.id.textViewPriorityLabel);
                         editTextName[0] = v.findViewById(R.id.editTextName);
                         editTextAddress[0] = v.findViewById(R.id.editTextModel);
-                        textViewMain[0] = v.findViewById(R.id.textViewMain);
+                        editTextMain[0] = v.findViewById(R.id.editTextMain);
                         radioButtonLow[0] = v.findViewById(R.id.radioButtonLow);
                         radioButtonMid[0] = v.findViewById(R.id.radioButtonMid);
                         radioButtonHigh[0] = v.findViewById(R.id.radioButtonHigh);
@@ -154,13 +156,21 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
                         textViewPriorityLabel[0].setText("供货商优先级：");
 
                         //填充数值
-                        if (!list.get(position).getLogo().equals("")) {
-                            Picasso.with(getContext()).load(list.get(position).getLogo()).into(imageViewLogo);
+                        if(!list.get(position).getLogo().equals("")){
+                            if(list.get(position).getLogo().startsWith("content")){
+                                Uri pathUri = Util.getImagePath(getContext(),list.get(position).getLogo());
+                                imageViewLogo.setImageURI(pathUri);
+                            }
+                            else if(list.get(position).getLogo().startsWith("http")){
+                                Picasso.with(getContext()).load(list.get(position).getLogo()).into(imageViewLogo);
+                            }
+                            else
+                                imageViewLogo.setImageDrawable(getContext().getDrawable(R.drawable.product_placeholder));
                         }
                         editTextLogo.setText(list.get(position).getLogo());
                         editTextName[0].setText(list.get(position).getName());
                         editTextAddress[0].setText(list.get(position).getAddress());
-                        textViewMain[0].setText(list.get(position).getMainSupply());
+                        editTextMain[0].setText(list.get(position).getMainSupply());
                         switch (list.get(position).getPriority()) {
                             case Supplier.PRIORITY_HIGH:
                                 radioButtonHigh[0].setChecked(true);
@@ -186,7 +196,7 @@ public class SupplierListAdapter extends BaseQuickAdapter<Supplier, MySupplierVi
                         String name = editTextName[0].getText().toString();
                         String logo = editTextLogo.getText().toString();
                         String address = editTextAddress[0].getText().toString();
-                        String main = textViewMain[0].getText().toString();
+                        String main = editTextMain[0].getText().toString();
                         int priority = 0;
                         if (radioButtonLow[0].isChecked())
                             priority = Supplier.PRIORITY_LOW;

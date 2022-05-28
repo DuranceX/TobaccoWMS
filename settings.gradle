@@ -3,6 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        jcenter()
     }
 }
 dependencyResolutionManagement {
@@ -12,6 +13,7 @@ dependencyResolutionManagement {
         mavenCentral()
         //maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven {url 'https://jitpack.io'}
+        jcenter()
     }
 }
 rootProject.name = "WMS"

@@ -286,7 +286,7 @@ public class PurchaseOrderListAdapter extends BaseQuickAdapter<PurchaseOrder, My
                                 order[0].setComment(comment);
                                 viewModel.updatePurchaseOrder(order[0]);
                                 if(inventory[0]==null){
-                                    Inventory temp = new Inventory(name,model,"",0,count,"",Inventory.TYPE_MATERIAL);
+                                    Inventory temp = new Inventory(name,model,"",0,count,"","",Inventory.TYPE_MATERIAL);
                                     inventoryViewModel.insertInventory(temp);
                                 }else{
                                     inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()+count);

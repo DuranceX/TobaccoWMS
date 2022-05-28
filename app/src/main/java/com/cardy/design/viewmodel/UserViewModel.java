@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import com.cardy.design.dao.UserDao;
 import com.cardy.design.entity.User;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 import com.kongzue.dialogx.dialogs.PopTip;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class UserViewModel extends AndroidViewModel {
 
     public UserViewModel(@NonNull Application application) {
         super(application);
-        TestDatabase testDatabase = TestDatabase.Companion.getINSTANCE(application);
-        userDao = testDatabase.userDao();
+        WMSDatabase database = WMSDatabase.Companion.getINSTANCE(application);
+        userDao = database.userDao();
         listLive = userDao.getAllUser();
     }
 

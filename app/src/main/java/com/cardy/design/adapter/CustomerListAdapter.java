@@ -59,13 +59,15 @@ public class CustomerListAdapter extends BaseQuickAdapter<Customer, MyCustomerVi
     protected void convert(@NonNull MyCustomerViewHolder holder, Customer customer) {
         try{
             if(!customer.getLogo().equals("")){
-                if(!customer.getLogo().startsWith("http")){
+                if(customer.getLogo().startsWith("content")){
                     Uri pathUri = Util.getImagePath(getContext(),customer.getLogo());
                     holder.logo.setImageURI(pathUri);
                 }
-                else {
+                else if(customer.getLogo().startsWith("http")){
                     Picasso.with(getContext()).load(customer.getLogo()).into(holder.logo);
                 }
+                else
+                    throw new Exception();
             }
             else
                 throw new Exception();
@@ -98,7 +100,7 @@ public class CustomerListAdapter extends BaseQuickAdapter<Customer, MyCustomerVi
         this.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                final TextView[] textViewMain = new TextView[1];
+                final TextView[] editTextMain = new TextView[1];
                 final EditText[] editTextName = new EditText[1];
                 final EditText[] editTextAddress = new EditText[1];
                 final RadioButton[] radioButtonLow = new RadioButton[1];
@@ -111,19 +113,27 @@ public class CustomerListAdapter extends BaseQuickAdapter<Customer, MyCustomerVi
                         editTextLogo = v.findViewById(R.id.editTextLogo);
                         editTextName[0] = v.findViewById(R.id.editTextName);
                         editTextAddress[0] = v.findViewById(R.id.editTextModel);
-                        textViewMain[0] = v.findViewById(R.id.textViewMain);
+                        editTextMain[0] = v.findViewById(R.id.editTextMain);
                         radioButtonLow[0] = v.findViewById(R.id.radioButtonLow);
                         radioButtonMid[0] = v.findViewById(R.id.radioButtonMid);
                         radioButtonHigh[0] = v.findViewById(R.id.radioButtonHigh);
 
                         //填充数值
-                        if (!list.get(position).getLogo().equals("")) {
-                            Picasso.with(getContext()).load(list.get(position).getLogo()).into(imageViewLogo);
+                        if(!list.get(position).getLogo().equals("")){
+                            if(list.get(position).getLogo().startsWith("content")){
+                                Uri pathUri = Util.getImagePath(getContext(),list.get(position).getLogo());
+                                imageViewLogo.setImageURI(pathUri);
+                            }
+                            else if(list.get(position).getLogo().startsWith("http")){
+                                Picasso.with(getContext()).load(list.get(position).getLogo()).into(imageViewLogo);
+                            }
+                            else
+                                imageViewLogo.setImageDrawable(getContext().getDrawable(R.drawable.product_placeholder));
                         }
                         editTextLogo.setText(list.get(position).getLogo());
                         editTextName[0].setText(list.get(position).getName());
                         editTextAddress[0].setText(list.get(position).getAddress());
-                        textViewMain[0].setText(list.get(position).getMainPurchase());
+                        editTextMain[0].setText(list.get(position).getMainPurchase());
                         switch (list.get(position).getPriority()) {
                             case Customer.PRIORITY_HIGH:
                                 radioButtonHigh[0].setChecked(true);
@@ -149,7 +159,7 @@ public class CustomerListAdapter extends BaseQuickAdapter<Customer, MyCustomerVi
                         String name = editTextName[0].getText().toString();
                         String logo = editTextLogo.getText().toString();
                         String address = editTextAddress[0].getText().toString();
-                        String main = textViewMain[0].getText().toString();
+                        String main = editTextMain[0].getText().toString();
                         int priority = 0;
                         if (radioButtonLow[0].isChecked())
                             priority = Customer.PRIORITY_LOW;

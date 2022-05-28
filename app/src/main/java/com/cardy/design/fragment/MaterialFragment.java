@@ -94,6 +94,11 @@ public class MaterialFragment extends Fragment {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
+
+//        Material material = new Material("鸦片","SISC1023546",12.5);
+//        Material material1 = new Material("鸦片","SISC1035864",14.5);
+//        Material material2 = new Material("卷纸","SISC2034982",2.5);
+//        viewModel.insertMaterial(material,material1,material2);
     }
 
     public void initClickListener(){

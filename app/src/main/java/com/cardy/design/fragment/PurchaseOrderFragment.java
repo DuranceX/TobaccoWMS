@@ -50,6 +50,7 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class PurchaseOrderFragment extends Fragment {
     Boolean permission;
+    String username,userId;
     PurchaseOrderListAdapter adapter;
     RecyclerView recyclerView;
     SearchView searchView;
@@ -77,6 +78,8 @@ public class PurchaseOrderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences shp = getActivity().getSharedPreferences("userData", Context.MODE_PRIVATE);
+        userId = shp.getString("userId","");
+        username = shp.getString("username","");
         permission = shp.getBoolean("permission",false);
     }
 
@@ -138,7 +141,7 @@ public class PurchaseOrderFragment extends Fragment {
     public void initAddMethod(){
         final Inventory[] inventory = new Inventory[1];
         addButton.setOnClickListener(v->{
-            BottomDialog.show("添加原料",new OnBindView<BottomDialog>(R.layout.dialog_add_purchase_order) {
+            BottomDialog.show("添加采购订单",new OnBindView<BottomDialog>(R.layout.dialog_add_purchase_order) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     tvUserId = v.findViewById(R.id.textViewUserId);
@@ -149,6 +152,9 @@ public class PurchaseOrderFragment extends Fragment {
                     spinnerSupplier = v.findViewById(R.id.spinnerSupplier);
                     etPrice = v.findViewById(R.id.editTextPrice);
                     etCount = v.findViewById(R.id.editTextCount);
+
+                    tvUserId.setText(userId);
+                    tvUserName.setText(username);
 
                     ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,materialNameList);
                     ArrayAdapter<String> supplierAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item,supplierList);
@@ -224,7 +230,7 @@ public class PurchaseOrderFragment extends Fragment {
                     if(permission){
                         order.setState(PurchaseOrder.STATE_DELIVERY);
                         if(inventory[0]==null){
-                            Inventory temp = new Inventory(name,model,"",0,count,"",Inventory.TYPE_MATERIAL);
+                            Inventory temp = new Inventory(name,model,"",0,count,"","",Inventory.TYPE_MATERIAL);
                             inventoryViewModel.insertInventory(temp);
                         }else{
                             inventory[0].setDeliveryCount(inventory[0].getDeliveryCount()+count);

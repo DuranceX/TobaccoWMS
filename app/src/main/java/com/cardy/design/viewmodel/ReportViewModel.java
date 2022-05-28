@@ -11,6 +11,7 @@ import com.cardy.design.entity.MaterialPurchaseAmount;
 import com.cardy.design.entity.ProductSaleAmount;
 import com.cardy.design.entity.SupplierAmount;
 import com.cardy.design.util.TestDatabase;
+import com.cardy.design.util.WMSDatabase;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ReportViewModel extends AndroidViewModel {
 
     public ReportViewModel(@NonNull Application application) {
         super(application);
-        dao = TestDatabase.Companion.getINSTANCE().reportDao();
+        dao = WMSDatabase.Companion.getINSTANCE().reportDao();
     }
 
     public List<CustomerAmount> getCustomerAmount(){

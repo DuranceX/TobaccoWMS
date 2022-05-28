@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-
                     }
                     else if(isLogin==2){
                         TipDialog.show("用户名或密码错误", WaitDialog.TYPE.ERROR);

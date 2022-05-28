@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ public class InventoryProductFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
         saleOrderViewModel = new ViewModelProvider(this).get(SaleOrderViewModel.class);
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        adapter = new InventoryProductListAdapter(R.layout.item_inventory_product,viewModel,productViewModel);
+        adapter = new InventoryProductListAdapter(R.layout.item_inventory_product,viewModel,productViewModel,saleOrderViewModel);
         adapter.setAnimationEnable(true);
         recyclerView = getView().findViewById(R.id.inventoryProductRecycleview);
         searchView = getView().findViewById(R.id.inventoryProductSearchView);
@@ -111,6 +112,7 @@ public class InventoryProductFragment extends Fragment {
                         adapter.setNewInstance(inventories);
                     //通过setDiffNewData来通知adapter数据发生变化，并保留动画
                     adapter.setDiffNewData(inventories);
+                    adapter.setMyList(inventories);
                 }
             }
         });
@@ -132,6 +134,7 @@ public class InventoryProductFragment extends Fragment {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
+
     }
 
     public void initInButton(){
@@ -173,12 +176,13 @@ public class InventoryProductFragment extends Fragment {
                     String model = product[0].getModel();
                     int inCount = Integer.parseInt(etInCount.getText().toString());
                     String area = etArea.getText().toString();
+                    String areaNumber = tvCount.getText().toString();
                     if(inventory[0]==null){
-                        Inventory temp = new Inventory(name,model,"",inCount,0,area,Inventory.TYPE_PRODUCT);
+                        Inventory temp = new Inventory(name,model,"",inCount,0,area,areaNumber,Inventory.TYPE_PRODUCT);
                         viewModel.insertInventory(temp);
                     }else{
                         int hostCount = inventory[0].getHostCount() + inCount;
-                        Inventory temp = new Inventory(name,model,"",hostCount,inventory[0].getDeliveryCount(),inventory[0].getArea()+","+area,Inventory.TYPE_PRODUCT);
+                        Inventory temp = new Inventory(name,model,"",hostCount,inventory[0].getDeliveryCount(),inventory[0].getArea()+","+area,inventory[0].getAreaNumber()+","+areaNumber,Inventory.TYPE_PRODUCT);
                         viewModel.updateInventory(temp);
                     }
                     return false;
@@ -303,6 +307,7 @@ public class InventoryProductFragment extends Fragment {
                     public void onChanged(List<Inventory> inventories) {
                         flag = false;
                         adapter.setDiffNewData(inventories);
+                        adapter.setMyList(inventories);
                     }
                 });
                 return false;

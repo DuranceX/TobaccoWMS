@@ -13,11 +13,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cardy.design.R;
-import com.cardy.design.entity.CustomerTest;
 import com.cardy.design.entity.Material;
-import com.cardy.design.entity.Supplier;
 import com.cardy.design.viewmodel.MaterialViewModel;
-import com.cardy.design.viewmodel.SupplierViewModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
@@ -29,7 +26,6 @@ import com.kongzue.dialogx.dialogs.PopTip;
 import com.kongzue.dialogx.interfaces.OnBindView;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MaterialListAdapter extends BaseQuickAdapter<Material, MyMaterialViewHolder> implements DraggableModule {

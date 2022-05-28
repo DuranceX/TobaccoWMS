@@ -1,0 +1,499 @@
+@startuml
+
+title __VIEWMODEL's Class Diagram__\n
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.CustomerViewModel {
+          ~ listLive : LiveData<List<Customer>>
+          + CustomerViewModel()
+          + deleteCustomer()
+          + getAllCustomerLive()
+          + getAllQueriedCustomerLive()
+          + getNameList()
+          + insertCustomer()
+          + updateCustomer()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.CustomerViewModel.DeleteAsyncTask {
+          + DeleteAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.CustomerViewModel.InsertAsyncTask {
+          + InsertAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.CustomerViewModel.UpdateAsyncTask {
+          + UpdateAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.InventoryViewModel {
+          ~ listLive : LiveData<List<Inventory>>
+          + InventoryViewModel()
+          + deleteInventory()
+          + getAllMaterialInventory()
+          + getAllProductInventory()
+          + getAllQueriedMaterialInventory()
+          + getAllQueriedProductInventory()
+          + getInventoryByModel()
+          + insertInventory()
+          + updateInventory()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.InventoryViewModel.DeleteAsyncTask {
+          + DeleteAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.InventoryViewModel.InsertAsyncTask {
+          + InsertAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.InventoryViewModel.UpdateAsyncTask {
+          + UpdateAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.MaterialViewModel {
+          ~ listLive : LiveData<List<Material>>
+          + MaterialViewModel()
+          + deleteMaterial()
+          + getAllMaterialsLive()
+          + getAllMaterialsNoLive()
+          + getAllQueriedMaterialsLive()
+          + getMaterialModelListByName()
+          + getMaterialNameList()
+          + getPriceByModel()
+          + insertMaterial()
+          + updateMaterial()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.MaterialViewModel.DeleteAsyncTask {
+          + DeleteAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.MaterialViewModel.InsertAsyncTask {
+          + InsertAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.MaterialViewModel.UpdateAsyncTask {
+          + UpdateAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.ProductViewModel {
+          - listLive : LiveData<List<Product>>
+          + ProductViewModel()
+          + deleteProduct()
+          + getAllProductLive()
+          + getAllProductNoLive()
+          + getAllQueriedProductLive()
+          + getPriceByModel()
+          + getProductByModel()
+          + getProductModelListByName()
+          + getProductNameList()
+          + insertProduct()
+          + updateProduct()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.ProductViewModel.DeleteAsyncTask {
+          + DeleteAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.ProductViewModel.InsertAsyncTask {
+          + InsertAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.ProductViewModel.UpdateAsyncTask {
+          + UpdateAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.PurchaseOrderViewModel {
+          ~ listLive : LiveData<List<PurchaseOrder>>
+          + PurchaseOrderViewModel()
+          + deletePurchaseOrder()
+          + getAllPurchaseOrderLive()
+          + getAllQueriedPurchaseOrderLive()
+          + getSelectedStateOrder()
+          + insertPurchaseOrder()
+          + updatePurchaseOrder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.PurchaseOrderViewModel.DeleteAsyncTask {
+          + DeleteAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.PurchaseOrderViewModel.InsertAsyncTask {
+          + InsertAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.PurchaseOrderViewModel.UpdateAsyncTask {
+          + UpdateAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.ReportViewModel {
+          + ReportViewModel()
+          + getCustomerAmount()
+          + getLastMonthPurchasePrice()
+          + getLastMonthSalePrice()
+          + getMaterialPurchaseAmount()
+          + getProductSaleAmount()
+          + getSupplierAmount()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SaleOrderViewModel {
+          ~ listLive : LiveData<List<SaleOrder>>
+          + SaleOrderViewModel()
+          + deleteSaleOrder()
+          + getAllQueriedSaleOrderLive()
+          + getAllSaleOrderLive()
+          + getSelectedStateOrder()
+          + insertSaleOrder()
+          + updateSaleOrder()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SaleOrderViewModel.DeleteAsyncTask {
+          + DeleteAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SaleOrderViewModel.InsertAsyncTask {
+          + InsertAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SaleOrderViewModel.UpdateAsyncTask {
+          + UpdateAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SupplierViewModel {
+          - listLive : LiveData<List<Supplier>>
+          + SupplierViewModel()
+          + deleteSupplier()
+          + getAllQueriedSupplierLive()
+          + getAllSupplierLive()
+          + getNameList()
+          + insertSupplier()
+          + updateSupplier()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SupplierViewModel.DeleteAsyncTask {
+          + DeleteAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SupplierViewModel.InsertAsyncTask {
+          + InsertAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.SupplierViewModel.UpdateAsyncTask {
+          + UpdateAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.UserViewModel {
+          - handler : Handler
+          - listLive : LiveData<List<User>>
+          + UserViewModel()
+          + deleteUser()
+          + getAllQueriedUserLive()
+          + getAllUserLive()
+          + insertUser()
+          + isLogin()
+          + sendHandler()
+          + updateUser()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.UserViewModel.DeleteAsyncTask {
+          + DeleteAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.UserViewModel.InsertAsyncTask {
+          + InsertAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  namespace com.cardy.design {
+    namespace viewmodel {
+      class com.cardy.design.viewmodel.UserViewModel.UpdateAsyncTask {
+          + UpdateAsyncTask()
+          # doInBackground()
+      }
+    }
+  }
+  
+
+  com.cardy.design.viewmodel.CustomerViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.CustomerViewModel o-- com.cardy.design.dao.CustomerDao : dao
+  com.cardy.design.viewmodel.CustomerViewModel +-down- com.cardy.design.viewmodel.CustomerViewModel.DeleteAsyncTask
+  com.cardy.design.viewmodel.CustomerViewModel +-down- com.cardy.design.viewmodel.CustomerViewModel.InsertAsyncTask
+  com.cardy.design.viewmodel.CustomerViewModel +-down- com.cardy.design.viewmodel.CustomerViewModel.UpdateAsyncTask
+  com.cardy.design.viewmodel.CustomerViewModel.DeleteAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.CustomerViewModel.DeleteAsyncTask o-- com.cardy.design.dao.CustomerDao : dao
+  com.cardy.design.viewmodel.CustomerViewModel.InsertAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.CustomerViewModel.InsertAsyncTask o-- com.cardy.design.dao.CustomerDao : dao
+  com.cardy.design.viewmodel.CustomerViewModel.UpdateAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.CustomerViewModel.UpdateAsyncTask o-- com.cardy.design.dao.CustomerDao : dao
+  com.cardy.design.viewmodel.InventoryViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.InventoryViewModel o-- com.cardy.design.dao.InventoryDao : dao
+  com.cardy.design.viewmodel.InventoryViewModel +-down- com.cardy.design.viewmodel.InventoryViewModel.DeleteAsyncTask
+  com.cardy.design.viewmodel.InventoryViewModel +-down- com.cardy.design.viewmodel.InventoryViewModel.InsertAsyncTask
+  com.cardy.design.viewmodel.InventoryViewModel +-down- com.cardy.design.viewmodel.InventoryViewModel.UpdateAsyncTask
+  com.cardy.design.viewmodel.InventoryViewModel.DeleteAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.InventoryViewModel.DeleteAsyncTask o-- com.cardy.design.dao.InventoryDao : dao
+  com.cardy.design.viewmodel.InventoryViewModel.InsertAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.InventoryViewModel.InsertAsyncTask o-- com.cardy.design.dao.InventoryDao : dao
+  com.cardy.design.viewmodel.InventoryViewModel.UpdateAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.InventoryViewModel.UpdateAsyncTask o-- com.cardy.design.dao.InventoryDao : dao
+  com.cardy.design.viewmodel.MaterialViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.MaterialViewModel o-- com.cardy.design.dao.MaterialDao : dao
+  com.cardy.design.viewmodel.MaterialViewModel +-down- com.cardy.design.viewmodel.MaterialViewModel.DeleteAsyncTask
+  com.cardy.design.viewmodel.MaterialViewModel +-down- com.cardy.design.viewmodel.MaterialViewModel.InsertAsyncTask
+  com.cardy.design.viewmodel.MaterialViewModel +-down- com.cardy.design.viewmodel.MaterialViewModel.UpdateAsyncTask
+  com.cardy.design.viewmodel.MaterialViewModel.DeleteAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.MaterialViewModel.DeleteAsyncTask o-- com.cardy.design.dao.MaterialDao : dao
+  com.cardy.design.viewmodel.MaterialViewModel.InsertAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.MaterialViewModel.InsertAsyncTask o-- com.cardy.design.dao.MaterialDao : dao
+  com.cardy.design.viewmodel.MaterialViewModel.UpdateAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.MaterialViewModel.UpdateAsyncTask o-- com.cardy.design.dao.MaterialDao : dao
+  com.cardy.design.viewmodel.ProductViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.ProductViewModel o-- com.cardy.design.dao.ProductDao : dao
+  com.cardy.design.viewmodel.ProductViewModel +-down- com.cardy.design.viewmodel.ProductViewModel.DeleteAsyncTask
+  com.cardy.design.viewmodel.ProductViewModel +-down- com.cardy.design.viewmodel.ProductViewModel.InsertAsyncTask
+  com.cardy.design.viewmodel.ProductViewModel +-down- com.cardy.design.viewmodel.ProductViewModel.UpdateAsyncTask
+  com.cardy.design.viewmodel.ProductViewModel.DeleteAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.ProductViewModel.DeleteAsyncTask o-- com.cardy.design.dao.ProductDao : dao
+  com.cardy.design.viewmodel.ProductViewModel.InsertAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.ProductViewModel.InsertAsyncTask o-- com.cardy.design.dao.ProductDao : dao
+  com.cardy.design.viewmodel.ProductViewModel.UpdateAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.ProductViewModel.UpdateAsyncTask o-- com.cardy.design.dao.ProductDao : dao
+  com.cardy.design.viewmodel.PurchaseOrderViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.PurchaseOrderViewModel o-- com.cardy.design.dao.PurchaseOrderDao : dao
+  com.cardy.design.viewmodel.PurchaseOrderViewModel +-down- com.cardy.design.viewmodel.PurchaseOrderViewModel.DeleteAsyncTask
+  com.cardy.design.viewmodel.PurchaseOrderViewModel +-down- com.cardy.design.viewmodel.PurchaseOrderViewModel.InsertAsyncTask
+  com.cardy.design.viewmodel.PurchaseOrderViewModel +-down- com.cardy.design.viewmodel.PurchaseOrderViewModel.UpdateAsyncTask
+  com.cardy.design.viewmodel.PurchaseOrderViewModel.DeleteAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.PurchaseOrderViewModel.DeleteAsyncTask o-- com.cardy.design.dao.PurchaseOrderDao : dao
+  com.cardy.design.viewmodel.PurchaseOrderViewModel.InsertAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.PurchaseOrderViewModel.InsertAsyncTask o-- com.cardy.design.dao.PurchaseOrderDao : dao
+  com.cardy.design.viewmodel.PurchaseOrderViewModel.UpdateAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.PurchaseOrderViewModel.UpdateAsyncTask o-- com.cardy.design.dao.PurchaseOrderDao : dao
+  com.cardy.design.viewmodel.ReportViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.ReportViewModel o-- com.cardy.design.dao.ReportDao : dao
+  com.cardy.design.viewmodel.SaleOrderViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.SaleOrderViewModel o-- com.cardy.design.dao.SaleOrderDao : dao
+  com.cardy.design.viewmodel.SaleOrderViewModel +-down- com.cardy.design.viewmodel.SaleOrderViewModel.DeleteAsyncTask
+  com.cardy.design.viewmodel.SaleOrderViewModel +-down- com.cardy.design.viewmodel.SaleOrderViewModel.InsertAsyncTask
+  com.cardy.design.viewmodel.SaleOrderViewModel +-down- com.cardy.design.viewmodel.SaleOrderViewModel.UpdateAsyncTask
+  com.cardy.design.viewmodel.SaleOrderViewModel.DeleteAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.SaleOrderViewModel.DeleteAsyncTask o-- com.cardy.design.dao.SaleOrderDao : dao
+  com.cardy.design.viewmodel.SaleOrderViewModel.InsertAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.SaleOrderViewModel.InsertAsyncTask o-- com.cardy.design.dao.SaleOrderDao : dao
+  com.cardy.design.viewmodel.SaleOrderViewModel.UpdateAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.SaleOrderViewModel.UpdateAsyncTask o-- com.cardy.design.dao.SaleOrderDao : dao
+  com.cardy.design.viewmodel.SupplierViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.SupplierViewModel o-- com.cardy.design.dao.SupplierDao : supplierDao
+  com.cardy.design.viewmodel.SupplierViewModel +-down- com.cardy.design.viewmodel.SupplierViewModel.DeleteAsyncTask
+  com.cardy.design.viewmodel.SupplierViewModel +-down- com.cardy.design.viewmodel.SupplierViewModel.InsertAsyncTask
+  com.cardy.design.viewmodel.SupplierViewModel +-down- com.cardy.design.viewmodel.SupplierViewModel.UpdateAsyncTask
+  com.cardy.design.viewmodel.SupplierViewModel.DeleteAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.SupplierViewModel.DeleteAsyncTask o-- com.cardy.design.dao.SupplierDao : dao
+  com.cardy.design.viewmodel.SupplierViewModel.InsertAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.SupplierViewModel.InsertAsyncTask o-- com.cardy.design.dao.SupplierDao : dao
+  com.cardy.design.viewmodel.SupplierViewModel.UpdateAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.SupplierViewModel.UpdateAsyncTask o-- com.cardy.design.dao.SupplierDao : dao
+  com.cardy.design.viewmodel.UserViewModel -up-|> androidx.lifecycle.AndroidViewModel
+  com.cardy.design.viewmodel.UserViewModel o-- com.cardy.design.entity.User : user
+  com.cardy.design.viewmodel.UserViewModel o-- com.cardy.design.dao.UserDao : userDao
+  com.cardy.design.viewmodel.UserViewModel +-down- com.cardy.design.viewmodel.UserViewModel.DeleteAsyncTask
+  com.cardy.design.viewmodel.UserViewModel +-down- com.cardy.design.viewmodel.UserViewModel.InsertAsyncTask
+  com.cardy.design.viewmodel.UserViewModel +-down- com.cardy.design.viewmodel.UserViewModel.UpdateAsyncTask
+  com.cardy.design.viewmodel.UserViewModel.DeleteAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.UserViewModel.DeleteAsyncTask o-- com.cardy.design.dao.UserDao : dao
+  com.cardy.design.viewmodel.UserViewModel.InsertAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.UserViewModel.InsertAsyncTask o-- com.cardy.design.dao.UserDao : dao
+  com.cardy.design.viewmodel.UserViewModel.UpdateAsyncTask -up-|> android.os.AsyncTask
+  com.cardy.design.viewmodel.UserViewModel.UpdateAsyncTask o-- com.cardy.design.dao.UserDao : dao
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

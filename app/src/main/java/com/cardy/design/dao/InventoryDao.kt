@@ -21,7 +21,7 @@ interface InventoryDao {
     @Query("SELECT * FROM inventory Where type = :type GROUP BY model ORDER BY name,model")
     fun getAllSelectedInventory(type:Int): LiveData<List<Inventory>>
 
-    @Query("SELECT * FROM inventory Where type = :type AND name LIKE :arg OR model LIKE :arg GROUP BY model ORDER BY name,model")
+    @Query("SELECT * FROM inventory Where type = :type AND (name LIKE :arg OR model LIKE :arg) GROUP BY model ORDER BY name,model")
     fun getAllSelectedQueriedInventory(type:Int,arg:String): LiveData<List<Inventory>>
 
     @Query("SELECT * FROM inventory WHERE model == :model")

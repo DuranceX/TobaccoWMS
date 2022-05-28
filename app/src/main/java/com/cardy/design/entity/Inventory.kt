@@ -25,6 +25,9 @@ data class Inventory(
     //存放区域
     @ColumnInfo(name = "area")
     var area:String,
+    //各区域存放数量
+    @ColumnInfo(name = "areaNumber")
+    var areaNumber:String,
     //存放类型，0为原料，1为产品
     @ColumnInfo(name = "type")
     var type:Int,

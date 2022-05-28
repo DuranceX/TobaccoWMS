@@ -121,6 +121,13 @@ public class CustomerFragment extends Fragment {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.openDrawer(GravityCompat.START);
         });
+
+
+//        Customer customer = new Customer("孔記有限责任公司","福田区景田东一街716号",Customer.PRIORITY_HIGH,"","中华香烟");
+//        Customer customer1 = new Customer("嘉伦发展贸易有限责任公司","北京市延庆区397号华润大厦16室",Customer.PRIORITY_HIGH,"content://com.android.providers.downloads.documents/document/raw%3A%2Fstorage%2Femulated%2F0%2FDownload%2Fwallhaven-wyzd56.png","中华香烟");
+//        Customer customer2 = new Customer("子韬系统有限责任公司","中国中山天河区大信南路32号38楼",Customer.PRIORITY_HIGH,"content://com.android.providers.downloads.documents/document/raw%3A%2Fstorage%2Femulated%2F0%2FDownload%2Fwallhaven-eymzjk.jpg","云烟");
+//        Customer customer3 = new Customer("微软","苏州工业园区",Customer.PRIORITY_LOW,"https://t7.baidu.com/it/u=88096289,187855818&fm=74&app=80&size=f256,256&n=0&f=PNG?sec=1651078800&t=10302640ca9e1c6fd113680e6ab98967","白沙香烟");
+//        viewModel.insertCustomer(customer,customer1,customer2,customer3);
     }
 
     public void initClickListener(){
@@ -129,7 +136,7 @@ public class CustomerFragment extends Fragment {
             final TextView[] textViewAddressLabel = new TextView[1];
             final TextView[] textViewMainLabel = new TextView[1];
             final TextView[] textViewPriorityLabel = new TextView[1];
-            final TextView[] textViewMain = new TextView[1];
+            final TextView[] editTextMain = new TextView[1];
             final EditText[] editTextName = new EditText[1];
             final EditText[] editTextAddress = new EditText[1];
             final RadioButton[] radioButtonLow = new RadioButton[1];
@@ -146,7 +153,7 @@ public class CustomerFragment extends Fragment {
                     editTextLogo = v.findViewById(R.id.editTextLogo);
                     editTextName[0] = v.findViewById(R.id.editTextName);
                     editTextAddress[0] = v.findViewById(R.id.editTextModel);
-                    textViewMain[0] = v.findViewById(R.id.textViewMain);
+                    editTextMain[0] = v.findViewById(R.id.editTextMain);
                     radioButtonLow[0] = v.findViewById(R.id.radioButtonLow);
                     radioButtonMid[0] = v.findViewById(R.id.radioButtonMid);
                     radioButtonHigh[0] = v.findViewById(R.id.radioButtonHigh);
@@ -164,7 +171,7 @@ public class CustomerFragment extends Fragment {
                     String name = editTextName[0].getText().toString();
                     String logo = editTextLogo.getText().toString();
                     String address = editTextAddress[0].getText().toString();
-                    String main = textViewMain[0].getText().toString();
+                    String main = editTextMain[0].getText().toString();
                     int priority = Customer.PRIORITY_LOW;
                     if (radioButtonLow[0].isChecked())
                         priority = Customer.PRIORITY_LOW;

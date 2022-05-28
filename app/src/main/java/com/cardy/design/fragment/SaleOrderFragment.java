@@ -47,6 +47,7 @@ import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SaleOrderFragment extends Fragment {
+    String username,userId;
     Boolean permission;
     SaleOrderListAdapter adapter;
     RecyclerView recyclerView;
@@ -74,6 +75,8 @@ public class SaleOrderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences shp = getActivity().getSharedPreferences("userData", Context.MODE_PRIVATE);
+        userId = shp.getString("userId","");
+        username = shp.getString("username","");
         permission = shp.getBoolean("permission",false);
     }
 
@@ -134,7 +137,7 @@ public class SaleOrderFragment extends Fragment {
 
     public void initAddMethod() {
         addButton.setOnClickListener(v -> {
-            BottomDialog.show("添加原料", new OnBindView<BottomDialog>(R.layout.dialog_add_sale_order) {
+            BottomDialog.show("添加销售订单", new OnBindView<BottomDialog>(R.layout.dialog_add_sale_order) {
                 @Override
                 public void onBind(BottomDialog dialog, View v) {
                     tvUserId = v.findViewById(R.id.textViewUserId);
@@ -145,6 +148,9 @@ public class SaleOrderFragment extends Fragment {
                     spinnerCustomer = v.findViewById(R.id.spinnerCustomer);
                     etPrice = v.findViewById(R.id.editTextPrice);
                     etCount = v.findViewById(R.id.editTextCount);
+
+                    tvUserId.setText(userId);
+                    tvUserName.setText(username);
 
                     ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, productNameList);
                     ArrayAdapter<String> supplierAdapter = new ArrayAdapter<String>(getContext(), com.lihang.R.layout.support_simple_spinner_dropdown_item, customerList);
@@ -199,7 +205,7 @@ public class SaleOrderFragment extends Fragment {
                     String customer = spinnerCustomer.getSelectedItem().toString();
                     Double price = Double.valueOf(etPrice.getText().toString());
                     int count = Integer.parseInt(etCount.getText().toString());
-                    SaleOrder order = new SaleOrder(0, userId, userName, name, model, count, price, customer, saleDate, "", SaleOrder.STATE_WAIT, "");
+                    SaleOrder order = new SaleOrder(0, userId, userName, name, model, count, price, customer, saleDate, "", SaleOrder.STATE_REQUEST, "");
                     if(permission){
                         order.setState(SaleOrder.STATE_WAIT);
                     }
